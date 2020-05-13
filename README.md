@@ -1,3 +1,5 @@
 # SecurityPartner
 
-Hadrien Cazes, Sebastien Lefevre, Kady Soumahoro
+Hadrien Cazes, Sebastien Lefevre, Kady Soumahoro 
+
+branch_master
