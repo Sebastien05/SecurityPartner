@@ -1,3 +1,3 @@
 # SecurityPartner
 
-Hadrien Cazes
+Hadrien Cazes, Sebastien Lefevre
