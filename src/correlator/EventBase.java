@@ -61,7 +61,7 @@ public class EventBase {
 		return true;
 	}
 	
-	public ArrayList<EventI> getEvents(){
-		return this.eventBase;
+	public EventI getEvent(int index){
+		return this.eventBase.get(index);
 	}
 }
