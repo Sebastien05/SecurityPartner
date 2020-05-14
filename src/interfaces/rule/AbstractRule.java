@@ -7,7 +7,7 @@ import interfaces.event.EventI;
 
 public abstract class AbstractRule implements RuleI {
 	
-	private EventBase eventBase;
+	protected EventBase eventBase;
 	
 	public AbstractRule() {}
 	
