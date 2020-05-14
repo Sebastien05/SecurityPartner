@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-import interfaces.event.AtomicEventI;
-import interfaces.event.AbstractAtomicEvent.*;
 import interfaces.event.EventI;
 
 public class EventBase {
@@ -15,6 +13,11 @@ public class EventBase {
 	public EventBase () {
 		this.eventBase = new ArrayList<>();
 	}
+	
+	/**
+	 * 
+	 * @param period
+	 */
 	public void clearEvents(int period) {
 		Date date = new Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
@@ -30,29 +33,35 @@ public class EventBase {
 		}
 		return;
 	}
-
+	
 	public int numberOfEvents() {
-		return eventBase.size();
+		return this.eventBase.size();
 	}
-
+	//liste chainee
 	public void addEvent(EventI e) {
-		eventBase.add(e);
+		this.eventBase.add(e);
 	}
 
 	public void removeEvent(EventI e) {
-		if (eventBase.contains(e) ) {
-			for (EventI event: eventBase) {
+		if (this.eventBase.contains(e)) {
+			for (EventI event: this.eventBase) {
 				if(event.getURI().equals(e.getURI())) {
-					eventBase.remove(event);
+					this.eventBase.remove(event);
 				}
 			}
 		}
 	}
 
 	public boolean appearsIn(EventI e) {
-		if (!eventBase.contains(e)) {
-			return false;
+		for (EventI event: this.eventBase) {
+			if(event.getURI().equals(e.getURI())) {//URI est unique 
+				return true;
+			}
 		}
 		return true;
+	}
+	
+	public ArrayList<EventI> getEvents(){
+		return this.eventBase;
 	}
 }
