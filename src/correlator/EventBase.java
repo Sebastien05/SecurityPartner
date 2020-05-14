@@ -61,7 +61,7 @@ public class EventBase {
 		return true;
 	}
 	
-	public EventI getEvent(int index){
+	public EventI getEvent(int index) {
 		return this.eventBase.get(index);
 	}
 }
