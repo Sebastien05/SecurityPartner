@@ -1,5 +1,9 @@
 package interfaces.event;
 
-public interface AggregateEventI {
+import java.util.ArrayList;
 
+import interfaces.event.EventI;
+
+public interface AggregateEventI extends EventI{
+	ArrayList<EventI> getCorrelatedEvents();
 }
