@@ -1,5 +1,8 @@
 package interfaces.rule;
 
-public interface EventMatcherI {
+import interfaces.event.EventI;
 
+public interface EventMatcherI 
+{
+	public boolean match(EventI e);
 }

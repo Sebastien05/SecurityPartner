@@ -5,26 +5,45 @@ import java.util.ArrayList;
 import correlator.EventBase;
 import interfaces.event.EventI;
 
-public abstract class AbstractRule {
+public abstract class AbstractRule implements RuleI {
 	
 	private EventBase eventBase;
 	
-	public AbstractRule(EventBase eventBase) {
-		this.eventBase = eventBase;
+	public AbstractRule() {}
+	
+	public RuleI clone() throws CloneNotSupportedException {
+		return (RuleI) super.clone();
 	}
 	
-	/*
-	 * Abstracts methods
-	 */
+	public EventI match(EventMatcherI em) {
+		for (int i = 0; i < this.eventBase.numberOfEvents(); i++) {
+			EventI event = this.eventBase.getEvent(i);
+			if (em.match(event)) {
+				return event;
+			}
+		} return null;
+	}
 	
-	public abstract EventI match(EventMatcherI em);
-	
+	public boolean executeOn(EventBase events) {
+		this.eventBase = events;
+		this.init();
+		
+		// try to triggering events
+		ArrayList<EventI> triggeringEvents = this.trigger();
+		
+		// if no matching event pattern stop here
+		if (triggeringEvents==null)
+			return false;
+		
+		// else make actions and effects
+		this.actions(triggeringEvents);
+		this.effects(triggeringEvents);
+		return true;		
+	}
+
+	//Abstracts methods
 	public abstract void init();
 	public abstract ArrayList<EventI> trigger();
 	public abstract void actions(ArrayList<EventI> triggeringEvents);
 	public abstract void effects(ArrayList<EventI> triggeringEvents);
-	public abstract boolean executeOn(EventBase events);
-
-	public abstract RuleI cloneRule();
-	public abstract RuleI copyFrom(RuleI r);
 }

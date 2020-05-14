@@ -6,8 +6,6 @@ import correlator.EventBase;
 import interfaces.event.EventI;
 
 public interface RuleI {
-	public RuleI cloneRule();
-	public RuleI copyFrom(RuleI r);
 	public EventI match(EventMatcherI em);
 	public void init();
 	public ArrayList<EventI> trigger();
