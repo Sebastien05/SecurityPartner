@@ -48,14 +48,13 @@ public class EventBase {
 	}
 
 	public void removeEvent(EventI e) {
-		if (this.eventBase.contains(e)) {
-			for (EventI event: this.eventBase) {
-				if(event.getURI().equals(e.getURI())) {
-					this.eventBase.remove(event);
-				}
-			}
-		}
-	}
+        for (EventI event: this.eventBase) {
+            if(event.equals(e)) {
+                this.eventBase.remove(e);
+                return;
+            }
+        }
+    }
 
 	public boolean appearsIn(EventI e) {
 		for (EventI event: this.eventBase) {

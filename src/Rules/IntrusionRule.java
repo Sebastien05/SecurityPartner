@@ -28,6 +28,10 @@ public class IntrusionRule extends AbstractRule {
 		EventI windowOpen = this.match(MATCHER_WINDOW_OPEN) ;
 		EventI presence = this.match(MATCHER_PRESENCE_DETECTION) ;
 		
+		if (windowOpen==null || presence==null) {
+			return null;
+		}
+		
 		if (windowOpen.getTimeStamp().compareTo(presence.getTimeStamp()) <= 0) {
 			
 			// the event window open happened before the detection of a

@@ -1,11 +1,11 @@
-package JUnitTest;
+package JUnitTest.event;
 
 import org.junit.Test;
 
 import Events.Close;
 import correlator.EventBase;
 
-public class TestEvent {
+public class TestEventBase {
 
 	@Test
 	public void test(){
