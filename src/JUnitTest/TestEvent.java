@@ -1,18 +1,14 @@
-package Test;
-
-import java.util.ArrayList;
+package JUnitTest;
 
 import org.junit.Test;
 
 import Events.Close;
 import correlator.EventBase;
-import interfaces.event.EventI;
 
 public class TestEvent {
 
 	@Test
 	public void test(){
-		ArrayList<EventI> list = new ArrayList<>();
 		EventBase b = new EventBase();
 		b.getEventBase().add(new Close());
 		b.getEventBase().add(new Close());
