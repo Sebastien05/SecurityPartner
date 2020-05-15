@@ -19,7 +19,7 @@ public class AlarmInboundPort  extends AbstractInboundPort implements EventEmiss
 	}
 
 	@Override
-	public void sendEvent(String emitterURI, String destinationURI) {
+	public void sendEvent(String emitterURI, String destinationURI, EventI e) {
 		// TODO Auto-generated method stub
 		
 	}
