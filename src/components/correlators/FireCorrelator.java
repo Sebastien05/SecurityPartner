@@ -1,9 +1,9 @@
-package components;
+package components.correlators;
 
 import fr.sorbonne_u.components.AbstractComponent;
 
 /**
- * fumée ou fumée + lumière : incendi : action alarm
+ * fumï¿½e ou fumï¿½e + lumiï¿½re : incendi : action alarm
  *
  */
 public class FireCorrelator  extends AbstractComponent {

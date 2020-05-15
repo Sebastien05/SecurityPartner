@@ -1,4 +1,4 @@
-package components;
+package components.physicaldevices;
 
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
@@ -6,7 +6,7 @@ import ports.AlarmInboundPort;
 import components.interfaces.EventReceptionCI;
 
 @OfferedInterfaces(offered={EventReceptionCI.class})
-public class AlarmComponent extends AbstractComponent{
+public class AlarmComponent extends AbstractComponent {
 	
 	protected AlarmInboundPort alarmInp;
 	protected String inboundPortURI;

@@ -1,4 +1,4 @@
-package components;
+package components.correlators;
 
 import fr.sorbonne_u.components.AbstractComponent;
 
