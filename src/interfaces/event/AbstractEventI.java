@@ -28,5 +28,4 @@ public abstract class AbstractEventI implements EventI{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
