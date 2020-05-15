@@ -1,10 +1,10 @@
-package JUnit4_Test.event;
+package JUnitTest.event;
 
 import org.junit.Test;
 
 import Events.Close;
 
-public class testClose {
+public class TestAtomicEvent {
 
 	@Test
 	public void test() {
