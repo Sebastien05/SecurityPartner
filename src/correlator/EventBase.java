@@ -14,6 +14,11 @@ public class EventBase {
 		this.eventBase = new ArrayList<>();
 	}
 	
+	
+	public ArrayList<EventI> getEventBase(){
+		return eventBase;
+	}
+	
 	/**
 	 * 
 	 * @param period
