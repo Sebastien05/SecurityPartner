@@ -6,7 +6,7 @@ import interfaces.event.EventI;
 public interface EventEmissionCI  extends RequiredI{
 	
 	public void sendEvent(String emitterURI, 
-					String destinationURI);
+					String destinationURI, EventI e);
 	
 	public void multisendEvent(String emitterURI, 
 					String [] destinationURIs, EventI e);
