@@ -1,7 +1,6 @@
 package components.cepbus;
 
 import components.interfaces.EventEmissionCI;
-import components.interfaces.EventReceptionCI;
 import fr.sorbonne_u.components.connectors.AbstractConnector;
 import interfaces.event.EventI;
 
@@ -10,16 +9,13 @@ implements EventEmissionCI
 {
 
 	@Override
-	public void sendEvent(String emitterURI, String destinationURI, EventI e) {
-		// TODO Auto-generated method stub
-		
+	public void sendEvent(String emitterURI, String destinationURI, EventI e) throws Exception {
+		((EventEmissionCI)this.offering).sendEvent(emitterURI, destinationURI, e);
 	}
 
 	@Override
-	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) {
-		// TODO Auto-generated method stub
-		
+	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) throws Exception {
+		((EventEmissionCI)this.offering).multisendEvent(emitterURI, destinationURIs, e);
 	}
-
 }
 

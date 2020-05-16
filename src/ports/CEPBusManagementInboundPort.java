@@ -19,38 +19,32 @@ implements CEPBusManagementCI
 
 	@Override
 	public String getEventReceptionInboundPortURI(String uri) {
-		// TODO Auto-generated method stub
-		return null;
+		return ((CEPBusManagementCI)this.owner).getEventReceptionInboundPortURI(uri);
 	}
 
 	@Override
 	public void registerEventReceptor(String uri, String inboundPortURI) {
-		// TODO Auto-generated method stub
-		
+		((CEPBusManagementCI)this.owner).registerEventReceptor(uri, inboundPortURI);
 	}
 
 	@Override
 	public void unregisterEventReceptor(String uri) {
-		// TODO Auto-generated method stub
-		
+		((CEPBusManagementCI)this.owner).unregisterEventReceptor(uri);		
 	}
 
 	@Override
 	public void registerCommandExecutor(String uri, String inboundPortURI) {
-		// TODO Auto-generated method stub
-		
+		((CEPBusManagementCI)this.owner).registerCommandExecutor(uri,inboundPortURI);	
 	}
 
 	@Override
 	public String getExecutorInboundPortURI(String executorURI) {
-		// TODO Auto-generated method stub
-		return null;
+		return ((CEPBusManagementCI)this.owner).getExecutorInboundPortURI(uri);	
 	}
 
 	@Override
 	public void unregisterCommandExecutor(String uri) {
-		// TODO Auto-generated method stub
-		
+		((CEPBusManagementCI)this.owner).unregisterCommandExecutor(uri);	
 	}
 
 }
