@@ -20,7 +20,8 @@ public class EventBase {
 	}
 	
 	/**
-	 * 
+	 * clear permet de detruire tous les evenements qui se sont produits a plus de
+	 * period de temps par rapport a l’instant courant
 	 * @param period
 	 */
 	public void clearEvents(int period) {
@@ -39,14 +40,26 @@ public class EventBase {
 		return;
 	}
 	
+	/**
+	 * retourne le nombre d'evenement contenu dans une base d'evenement
+	 * @return
+	 */
 	public int numberOfEvents() {
 		return this.eventBase.size();
 	}
-	//liste chainee
+	
+	/**
+	 * ajouter un evenement dans une base d'evenement
+	 * @param e
+	 */
 	public void addEvent(EventI e) {
 		this.eventBase.add(e);
 	}
-
+	
+	/**
+	 * supprime un element dans une base d'evenement
+	 * @param e
+	 */
 	public void removeEvent(EventI e) {
         for (EventI event: this.eventBase) {
             if(event.equals(e)) {
@@ -55,7 +68,12 @@ public class EventBase {
             }
         }
     }
-
+	
+	/**
+	 * renvoie true si l'evenement est present dans la base sinon false
+	 * @param e
+	 * @return
+	 */
 	public boolean appearsIn(EventI e) {
 		for (EventI event: this.eventBase) {
 			if(event.getURI().equals(e.getURI())) {//URI est unique 
@@ -65,6 +83,11 @@ public class EventBase {
 		return true;
 	}
 	
+	/**
+	 * renvoie l'evenement voulu via son indice dans la base d'evenement
+	 * @param index
+	 * @return
+	 */
 	public EventI getEvent(int index) {
 		return this.eventBase.get(index);
 	}

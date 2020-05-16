@@ -1,7 +1,11 @@
 package components.correlators;
 
 import fr.sorbonne_u.components.AbstractComponent;
-
+/**
+ * 
+ * presence detected et window open
+ *
+ */
 public class IntrusionCorrelator extends AbstractComponent {
 
 	protected IntrusionCorrelator() {

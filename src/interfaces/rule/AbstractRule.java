@@ -23,7 +23,10 @@ public abstract class AbstractRule implements RuleI {
 			}
 		} return null;
 	}
-	
+	/***
+	 *  prend en parametre la base d’evenements et lance les quatres methodes les unes
+	 * apres les autres en commencant par init puis trigger 
+	 */
 	public boolean executeOn(EventBase events) {
 		this.eventBase = events;
 		this.init();
