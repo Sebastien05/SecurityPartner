@@ -1,5 +1,6 @@
 package ports;
 
+import components.interfaces.CEPBusManagementCI;
 import components.interfaces.EventEmissionCI;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractOutboundPort;
@@ -15,9 +16,13 @@ implements EventEmissionCI
 
 	public EventEmissionOutboundPort(Class<?> implementedInterface, ComponentI owner) throws Exception {
 		super(implementedInterface, owner);
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	//ajout
+	public EventEmissionOutboundPort(ComponentI owner) throws Exception {
+		super(CEPBusManagementCI.class, owner);
+	}
+	
 	@Override
 	public void sendEvent(String emitterURI, String destinationURI, EventI e) throws Exception{
 		((EventEmissionCI)this.connector).sendEvent(emitterURI,destinationURI, e);

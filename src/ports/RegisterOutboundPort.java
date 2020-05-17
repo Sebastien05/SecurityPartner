@@ -17,9 +17,8 @@ implements EventReceptionCI, CEPBusManagementCI
 
 	public RegisterOutboundPort(Class<?> implementedInterface, ComponentI owner) throws Exception {
 		super(implementedInterface, owner);
-		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void receiveEvent(String emitterURI, EventI e) throws Exception{
 		((EventReceptionCI)this.connector).receiveEvent(emitterURI, e);

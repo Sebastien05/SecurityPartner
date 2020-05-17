@@ -1,0 +1,76 @@
+package CVM;
+
+
+import components.cepbus.CEPBus;
+import components.cepbus.CEPBusConnector;
+import components.connectors.PresenceDetectedConnector;
+import components.physicaldevices.PresenceDetector;
+import components.physicaldevices.AlarmComponent;
+import fr.sorbonne_u.components.AbstractComponent;
+import fr.sorbonne_u.components.cvm.AbstractCVM;
+
+public class CVM extends AbstractCVM{
+
+	public static final String OUTBOUNDPORT_URI_CEPB = "cepoport";
+	public static final String INBOUNDPORT_URI_CEPB = "cepiport";
+	public static final String OUTBOUNDPORT_URI_PRESENCE = "poport";
+	public static final String INBOUNDPORT_URI_ALARM = "Aiport";
+
+
+	public CVM() throws Exception {
+		super();
+	}
+
+	@Override
+	public void			deploy() throws Exception
+	{	
+		/*AbstractComponent.createComponent(
+				CEPBus.class.getCanonicalName(),
+				new Object[] {INBOUNDPORT_URI_CEPB});
+
+		String uri = AbstractComponent.createComponent(
+				PresenceDetector.class.getCanonicalName(),
+				new Object[] {OUTBOUNDPORT_URI_PRESENCE});
+
+		this.doPortConnection(uri, OUTBOUNDPORT_URI_PRESENCE, INBOUNDPORT_URI_CEPB,
+				CEPBusConnector.class.getCanonicalName());
+*/
+/*
+		AbstractComponent.createComponent(
+				AlarmComponent.class.getCanonicalName(),
+				new Object[] {INBOUNDPORT_URI_ALARM});
+
+		String uriC = AbstractComponent.createComponent(
+				CEPBus.class.getCanonicalName(),
+				new Object[] {OUTBOUNDPORT_URI_CEPB});
+
+		this.doPortConnection(uriC, OUTBOUNDPORT_URI_CEPB, INBOUNDPORT_URI_ALARM,
+				PresenceDetectedConnector.class.getCanonicalName());
+*/
+		AbstractComponent.createComponent(
+				AlarmComponent.class.getCanonicalName(),
+				new Object[] {INBOUNDPORT_URI_ALARM});
+
+		String uri = AbstractComponent.createComponent(
+				PresenceDetector.class.getCanonicalName(),
+				new Object[] {OUTBOUNDPORT_URI_PRESENCE});
+
+		this.doPortConnection(uri, OUTBOUNDPORT_URI_PRESENCE, INBOUNDPORT_URI_ALARM,
+				PresenceDetectedConnector.class.getCanonicalName());
+		 
+
+		super.deploy();	
+	}
+	public static void	main(String[] args)
+	{
+		try {
+			CVM cvm = new CVM() ;
+			cvm.startStandardLifeCycle(1000L);
+			Thread.sleep(10000L) ;
+			System.exit(0) ;
+		} catch (Exception e) {
+			throw new RuntimeException(e) ;
+		}
+	}
+
+}
