@@ -6,8 +6,9 @@ import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractOutboundPort;
 import interfaces.event.EventI;
 
-public class RegisterOutboundPort extends AbstractOutboundPort
-implements EventReceptionCI, CEPBusManagementCI
+public class RegisterOutboundPort 
+extends AbstractOutboundPort
+implements CEPBusManagementCI
 {
 
 	/**
@@ -17,11 +18,6 @@ implements EventReceptionCI, CEPBusManagementCI
 
 	public RegisterOutboundPort(Class<?> implementedInterface, ComponentI owner) throws Exception {
 		super(implementedInterface, owner);
-	}
-	
-	@Override
-	public void receiveEvent(String emitterURI, EventI e) throws Exception{
-		((EventReceptionCI)this.connector).receiveEvent(emitterURI, e);
 	}
 
 	@Override
