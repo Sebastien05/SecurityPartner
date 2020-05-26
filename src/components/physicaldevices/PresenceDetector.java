@@ -10,57 +10,36 @@ import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.interfaces.RequiredI;
 import interfaces.event.EventI;
+import ports.EventEmissionOutboundPort;
 import ports.PresenceDetectorInboundPort;
 import ports.PresenceDetectorOutboundPort;
+import ports.RegisterOutboundPort;
 
 @RequiredInterfaces(required={EventEmissionCI.class})
-@OfferedInterfaces(offered={EventReceptionCI.class})
 
-public class PresenceDetector extends AbstractComponent implements PresenceDetectorCI {
-	public static final String		INBOUND_PORT_URI = "pdURI" ;
-	protected PresenceDetectorOutboundPort pdop;
-	protected PresenceDetectorInboundPort pdip;
+public class PresenceDetector extends AbstractComponent {
 
-	protected PresenceDetector() throws Exception {
-		super(1, 0);
-		this.initialise() ;
-	}
-	protected PresenceDetector(String reflectionInboundPortURI) throws Exception
-	{
-		super(reflectionInboundPortURI, 1, 0) ;
-		this.initialise() ;
-	}
+	protected String pdopURI;
+	protected String ropURI;
+	protected EventEmissionOutboundPort pdop;
+	protected RegisterOutboundPort rop;
 	
+	protected PresenceDetector(
+		String eventEmissionOutboundPortURI,
+		String registeredOutboundPortURI
+		)
+	throws Exception
+	{
+		super(eventEmissionOutboundPortURI, 1, 0) ;
+		this.pdopURI=eventEmissionOutboundPortURI;
+		this.ropURI=registeredOutboundPortURI;
+		this.initialise() ;
+	}
 	
 	protected void	initialise() throws Exception
 	{
-		this.pdip = this.createPort() ;
-		this.pdip.publishPort() ;
-		this.pdop = new PresenceDetectorOutboundPort(this) ;
+		this.pdop = new EventEmissionOutboundPort(pdopURI, this) ;
+		this.rop  = new RegisterOutboundPort(ropURI, this); 
 		this.pdop.publishPort() ;
 	}
-
-	protected PresenceDetectorInboundPort	createPort()
-			throws Exception
-	{
-		return new PresenceDetectorInboundPort(
-				INBOUND_PORT_URI, this) ;
-	}
-	@Override
-	public void sendEvent(String emitterURI, String destinationURI, EventI e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void receiveEvent(String emitterURI, EventI e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }
