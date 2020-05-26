@@ -1,4 +1,4 @@
-package components.cepbus;
+package components.connectors;
 
 import components.interfaces.CEPBusManagementCI;
 import fr.sorbonne_u.components.connectors.AbstractConnector;

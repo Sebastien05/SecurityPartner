@@ -1,6 +1,6 @@
 package ports;
 
-import components.cepbus.CEPBus;
+import components.CEPBus;
 import components.interfaces.CEPBusManagementCI;
 import components.interfaces.EventReceptionCI;
 import components.interfaces.PresenceDetectorCI;

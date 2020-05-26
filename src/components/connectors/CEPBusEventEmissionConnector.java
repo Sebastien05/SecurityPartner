@@ -1,4 +1,4 @@
-package components.cepbus;
+package components.connectors;
 
 import components.interfaces.EventEmissionCI;
 import components.interfaces.EventReceptionCI;

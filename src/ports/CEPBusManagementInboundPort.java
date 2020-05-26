@@ -1,6 +1,6 @@
 package ports;
 
-import components.cepbus.CEPBus;
+import components.CEPBus;
 import components.interfaces.CEPBusManagementCI;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
