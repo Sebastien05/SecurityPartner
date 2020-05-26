@@ -8,7 +8,7 @@ public class CorrelatorCommandConnector
 extends AbstractConnector 
 implements ExecutorCI{
 	
-	protected void execute(ExecutorCommandI command) {
+	public void execute(ExecutorCommandI command) {
 		((ExecutorCI)this.offering).execute(command);
 	}
 }

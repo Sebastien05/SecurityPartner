@@ -16,6 +16,7 @@ public class IntrusionRule extends AbstractRule {
 			(e -> e.getPropertyValue("type").
 			equals(PresenceDetector.PRESENCE_DETECTED)) ;
 	
+
 	@Override
 	public void init() {
 		return;
