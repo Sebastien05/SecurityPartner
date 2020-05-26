@@ -16,8 +16,8 @@ implements CEPBusManagementCI
 	 */
 	private static final long serialVersionUID = -5951696210210052482L;
 
-	public RegisterOutboundPort(Class<?> implementedInterface, ComponentI owner) throws Exception {
-		super(implementedInterface, owner);
+	public RegisterOutboundPort(String ropURI, ComponentI owner) throws Exception {
+		super(ropURI, CEPBusManagementCI.class, owner);
 	}
 
 	@Override
