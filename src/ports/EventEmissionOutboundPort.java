@@ -14,13 +14,13 @@ implements EventEmissionCI
 	 */
 	private static final long serialVersionUID = 7920770104695042370L;
 
-	public EventEmissionOutboundPort(Class<?> implementedInterface, ComponentI owner) throws Exception {
-		super(implementedInterface, owner);
+	public EventEmissionOutboundPort(String uri, ComponentI owner) throws Exception {
+		super(uri, EventEmissionCI.class, owner);
 	}
 	
 	//ajout
 	public EventEmissionOutboundPort(ComponentI owner) throws Exception {
-		super(CEPBusManagementCI.class, owner);
+		super(EventEmissionCI.class, owner);
 	}
 	
 	@Override
