@@ -1,8 +1,11 @@
 package components.physicaldevices;
 
+import components.interfaces.EventReceptionCI;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
+import interfaces.event.EventI;
 import interfaces.executor.ExecutorCI;
+import interfaces.executor.ExecutorCommandI;
 import ports.AlarmeInboundPort;
 import ports.PresenceDetectorInboundPort;
 /**
@@ -11,14 +14,15 @@ import ports.PresenceDetectorInboundPort;
  *
  */
 @OfferedInterfaces(offered={ExecutorCI.class})
-public class AlarmComponent extends AbstractComponent {
+public class AlarmComponent 
+extends AbstractComponent 		{
 	
-	protected PresenceDetectorInboundPort alarmInp;
+	protected AlarmeInboundPort alarmInp;
 	protected String inboundPortURI;
 	
 	protected AlarmComponent(String alarmInboundPortURI, int nbThreads, int nbSchedulableThreads) throws Exception {
 		super(alarmInboundPortURI, 1, 1);
-		this.alarmInp = new PresenceDetectorInboundPort(alarmInboundPortURI, this);
+		this.alarmInp = new AlarmeInboundPort(alarmInboundPortURI, this);
 		this.alarmInp.publishPort();
 		this.tracer.setTitle("provider") ;
 	}
@@ -46,8 +50,13 @@ public class AlarmComponent extends AbstractComponent {
 	}
 
 	//-------------------------------------------------------------------------
-		// Component life-cycle
-		//-------------------------------------------------------------------------
+	// Component life-cycle
+	//-------------------------------------------------------------------------
 
+	public void execute(ExecutorCommandI command) {
+		// TODO
+		System.out.println("DRING DRING");
+	}
+	
 }
 
