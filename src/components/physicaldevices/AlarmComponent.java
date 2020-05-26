@@ -2,16 +2,15 @@ package components.physicaldevices;
 
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
+import interfaces.executor.ExecutorCI;
 import ports.AlarmeInboundPort;
 import ports.PresenceDetectorInboundPort;
-import components.interfaces.EventReceptionCI;
-
 /**
  * un composant qui peut executer des commandes pour declencher ou arreter une
- * alarme aupres d’un gardien accompagnee d’un message d’alarme
+ * alarme aupres dï¿½un gardien accompagnee dï¿½un message dï¿½alarme
  *
  */
-@OfferedInterfaces(offered={EventReceptionCI.class})
+@OfferedInterfaces(offered={ExecutorCI.class})
 public class AlarmComponent extends AbstractComponent {
 	
 	protected PresenceDetectorInboundPort alarmInp;
