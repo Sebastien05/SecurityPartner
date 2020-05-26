@@ -2,19 +2,19 @@ package Rules;
 
 import java.util.ArrayList;
 
+import components.physicaldevices.PresenceDetector;
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
 import interfaces.rule.EventMatcherI;
 
 public class IntrusionRule extends AbstractRule {
-
 	
 	public static final EventMatcherI MATCHER_WINDOW_OPEN =
 			(e -> e.getPropertyValue("type").
 			equals("window open")) ;
 	public static final EventMatcherI MATCHER_PRESENCE_DETECTION =
 			(e -> e.getPropertyValue("type").
-			equals("presence detection")) ;
+			equals(PresenceDetector.PRESENCE_DETECTED)) ;
 	
 	@Override
 	public void init() {
