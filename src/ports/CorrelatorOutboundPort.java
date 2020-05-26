@@ -1,0 +1,30 @@
+package ports;
+
+import fr.sorbonne_u.components.ComponentI;
+import fr.sorbonne_u.components.ports.AbstractOutboundPort;
+
+import interfaces.executor.ExecutorCI;
+import interfaces.executor.ExecutorCommandI;
+
+public class CorrelatorOutboundPort 
+extends AbstractOutboundPort
+implements ExecutorCI{
+
+private static final long serialVersionUID = 1L;
+	
+	public CorrelatorOutboundPort(ComponentI owner) throws Exception {
+		super (ExecutorCI.class, owner);
+		assert	owner instanceof ExecutorCI ;
+	}
+	
+	public CorrelatorOutboundPort( String uri,ComponentI owner) throws Exception {
+		super (ExecutorCI.class, owner);
+		assert	owner instanceof ExecutorCI ;
+	}
+
+	@Override
+	public void execute(ExecutorCommandI command) {
+		((ExecutorCI)this.connector).execute(command);
+	}
+
+}

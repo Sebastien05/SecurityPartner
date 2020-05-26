@@ -15,12 +15,12 @@ implements ExecutorCI{
 	private static final long serialVersionUID = 1L;
 	
 	public AlarmeInboundPort(ComponentI owner) throws Exception {
-		super (EventEmissionCI.class, owner);
+		super (ExecutorCI.class, owner);
 		assert	owner instanceof ExecutorCI ;
 	}
 	
 	public AlarmeInboundPort( String uri,ComponentI owner) throws Exception {
-		super (EventReceptionCI.class, owner);
+		super (ExecutorCI.class, owner);
 		assert	owner instanceof ExecutorCI ;
 	}
 

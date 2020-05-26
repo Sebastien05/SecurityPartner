@@ -24,7 +24,6 @@ extends AbstractComponent 		{
 		super(alarmInboundPortURI, 1, 1);
 		this.alarmInp = new AlarmeInboundPort(alarmInboundPortURI, this);
 		this.alarmInp.publishPort();
-		this.tracer.setTitle("provider") ;
 	}
 	
 	protected AlarmComponent(String reflectionInboundPortURI)
