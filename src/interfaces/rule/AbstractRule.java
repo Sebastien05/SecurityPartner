@@ -43,6 +43,24 @@ public abstract class AbstractRule implements RuleI {
 		this.effects(triggeringEvents);
 		return true;		
 	}
+	/*
+	 * method for JUnit test
+	 */
+	public boolean executeOnTest(EventBase events) {
+		this.eventBase = events;
+		this.init();
+		
+		// try to triggering events
+		ArrayList<EventI> triggeringEvents = this.trigger();
+		
+		// if no matching event pattern stop here
+		if (triggeringEvents==null)
+			return false;
+		
+		// else make effects
+		this.effects(triggeringEvents);
+		return true;		
+	}
 
 	//Abstracts methods
 	public abstract void init();
