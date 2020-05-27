@@ -1,4 +1,4 @@
-package correlator;
+package components.correlators.managingelement;
 
 import java.util.ArrayList;
 
@@ -20,25 +20,25 @@ public class RuleBase {
 	}
 	
 	/**
-	 * retourne vrai si une regle s’est declenchee et faux sinon
+	 * retourne vrai si une regle sï¿½est declenchee et faux sinon
 	 * @param eventBase
 	 * @return
 	 */
 	public boolean fireFirstOn(EventBase eventBase) {
 		for (RuleI r : this.ruleBase) {
-			if (r.executeOn(eventBase)) //executeOn: tant qu’un regle ne s’est pas declenchee et elle s’arrete des qu’un regle s’est declenchee ou qu’aucune des regles ne s’est declenchee 
+			if (r.executeOn(eventBase)) //executeOn: tant quï¿½un regle ne sï¿½est pas declenchee et elle sï¿½arrete des quï¿½un regle sï¿½est declenchee ou quï¿½aucune des regles ne sï¿½est declenchee 
 				return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * retourne vrai si au moins une regle s’est declenchee et faux sinon
+	 * retourne vrai si au moins une regle sï¿½est declenchee et faux sinon
 	 * @param eventBase
 	 * @return
 	 */
 	public boolean fireAllOn(EventBase eventBase) {
-		while (this.fireFirstOn(eventBase))//tant qu’une regle se declenche et ne s’arrete que lorsque plus aucune regle ne se declenche
+		while (this.fireFirstOn(eventBase))//tant quï¿½une regle se declenche et ne sï¿½arrete que lorsque plus aucune regle ne se declenche
 			return true;
 		return false;
 	}

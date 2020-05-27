@@ -3,7 +3,7 @@ package JUnitTest.event;
 import org.junit.Test;
 
 import Events.Close;
-import correlator.EventBase;
+import components.correlators.managingelement.EventBase;
 
 public class TestEventBase {
 

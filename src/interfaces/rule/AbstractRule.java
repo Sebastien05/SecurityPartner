@@ -2,7 +2,7 @@ package interfaces.rule;
 
 import java.util.ArrayList;
 
-import correlator.EventBase;
+import components.correlators.managingelement.EventBase;
 import interfaces.event.EventI;
 
 public abstract class AbstractRule implements RuleI {
@@ -24,7 +24,7 @@ public abstract class AbstractRule implements RuleI {
 		} return null;
 	}
 	/***
-	 *  prend en parametre la base d’evenements et lance les quatres methodes les unes
+	 *  prend en parametre la base dï¿½evenements et lance les quatres methodes les unes
 	 * apres les autres en commencant par init puis trigger 
 	 */
 	public boolean executeOn(EventBase events) {

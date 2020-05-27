@@ -1,4 +1,4 @@
-package correlator;
+package components.correlators.managingelement;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class EventBase {
 	
 	/**
 	 * clear permet de detruire tous les evenements qui se sont produits a plus de
-	 * period de temps par rapport a l’instant courant
+	 * period de temps par rapport a lï¿½instant courant
 	 * @param period
 	 */
 	public void clearEvents(int period) {

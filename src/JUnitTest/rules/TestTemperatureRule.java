@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import Events.TemperatureReading;
 import Rules.TemperatureRule;
-import correlator.EventBase;
+import components.correlators.managingelement.EventBase;
 
 public class TestTemperatureRule {
 

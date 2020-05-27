@@ -4,8 +4,8 @@ import org.junit.Test;
 import Events.WindowOpen;
 import Events.Presence;
 import Rules.IntrusionRule;
+import components.correlators.managingelement.EventBase;
 import components.physicaldevices.PresenceDetector;
-import correlator.EventBase;
 import interfaces.event.AbstractAtomicEvent;
 
 public class TestIntrusionRule {

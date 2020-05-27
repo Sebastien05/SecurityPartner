@@ -1,31 +1,32 @@
 package interfaces.rule;
 
 import java.util.ArrayList;
-import correlator.EventBase;
+
+import components.correlators.managingelement.EventBase;
 import interfaces.event.EventI;
 
 public interface RuleI {
 	/**
-	 * retourne l’evenement le plus recent dans la base que cet apparieur apparie
+	 * retourne lï¿½evenement le plus recent dans la base que cet apparieur apparie
 	 * @param em
 	 * @return
 	 */
 	public EventI match(EventMatcherI em);
 	/**
-	 * initialise la regle, si des donnees doivent l’etre (par defaut, ne fait rien).
+	 * initialise la regle, si des donnees doivent lï¿½etre (par defaut, ne fait rien).
 	 */
 	public void init();
 	
 	/**
-	 * tente un appariement sur la base d’evenements et retourne la liste des evenements
-	 * apparies dans leur ordre d’occurrence ou null si aucun appariement n’a ete trouve ; c’est
-	 * la methode qui exprime le patron d’evenements que la regle cherche a detecter
+	 * tente un appariement sur la base dï¿½evenements et retourne la liste des evenements
+	 * apparies dans leur ordre dï¿½occurrence ou null si aucun appariement nï¿½a ete trouve ; cï¿½est
+	 * la methode qui exprime le patron dï¿½evenements que la regle cherche a detecter
 	 * @return
 	 */
 	public ArrayList<EventI> trigger();
 	
 	/**
-	 * prend en parametre les evenements apparies (ce qui permet aussi d’acceder a leurs
+	 * prend en parametre les evenements apparies (ce qui permet aussi dï¿½acceder a leurs
 	 * proprietes si necessaire) et declenche des actions (comme lancer une alarme ou emettre un
 	 * evenement complexe agregeant tout ou partie des evenements apparies)
 	 * @param triggeringEvents
@@ -34,7 +35,7 @@ public interface RuleI {
 	
 	/**
 	 * prend en parametre les evenements apparies et execute des effets de bords sur les
-	 * donnees internes a la regle ou sur la base d’evenement
+	 * donnees internes a la regle ou sur la base dï¿½evenement
 	 * @param triggeringEvents
 	 */
 	public void effects(ArrayList<EventI> triggeringEvents);

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import Events.Smoke;
 import Rules.FireRule;
-import correlator.EventBase;
+import components.correlators.managingelement.EventBase;
 
 public class TestFireRule {
 

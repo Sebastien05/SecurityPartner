@@ -1,8 +1,8 @@
 package components.correlators;
 
 import Rules.IntrusionRule;
-import correlator.EventBase;
-import correlator.RuleBase;
+import components.correlators.managingelement.EventBase;
+import components.correlators.managingelement.RuleBase;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.event.EventI;

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import Events.EnergyConsumption;
 import Rules.EnergyConsumptionRule;
-import correlator.EventBase;
+import components.correlators.managingelement.EventBase;
 
 public class TestEnergyConsumptionRule {
 
