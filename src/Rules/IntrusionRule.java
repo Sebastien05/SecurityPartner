@@ -24,6 +24,11 @@ public class IntrusionRule extends AbstractRule {
 		this.cop = cop;
 	}
 
+
+	public IntrusionRule() {
+	}
+
+
 	@Override
 	public void init() {
 		return;
@@ -40,6 +45,7 @@ public class IntrusionRule extends AbstractRule {
 			return null;
 		}
 		
+		
 		if (windowOpen.getTimeStamp().compareTo(presence.getTimeStamp()) <= 0) {
 			
 			// the event window open happened before the detection of a
@@ -47,6 +53,7 @@ public class IntrusionRule extends AbstractRule {
 			ArrayList<EventI> ret = new ArrayList<EventI>() ;
 			ret.add(windowOpen) ;
 			ret.add(presence) ;
+
 			return ret ;
 		} else {
 			// no intrusion detected.
@@ -62,7 +69,6 @@ public class IntrusionRule extends AbstractRule {
 		message.append(" : Warning /!\\ Intrusion detected at ");
 		message.append(triggerringEvents.get(0).getTimeStamp().getTime());
 		System.out.println(message) ;*/
-		
 		this.cop.execute(new TurnONAlarm(triggerringEvents.get(1).getTimeStamp()));
 	}
 
