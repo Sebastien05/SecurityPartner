@@ -6,6 +6,7 @@ import correlator.RuleBase;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.event.EventI;
+import interfaces.executor.ExecutorCommandI;
 import ports.CorrelatorOutboundPort;
 import ports.EventReceptionInboundPort;
 /**
@@ -57,14 +58,20 @@ extends AbstractComponent
 	}
 	
 	public void execute() {
-		if (this.registeredEvents.numberOfEvents() >= 2) {
-			this.registeredRules.fireAllOn(registeredEvents);
+		if (this.registeredEvents.numberOfEvents() >= 1) {
+			this.registeredRules.fireAllOn(this.registeredEvents);
 		}
 		else {
-			Thread.sleep(1000L);
+			try {
+				Thread.sleep(10000L);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		// pas bon pcq ExecutorCommandI expected
-		this.cop.execute("activate Alarm");
+		
+		ExecutorCommandI command = (o -> System.out.println(o)) ;
+		
+		this.cop.execute(command);
 	}
 	
 	public void finalise() throws Exception {
