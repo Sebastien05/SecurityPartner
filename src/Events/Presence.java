@@ -3,7 +3,8 @@ package Events;
 import interfaces.event.AbstractAtomicEvent;
 
 public class Presence extends AbstractAtomicEvent{
-	private static final String URI_presence= "presence";
+	public static final String URI_presence= "presence";
+	
 	private static int cpt = 0;
 	private int id;
 	
@@ -21,4 +22,5 @@ public class Presence extends AbstractAtomicEvent{
 	public String getType() {
 		return URI_presence;
 	}
+	
 }
