@@ -1,4 +1,4 @@
-package interfaces.executor;
+package interfaces.component;
 
 public interface ExecutorCommandI <T> {
 	

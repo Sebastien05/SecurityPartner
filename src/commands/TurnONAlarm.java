@@ -3,7 +3,7 @@ package commands;
 import java.sql.Timestamp;
 
 import components.physicaldevices.AlarmComponent;
-import interfaces.executor.ExecutorCommandI;
+import interfaces.component.ExecutorCommandI;
 
 public class TurnONAlarm implements ExecutorCommandI<AlarmComponent>{
 

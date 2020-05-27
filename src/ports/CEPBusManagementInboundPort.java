@@ -1,9 +1,9 @@
 package ports;
 
 import components.CEPBus;
-import components.interfaces.CEPBusManagementCI;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
+import interfaces.component.CEPBusManagementCI;
 
 public class CEPBusManagementInboundPort 
 extends AbstractInboundPort

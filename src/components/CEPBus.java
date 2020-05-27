@@ -8,13 +8,13 @@ import java.util.Map.Entry;
 import java.util.ArrayList;
 
 import components.connectors.CorrelatorEventEmissionConnector;
-import components.interfaces.CEPBusManagementCI;
-import components.interfaces.EventReceptionCI;
-import components.interfaces.EventEmissionCI;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
+import interfaces.component.CEPBusManagementCI;
+import interfaces.component.EventEmissionCI;
+import interfaces.component.EventReceptionCI;
 import interfaces.event.EventI;
 import ports.CEPBusManagementInboundPort;
 import ports.EventEmissionOutboundPort;

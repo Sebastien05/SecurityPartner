@@ -1,8 +1,8 @@
 package components.physicaldevices;
 
-import components.interfaces.EventEmissionCI;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
+import interfaces.component.EventEmissionCI;
 import ports.EventEmissionOutboundPort;
 import ports.RegisterOutboundPort;
 

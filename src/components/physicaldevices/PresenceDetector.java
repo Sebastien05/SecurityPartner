@@ -4,11 +4,10 @@ package components.physicaldevices;
 import java.util.Random;
 
 import Events.Presence;
-import components.interfaces.EventEmissionCI;
-
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
+import interfaces.component.EventEmissionCI;
 import interfaces.event.AbstractAtomicEvent;
 import ports.EventEmissionOutboundPort;
 import ports.RegisterOutboundPort;

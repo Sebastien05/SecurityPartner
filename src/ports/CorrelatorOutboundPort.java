@@ -2,9 +2,8 @@ package ports;
 
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractOutboundPort;
-
-import interfaces.executor.ExecutorCI;
-import interfaces.executor.ExecutorCommandI;
+import interfaces.component.ExecutorCI;
+import interfaces.component.ExecutorCommandI;
 
 public class CorrelatorOutboundPort 
 extends AbstractOutboundPort

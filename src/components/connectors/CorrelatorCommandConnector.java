@@ -1,8 +1,8 @@
 package components.connectors;
 
 import fr.sorbonne_u.components.connectors.AbstractConnector;
-import interfaces.executor.ExecutorCI;
-import interfaces.executor.ExecutorCommandI;
+import interfaces.component.ExecutorCI;
+import interfaces.component.ExecutorCommandI;
 
 public class CorrelatorCommandConnector 
 extends AbstractConnector 

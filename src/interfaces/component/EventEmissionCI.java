@@ -1,4 +1,4 @@
-package components.interfaces;
+package interfaces.component;
 
 import fr.sorbonne_u.components.interfaces.RequiredI;
 import interfaces.event.EventI;

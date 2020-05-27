@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 import CVM.CVM;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
-import interfaces.executor.ExecutorCI;
-import interfaces.executor.ExecutorCommandI;
+import interfaces.component.ExecutorCI;
+import interfaces.component.ExecutorCommandI;
 import ports.ExecutorInboundPort;
 /**
  * un composant qui peut executer des commandes pour declencher ou arreter une

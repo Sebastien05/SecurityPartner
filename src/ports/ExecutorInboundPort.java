@@ -1,9 +1,9 @@
 package ports;	
 
 import fr.sorbonne_u.components.ComponentI;	
-import fr.sorbonne_u.components.ports.AbstractInboundPort;	
-import interfaces.executor.ExecutorCI;	
-import interfaces.executor.ExecutorCommandI;	
+import fr.sorbonne_u.components.ports.AbstractInboundPort;
+import interfaces.component.ExecutorCI;
+import interfaces.component.ExecutorCommandI;	
 
 public class ExecutorInboundPort  	
 extends AbstractInboundPort 	

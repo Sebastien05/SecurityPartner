@@ -1,10 +1,10 @@
 package ports;
 
 import components.CEPBus;
-import components.interfaces.CEPBusManagementCI;
-import components.interfaces.EventReceptionCI;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
+import interfaces.component.CEPBusManagementCI;
+import interfaces.component.EventReceptionCI;
 import interfaces.event.EventI;
 
 public class EventReceptionInboundPort extends AbstractInboundPort

@@ -1,8 +1,8 @@
 package components.connectors;
 
-import components.interfaces.EventEmissionCI;
-import components.interfaces.EventReceptionCI;
 import fr.sorbonne_u.components.connectors.AbstractConnector;
+import interfaces.component.EventEmissionCI;
+import interfaces.component.EventReceptionCI;
 import interfaces.event.EventI;
 
 public class CEPBusEventEmissionConnector extends AbstractConnector
