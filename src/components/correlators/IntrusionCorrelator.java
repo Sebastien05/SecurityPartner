@@ -13,7 +13,9 @@ import ports.EventReceptionInboundPort;
  * presence detected et window open
  *
  */
-public class IntrusionCorrelator extends AbstractComponent {
+public class IntrusionCorrelator 
+extends AbstractComponent
+{
 
 	private final String copURI = "cop_uri";
 	private final String eripURI = "erip_uri";
@@ -24,7 +26,8 @@ public class IntrusionCorrelator extends AbstractComponent {
 	private EventBase registeredEvents;
 	private RuleBase registeredRules;
 	
-	protected IntrusionCorrelator() throws Exception {
+	protected IntrusionCorrelator() 
+	throws Exception {
 		super(1, 0);
 		this.registeredEvents = new EventBase();
 		this.registeredRules = new RuleBase();
@@ -33,7 +36,8 @@ public class IntrusionCorrelator extends AbstractComponent {
 		this.initialise();
 	}
 	
-	public void initialise() throws Exception {
+	public void initialise() 
+	throws Exception {
 		this.cop = new CorrelatorOutboundPort(copURI,this);
 		this.erip = new EventReceptionInboundPort(eripURI,this);
 		
@@ -69,7 +73,8 @@ public class IntrusionCorrelator extends AbstractComponent {
 		super.finalise();
 	}
 	
-	public void shutdown() throws ComponentShutdownException {
+	public void shutdown() 
+	throws ComponentShutdownException {
 		try {
 			this.cop.unpublishPort();
 			this.erip.unpublishPort();

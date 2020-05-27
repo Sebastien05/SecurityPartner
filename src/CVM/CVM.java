@@ -1,8 +1,9 @@
 package CVM;
 
 
-import components.cepbus.CEPBus;
-import components.cepbus.CEPBusConnector;
+import components.CEPBus;
+import components.connectors.CEPBusEventEmissionConnector;
+import components.connectors.CEPBusManagementConnector;
 import components.connectors.PresenceDetectedConnector;
 import components.physicaldevices.PresenceDetector;
 import components.physicaldevices.AlarmComponent;
