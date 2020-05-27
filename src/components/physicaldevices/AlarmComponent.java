@@ -30,8 +30,7 @@ public class AlarmComponent extends AbstractComponent {
 		super(alarmInboundPortURI, 1, 1);
 		this.alarmInp = new PresenceDetectorInboundPort(alarmInboundPortURI, this);
 		this.alarmInp.publishPort();
-		this.tracer.setTitle("provider") ;
-		this.state="off";
+		this.state=ALARM_OFF;
 	}
 	
 	protected AlarmComponent(String reflectionInboundPortURI)
