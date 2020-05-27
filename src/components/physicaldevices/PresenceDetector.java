@@ -29,6 +29,7 @@ public class PresenceDetector extends AbstractComponent {
 	private int fixedTimeExecution;
 	private int fixedTimeStartExecution;
 	private int fixedDelay;
+	private int room;
 	
 	public static final String PRESENCE_DETECTED = "Presence detected";
 	public static final String NO_PRESENCE_DETECTED = "No presence detected";
@@ -39,7 +40,8 @@ public class PresenceDetector extends AbstractComponent {
 		String registeredOutboundPortURI,
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
-		int fixedDelay
+		int fixedDelay,
+		int room
 		)
 	throws Exception
 	{
@@ -55,6 +57,7 @@ public class PresenceDetector extends AbstractComponent {
 		this.fixedTimeStartExecution=fixedTimeStartExecution;
 		
 		random = new Random();
+		this.room = room;
 		
 		this.initialise() ;
 	}
@@ -79,8 +82,8 @@ public class PresenceDetector extends AbstractComponent {
 			AbstractAtomicEvent presence = new Presence();
 			String eventMessage = (random.nextDouble()<0.2)?
 					PRESENCE_DETECTED:NO_PRESENCE_DETECTED;
-			presence.putproperty(this.myURI, eventMessage);
-			
+			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
+			presence.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", presence);
 			Thread.sleep(this.fixedDelay);

@@ -11,7 +11,10 @@ import interfaces.event.AtomicEventI;
 
 public abstract class AbstractAtomicEvent implements AtomicEventI {
 
-	private static final String NAME = "nameAtomicEvent";
+	public static final String NAME = "nameAtomicEvent";
+	public static final String TYPE_PROPERTY = "type";
+	public static final String ROOM_PROPERTY = "room";
+	
 	protected String message;
 	protected Map<String, Serializable> map;
 	private Timestamp eventTime;
