@@ -6,7 +6,6 @@ import correlator.RuleBase;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.event.EventI;
-import interfaces.executor.ExecutorCommandI;
 import ports.CorrelatorOutboundPort;
 import ports.EventReceptionInboundPort;
 /**
@@ -31,9 +30,7 @@ extends AbstractComponent
 	throws Exception {
 		super(1, 0);
 		this.registeredEvents = new EventBase();
-		this.registeredRules = new RuleBase();
-		this.registeredRules.addRule(new IntrusionRule());
-		
+		this.registeredRules = new RuleBase();		
 		this.initialise();
 	}
 	
@@ -44,21 +41,24 @@ extends AbstractComponent
 		
 		this.cop.publishPort();
 		this.erip.publishPort();
+		
+		// give to IntrusionRule the out port in order to send an Executor command to alarm
+		this.registeredRules.addRule(new IntrusionRule(this.cop));
 	}
 	
 	public void start() {
 	}
-	
 	
 	/*
 	 * Receive events from CEPBus
 	 */
 	public void receiveEvent(String emitterURI, EventI e) {
 		this.registeredEvents.addEvent(e);
+		this.registeredRules.fireFirstOn(this.registeredEvents);
 	}
 	
 	public void execute() {
-		if (this.registeredEvents.numberOfEvents() >= 1) {
+		/*if (this.registeredEvents.numberOfEvents() >= 1) {
 			this.registeredRules.fireAllOn(this.registeredEvents);
 		}
 		else {
@@ -71,7 +71,7 @@ extends AbstractComponent
 		
 		ExecutorCommandI command = (o -> System.out.println(o)) ;
 		
-		this.cop.execute(command);
+		this.cop.execute(command);*/
 	}
 	
 	public void finalise() throws Exception {

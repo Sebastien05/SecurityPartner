@@ -2,12 +2,16 @@ package Rules;
 
 import java.util.ArrayList;
 
+import commands.TurnONAlarm;
 import components.physicaldevices.PresenceDetector;
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
 import interfaces.rule.EventMatcherI;
+import ports.CorrelatorOutboundPort;
 
 public class IntrusionRule extends AbstractRule {
+	
+	private CorrelatorOutboundPort cop;
 	
 	public static final EventMatcherI MATCHER_WINDOW_OPEN =
 			(e -> e.getPropertyValue("type").
@@ -16,6 +20,9 @@ public class IntrusionRule extends AbstractRule {
 			(e -> e.getPropertyValue("type").
 			equals(PresenceDetector.PRESENCE_DETECTED)) ;
 	
+	public IntrusionRule(CorrelatorOutboundPort cop) {
+		this.cop = cop;
+	}
 
 	@Override
 	public void init() {
@@ -49,12 +56,14 @@ public class IntrusionRule extends AbstractRule {
 
 	@Override
 	public void actions(ArrayList<EventI> triggerringEvents) {
-		// emit alarm message
+		/*// emit alarm message
 		StringBuilder message = new StringBuilder();
 		message.append(triggerringEvents.get(0).getPropertyValue("room"));
 		message.append(" : Warning /!\\ Intrusion detected at ");
 		message.append(triggerringEvents.get(0).getTimeStamp().getTime());
-		System.out.println(message) ;
+		System.out.println(message) ;*/
+		
+		this.cop.execute(new TurnONAlarm(triggerringEvents.get(1).getTimeStamp()));
 	}
 
 	@Override
