@@ -1,10 +1,10 @@
 package components.physicaldevices;
 
 import java.sql.Timestamp;
-
 import CVM.CVM;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
+import interfaces.event.EventI;
 import interfaces.executor.ExecutorCI;
 import interfaces.executor.ExecutorCommandI;
 import ports.AlarmeInboundPort;
@@ -15,9 +15,10 @@ import ports.PresenceDetectorInboundPort;
  *
  */
 @OfferedInterfaces(offered={ExecutorCI.class})
-public class AlarmComponent extends AbstractComponent {
+public class AlarmComponent 
+extends AbstractComponent 		{
 	
-	protected PresenceDetectorInboundPort alarmInp;
+	protected AlarmeInboundPort alarmInp;
 	protected String inboundPortURI;
 	protected String state;
 	protected Timestamp lastSwitch;
@@ -28,7 +29,7 @@ public class AlarmComponent extends AbstractComponent {
 	
 	protected AlarmComponent(String alarmInboundPortURI, int nbThreads, int nbSchedulableThreads) throws Exception {
 		super(alarmInboundPortURI, 1, 1);
-		this.alarmInp = new PresenceDetectorInboundPort(alarmInboundPortURI, this);
+		this.alarmInp = new AlarmeInboundPort(alarmInboundPortURI, this);
 		this.alarmInp.publishPort();
 		this.state=ALARM_OFF;
 	}

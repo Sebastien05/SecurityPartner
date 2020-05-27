@@ -26,7 +26,7 @@ implements PresenceDetectorCI
 	public	PresenceDetectorOutboundPort(String uri, ComponentI owner)
 	throws Exception
 	{
-			super(uri, EventReceptionCI.class, owner) ;
+			super(uri, PresenceDetectorCI.class, owner) ;
 	}
 
 	@Override

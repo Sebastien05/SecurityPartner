@@ -5,24 +5,28 @@ import components.interfaces.EventReceptionCI;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
 import interfaces.event.EventI;
+import interfaces.executor.ExecutorCI;
+import interfaces.executor.ExecutorCommandI;
 
-public class AlarmeInboundPort  extends AbstractInboundPort implements EventReceptionCI{
+public class AlarmeInboundPort  
+extends AbstractInboundPort 
+implements ExecutorCI{
 
-	public AlarmeInboundPort(Class<?> implementedInterface, ComponentI owner) throws Exception {
-		super (EventEmissionCI.class, owner);
-		assert	owner instanceof EventEmissionCI ;
+	private static final long serialVersionUID = 1L;
+	
+	public AlarmeInboundPort(ComponentI owner) throws Exception {
+		super (ExecutorCI.class, owner);
+		assert	owner instanceof ExecutorCI ;
 	}
 	
 	public AlarmeInboundPort( String uri,ComponentI owner) throws Exception {
-		super (EventReceptionCI.class, owner);
-		assert	owner instanceof EventEmissionCI ;
+		super (ExecutorCI.class, owner);
+		assert	owner instanceof ExecutorCI ;
 	}
-	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void receiveEvent(String emitterURI, EventI e) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void execute(ExecutorCommandI command) {
+		((ExecutorCI)this.owner).execute(command);
 	}
 	
 
