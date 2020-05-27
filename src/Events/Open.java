@@ -3,7 +3,8 @@ package Events;
 import interfaces.event.AbstractAtomicEvent;
 
 public class Open extends AbstractAtomicEvent {
-	public static final String URI_open= "Open";
+
+	private static final String URI_open= "Open";
 	private static int cpt = 0;
 	private int id;
 	

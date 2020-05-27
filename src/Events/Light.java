@@ -4,7 +4,7 @@ import interfaces.event.AbstractAtomicEvent;
 
 public class Light extends AbstractAtomicEvent{
 	
-	public static final String URI_light= "Light";
+	private static final String URI_light= "Light";
 	private static int cpt = 0;
 	private int id;
 	

@@ -6,7 +6,7 @@ import interfaces.event.AbstractAtomicEvent;
 
 public class Close extends AbstractAtomicEvent{
 	
-	public static final String URI_close= "Close";
+	private static final String URI_close= "Close";
 	private static int cpt = 0;
 	private int id;
 	

@@ -3,7 +3,8 @@ package Events;
 import interfaces.event.AbstractAtomicEvent;
 
 public class EnergyConsumption extends AbstractAtomicEvent {
-	public static final String URI_energyC= "energyCunsumption";
+
+	private static final String URI_energyC= "energyCunsumption";
 	private static int cpt = 0;
 	private int id;
 	

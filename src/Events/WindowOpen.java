@@ -3,7 +3,8 @@ package Events;
 import interfaces.event.AbstractAtomicEvent;
 
 public class WindowOpen extends AbstractAtomicEvent{
-	public static final String URI_windowOp= "windowOpen";
+
+	private static final String URI_windowOp= "windowOpen";
 	private static int cpt = 0;
 	private int id;
 	

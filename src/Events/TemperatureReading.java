@@ -3,7 +3,8 @@ package Events;
 import interfaces.event.AbstractAtomicEvent;
 
 public class TemperatureReading extends AbstractAtomicEvent {
-	public static final String URI_temperatureR= "temperatureReading";
+
+	private static final String URI_temperatureR= "temperatureReading";
 	private static int cpt = 0;
 	private int id;
 	
