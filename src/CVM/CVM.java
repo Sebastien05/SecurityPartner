@@ -1,6 +1,5 @@
 package CVM;
 
-
 import components.CEPBus;
 import components.connectors.CEPBusEventEmissionConnector;
 import components.connectors.CEPBusManagementConnector;
@@ -12,12 +11,17 @@ import fr.sorbonne_u.components.cvm.AbstractCVM;
 
 public class CVM extends AbstractCVM{
 
-	public static final String OUTBOUNDPORT_URI_CEPB = "cepoport";
-	public static final String INBOUNDPORT_URI_CEPB = "cepiport";
-	public static final String OUTBOUNDPORT_URI_PRESENCE = "poport";
-	public static final String INBOUNDPORT_URI_ALARM = "Aiport";
+	// CepBus URIs
+	protected static final String OUTBOUNDPORT_URI_CEPB = "cepoport";
+	protected static final String INBOUNDPORT_URI_CEPB = "cepiport";
+	
+	// 
+	protected static final String OUTBOUNDPORT_URI_PRESENCE = "poport";
+	protected static final String INBOUNDPORT_URI_ALARM = "Aiport";
 
 
+	public static final int LIFE_CYCLE_DURATION = 20000;
+	
 	public CVM() throws Exception {
 		super();
 	}

@@ -1,6 +1,7 @@
 package interfaces.executor;
 
-public interface ExecutorCommandI {
+public interface ExecutorCommandI <T> {
 	
-//	public Object command(Object o);
+	public void set(T o);
+	public void execute();
 }
