@@ -3,7 +3,6 @@ package CVM;
 import components.CEPBus;
 import components.connectors.CEPBusEventEmissionConnector;
 import components.connectors.CEPBusManagementConnector;
-import components.connectors.PresenceDetectedConnector;
 import components.physicaldevices.PresenceDetector;
 import components.physicaldevices.AlarmComponent;
 import fr.sorbonne_u.components.AbstractComponent;
@@ -59,9 +58,6 @@ public class CVM extends AbstractCVM{
 		String uri = AbstractComponent.createComponent(
 				PresenceDetector.class.getCanonicalName(),
 				new Object[] {OUTBOUNDPORT_URI_PRESENCE});
-
-		this.doPortConnection(uri, OUTBOUNDPORT_URI_PRESENCE, INBOUNDPORT_URI_ALARM,
-				PresenceDetectedConnector.class.getCanonicalName());
 		 
 
 		super.deploy();	

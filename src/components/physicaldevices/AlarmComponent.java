@@ -4,11 +4,9 @@ import java.sql.Timestamp;
 import CVM.CVM;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
-import interfaces.event.EventI;
 import interfaces.executor.ExecutorCI;
 import interfaces.executor.ExecutorCommandI;
-import ports.AlarmeInboundPort;
-import ports.PresenceDetectorInboundPort;
+import ports.ExecutorInboundPort;
 /**
  * un composant qui peut executer des commandes pour declencher ou arreter une
  * alarme aupres d�un gardien accompagnee d�un message d�alarme
@@ -18,7 +16,7 @@ import ports.PresenceDetectorInboundPort;
 public class AlarmComponent 
 extends AbstractComponent 		{
 	
-	protected AlarmeInboundPort alarmInp;
+	protected ExecutorInboundPort alarmInp;
 	protected String inboundPortURI;
 	protected String state;
 	protected Timestamp lastSwitch;
@@ -29,7 +27,7 @@ extends AbstractComponent 		{
 	
 	protected AlarmComponent(String alarmInboundPortURI, int nbThreads, int nbSchedulableThreads) throws Exception {
 		super(alarmInboundPortURI, 1, 1);
-		this.alarmInp = new AlarmeInboundPort(alarmInboundPortURI, this);
+		this.alarmInp = new ExecutorInboundPort(alarmInboundPortURI, this);
 		this.alarmInp.publishPort();
 		this.state=ALARM_OFF;
 	}
@@ -43,17 +41,8 @@ extends AbstractComponent 		{
 
 	protected void	initialise() throws Exception
 	{
-		/*this.alarmInp = this.createPort() ;
+		this.alarmInp = new ExecutorInboundPort(this.inboundPortURI, this) ;
 		this.alarmInp.publishPort() ;
-		this.pdop = new PresenceDetectorOutboundPort(this) ;
-		this.pdop.publishPort() ;*/
-	}
-	
-	protected AlarmeInboundPort	createPort()
-			throws Exception
-	{
-		return new AlarmeInboundPort(
-				inboundPortURI, this) ;
 	}
 	
 	/*

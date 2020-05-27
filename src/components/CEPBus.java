@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import java.util.ArrayList;
 
 import components.connectors.CorrelatorEventEmissionConnector;
-import components.connectors.PresenceDetectedConnector;
 import components.interfaces.CEPBusManagementCI;
 import components.interfaces.EventReceptionCI;
 import components.interfaces.EventEmissionCI;

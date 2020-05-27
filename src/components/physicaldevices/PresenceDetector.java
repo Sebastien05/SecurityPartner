@@ -6,18 +6,11 @@ import java.util.Random;
 import Events.Presence;
 import components.interfaces.EventEmissionCI;
 
-import components.interfaces.EventReceptionCI;
-import components.interfaces.PresenceDetectorCI;
 import fr.sorbonne_u.components.AbstractComponent;
-import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
-import fr.sorbonne_u.components.interfaces.RequiredI;
 import interfaces.event.AbstractAtomicEvent;
-import interfaces.event.EventI;
 import ports.EventEmissionOutboundPort;
-import ports.PresenceDetectorInboundPort;
-import ports.PresenceDetectorOutboundPort;
 import ports.RegisterOutboundPort;
 
 @RequiredInterfaces(required={EventEmissionCI.class})
