@@ -53,14 +53,14 @@ public class IntrusionCorrelator extends AbstractComponent {
 	}
 	
 	public void execute() {
-		this.registeredRules.fireAllOn(registeredEvents);
-		// pas bon pcq ExecutorCommandI expected
 		if (this.registeredEvents.numberOfEvents() >= 2) {
-			this.cop.execute("activate Alarm");
+			this.registeredRules.fireAllOn(registeredEvents);
 		}
 		else {
 			Thread.sleep(1000L);
 		}
+		// pas bon pcq ExecutorCommandI expected
+		this.cop.execute("activate Alarm");
 	}
 	
 	public void finalise() throws Exception {
