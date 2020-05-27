@@ -7,8 +7,6 @@ import Rules.IntrusionRule;
 import components.physicaldevices.PresenceDetector;
 import correlator.EventBase;
 import interfaces.event.AbstractAtomicEvent;
-import interfaces.event.EventI;
-import ports.CorrelatorOutboundPort;
 
 public class TestIntrusionRule {
 
@@ -16,19 +14,15 @@ public class TestIntrusionRule {
 	public void test() {
 		EventBase b = new EventBase();
 		IntrusionRule ir = new IntrusionRule();
+		
 		// Window needs to be opened before presence for intrusion rule
 		WindowOpen wo = new WindowOpen();
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		Presence p = new Presence();
 		
 		p.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, PresenceDetector.PRESENCE_DETECTED);
-		p.putproperty("room", "401");
+		p.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, "401");
 		wo.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, "window open");
-		wo.putproperty("room", "401");
+		wo.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, "401");
 
 		p.displayProperties();
 		wo.displayProperties();
