@@ -5,6 +5,7 @@ import correlator.EventBase;
 import correlator.RuleBase;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
+import interfaces.event.EventI;
 import ports.CorrelatorOutboundPort;
 import ports.EventReceptionInboundPort;
 /**
@@ -43,10 +44,23 @@ public class IntrusionCorrelator extends AbstractComponent {
 	public void start() {
 	}
 	
+	
+	/*
+	 * Receive events from CEPBus
+	 */
+	public void receiveEvent(String emitterURI, EventI e) {
+		this.registeredEvents.addEvent(e);
+	}
+	
 	public void execute() {
 		this.registeredRules.fireAllOn(registeredEvents);
 		// pas bon pcq ExecutorCommandI expected
-		this.cop.execute("activate Alarm");
+		if (this.registeredEvents.numberOfEvents() >= 2) {
+			this.cop.execute("activate Alarm");
+		}
+		else {
+			Thread.sleep(1000L);
+		}
 	}
 	
 	public void finalise() throws Exception {
