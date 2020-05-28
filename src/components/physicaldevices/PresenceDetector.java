@@ -6,16 +6,19 @@ import java.util.Random;
 import Events.Presence;
 import components.CEPBus;
 import components.connectors.CEPBusEventEmissionConnector;
+import components.connectors.CEPBusManagementConnector;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
+import fr.sorbonne_u.components.exceptions.ComponentStartException;
+import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.event.AbstractAtomicEvent;
 import ports.CEPBusManagementInboundPort;
 import ports.EventEmissionOutboundPort;
 import ports.RegisterOutboundPort;
 
-@RequiredInterfaces(required={EventEmissionCI.class})
+@RequiredInterfaces(required={EventEmissionCI.class, CEPBusManagementCI.class})
 
 public class PresenceDetector extends AbstractComponent {
 
@@ -44,7 +47,7 @@ public class PresenceDetector extends AbstractComponent {
 		)
 	throws Exception
 	{
-		super(eventEmissionOutboundPortURI, 1, 0) ;
+		super(1, 0) ;
 				
 		this.eeopURI=eventEmissionOutboundPortURI;
 		this.ropURI=registeredOutboundPortURI;
@@ -56,10 +59,10 @@ public class PresenceDetector extends AbstractComponent {
 		random = new Random();
 		this.room = room;
 		
-		this.initialise() ;
+		this.init() ;
 	}
 	
-	protected void	initialise() throws Exception
+	protected void	init() throws Exception
 	{
 		// Port initialization 
 		this.eeop = new EventEmissionOutboundPort(eeopURI, this) ;
@@ -69,10 +72,17 @@ public class PresenceDetector extends AbstractComponent {
 		this.rop.publishPort();
 		
 		// connection with CEPBus inbound port manager for registration
-		this.doPortConnection(this.ropURI, CEPBus.INBOUND_PORT_MANAGEMENT_URI,
-				CEPBusManagementInboundPort.class.getCanonicalName());
+		this.doPortConnection(this.rop.getPortURI(), CEPBus.INBOUND_PORT_MANAGEMENT_URI,
+				CEPBusManagementConnector.class.getCanonicalName());
+	}
+	@Override
+	public void	start() throws ComponentStartException
+	{
+		this.logMessage("starting Presence Detector component.") ;
+		super.start();
 	}
 	
+	@Override
 	public void execute() throws Exception
 	{
 		// connection with CEPBus inbound port Event Reception for Event Emission
