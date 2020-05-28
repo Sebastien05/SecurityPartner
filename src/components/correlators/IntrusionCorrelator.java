@@ -52,7 +52,7 @@ extends AbstractComponent
 	/*
 	 * Receive events from CEPBus
 	 */
-	public void receiveEvent(String emitterURI, EventI e) {
+	public void receiveEvent(String emitterURI, EventI e) throws Exception {
 		this.registeredEvents.addEvent(e);
 		this.registeredRules.fireFirstOn(this.registeredEvents);
 	}

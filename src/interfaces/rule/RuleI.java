@@ -31,7 +31,7 @@ public interface RuleI {
 	 * evenement complexe agregeant tout ou partie des evenements apparies)
 	 * @param triggeringEvents
 	 */
-	public void actions(ArrayList<EventI> triggeringEvents);
+	public void actions(ArrayList<EventI> triggeringEvents) throws Exception;
 	
 	/**
 	 * prend en parametre les evenements apparies et execute des effets de bords sur les
@@ -43,6 +43,7 @@ public interface RuleI {
 	 *  lance les quatres methodes les unes apres les autres 
 	 * @param events
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean executeOn(EventBase events);
+	public boolean executeOn(EventBase events) throws Exception;
 }

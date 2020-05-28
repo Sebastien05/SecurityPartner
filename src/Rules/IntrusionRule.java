@@ -62,7 +62,7 @@ public class IntrusionRule extends AbstractRule {
 	}
 
 	@Override
-	public void actions(ArrayList<EventI> triggerringEvents) {
+	public void actions(ArrayList<EventI> triggerringEvents) throws Exception {
 		/*// emit alarm message
 		StringBuilder message = new StringBuilder();
 		message.append(triggerringEvents.get(0).getPropertyValue("room"));

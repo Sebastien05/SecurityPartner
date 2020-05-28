@@ -27,7 +27,7 @@ public abstract class AbstractRule implements RuleI {
 	 *  prend en parametre la base d�evenements et lance les quatres methodes les unes
 	 * apres les autres en commencant par init puis trigger 
 	 */
-	public boolean executeOn(EventBase events) {
+	public boolean executeOn(EventBase events) throws Exception{
 		this.eventBase = events;
 		this.init();
 		
@@ -46,7 +46,7 @@ public abstract class AbstractRule implements RuleI {
 	/*
 	 * method for JUnit test
 	 */
-	public boolean executeOnTest(EventBase events) {
+	public boolean executeOnTest(EventBase events) throws Exception {
 		this.eventBase = events;
 		this.init();
 		
@@ -65,6 +65,6 @@ public abstract class AbstractRule implements RuleI {
 	//Abstracts methods
 	public abstract void init();
 	public abstract ArrayList<EventI> trigger();
-	public abstract void actions(ArrayList<EventI> triggeringEvents);
+	public abstract void actions(ArrayList<EventI> triggeringEvents) throws Exception;
 	public abstract void effects(ArrayList<EventI> triggeringEvents);
 }

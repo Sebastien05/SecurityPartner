@@ -23,8 +23,9 @@ public class RuleBase {
 	 * retourne vrai si une regle s�est declenchee et faux sinon
 	 * @param eventBase
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean fireFirstOn(EventBase eventBase) {
+	public boolean fireFirstOn(EventBase eventBase) throws Exception {
 		for (RuleI r : this.ruleBase) {
 			if (r.executeOn(eventBase)) //executeOn: tant qu�un regle ne s�est pas declenchee et elle s�arrete des qu�un regle s�est declenchee ou qu�aucune des regles ne s�est declenchee 
 				return true;
@@ -36,8 +37,9 @@ public class RuleBase {
 	 * retourne vrai si au moins une regle s�est declenchee et faux sinon
 	 * @param eventBase
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean fireAllOn(EventBase eventBase) {
+	public boolean fireAllOn(EventBase eventBase) throws Exception {
 		while (this.fireFirstOn(eventBase))//tant qu�une regle se declenche et ne s�arrete que lorsque plus aucune regle ne se declenche
 			return true;
 		return false;
