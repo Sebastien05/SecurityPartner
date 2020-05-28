@@ -4,11 +4,14 @@ package components.physicaldevices;
 import java.util.Random;
 
 import Events.Presence;
+import components.CEPBus;
+import components.connectors.CEPBusEventEmissionConnector;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.component.EventEmissionCI;
 import interfaces.event.AbstractAtomicEvent;
+import ports.CEPBusManagementInboundPort;
 import ports.EventEmissionOutboundPort;
 import ports.RegisterOutboundPort;
 
@@ -20,9 +23,7 @@ public class PresenceDetector extends AbstractComponent {
 	private String ropURI;
 	private EventEmissionOutboundPort eeop;
 	private RegisterOutboundPort rop;
-	
-	private String myURI;
-	
+		
 	Random random;
 	
 	private int fixedTimeExecution;
@@ -34,7 +35,6 @@ public class PresenceDetector extends AbstractComponent {
 	public static final String NO_PRESENCE_DETECTED = "No presence detected";
 	
 	protected PresenceDetector(
-		String detectorURI,
 		String eventEmissionOutboundPortURI,
 		String registeredOutboundPortURI,
 		int fixedTimeExecution,
@@ -45,9 +45,7 @@ public class PresenceDetector extends AbstractComponent {
 	throws Exception
 	{
 		super(eventEmissionOutboundPortURI, 1, 0) ;
-		
-		this.myURI=detectorURI;
-		
+				
 		this.eeopURI=eventEmissionOutboundPortURI;
 		this.ropURI=registeredOutboundPortURI;
 		
@@ -69,11 +67,20 @@ public class PresenceDetector extends AbstractComponent {
 		// Publish them
 		this.eeop.publishPort();
 		this.rop.publishPort();
-
+		
+		// connection with CEPBus inbound port manager for registration
+		this.doPortConnection(this.ropURI, CEPBus.INBOUND_PORT_MANAGEMENT_URI,
+				CEPBusManagementInboundPort.class.getCanonicalName());
 	}
 	
 	public void execute() throws Exception
 	{
+		// connection with CEPBus inbound port Event Reception for Event Emission
+		String cepBusInboundPortURI = this.rop.getEventReceptionInboundPortURI(this.eeopURI);
+		this.doPortConnection(this.eeopURI, cepBusInboundPortURI,
+				CEPBusEventEmissionConnector.class.getCanonicalName());
+		
+		// component's test script 
 		Thread.sleep(fixedTimeStartExecution);
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 			
@@ -83,6 +90,7 @@ public class PresenceDetector extends AbstractComponent {
 					PRESENCE_DETECTED:NO_PRESENCE_DETECTED;
 			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
 			presence.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
+			
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", presence);
 			Thread.sleep(this.fixedDelay);
