@@ -13,38 +13,38 @@ implements CEPBusManagementCI
 	private static final long serialVersionUID = 1L;
 
 	public CEPBusManagementInboundPort(String cepURI, ComponentI owner) throws Exception {
-		super (CEPBusManagementCI.class, owner);
+		super (cepURI, CEPBusManagementCI.class, owner);
 		assert owner instanceof CEPBus;
 	}
 
 	@Override
 	public String getEventReceptionInboundPortURI(String uri) throws Exception {
-		return ((CEPBusManagementCI)this.owner).getEventReceptionInboundPortURI(uri);
+		return ((CEPBus)this.owner).getEventReceptionInboundPortURI(uri);
 	}
 
 	@Override
 	public void registerEventReceptor(String uri, String inboundPortURI) throws Exception {
-		((CEPBusManagementCI)this.owner).registerEventReceptor(uri, inboundPortURI);
+		((CEPBus)this.owner).registerEventReceptor(uri, inboundPortURI);
 	}
 
 	@Override
 	public void unregisterEventReceptor(String uri) throws Exception {
-		((CEPBusManagementCI)this.owner).unregisterEventReceptor(uri);		
+		((CEPBus)this.owner).unregisterEventReceptor(uri);		
 	}
 
 	@Override
 	public void registerCommandExecutor(String uri, String inboundPortURI) throws Exception {
-		((CEPBusManagementCI)this.owner).registerCommandExecutor(uri,inboundPortURI);	
+		((CEPBus)this.owner).registerCommandExecutor(uri,inboundPortURI);	
 	}
 
 	@Override
 	public String getExecutorInboundPortURI(String executorURI) throws Exception {
-		return ((CEPBusManagementCI)this.owner).getExecutorInboundPortURI(uri);	
+		return ((CEPBus)this.owner).getExecutorInboundPortURI(uri);	
 	}
 
 	@Override
 	public void unregisterCommandExecutor(String uri) throws Exception {
-		((CEPBusManagementCI)this.owner).unregisterCommandExecutor(uri);	
+		((CEPBus)this.owner).unregisterCommandExecutor(uri);	
 	}
 
 }
