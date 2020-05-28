@@ -15,7 +15,9 @@ public class CVM extends AbstractCVM{
 	protected static final String INBOUNDPORT_URI_CEPB = "cepiport";
 	
 	// 
-	protected static final String OUTBOUNDPORT_URI_PRESENCE = "poport";
+	protected static final String OUTBOUNDPORT_URI_PRESENCE = "opURIp";
+	protected static final String REGISTER_URI_PRESENCE = "rURIp";
+
 	protected static final String INBOUNDPORT_URI_ALARM = "Aiport";
 
 
@@ -52,21 +54,22 @@ public class CVM extends AbstractCVM{
 				PresenceDetectedConnector.class.getCanonicalName());
 */
 		AbstractComponent.createComponent(
-				AlarmComponent.class.getCanonicalName(),
-				new Object[] {INBOUNDPORT_URI_ALARM});
+				CEPBus.class.getCanonicalName(),
+				new Object[] {});
 
-		String uri = AbstractComponent.createComponent(
+		AbstractComponent.createComponent(
 				PresenceDetector.class.getCanonicalName(),
-				new Object[] {OUTBOUNDPORT_URI_PRESENCE});
+				new Object[] {OUTBOUNDPORT_URI_PRESENCE,
+						REGISTER_URI_PRESENCE,
+						10, 1000, 1000, 401});
 		 
-
 		super.deploy();	
 	}
 	public static void	main(String[] args)
 	{
 		try {
 			CVM cvm = new CVM() ;
-			cvm.startStandardLifeCycle(1000L);
+			cvm.startStandardLifeCycle(20000L);
 			Thread.sleep(10000L) ;
 			System.exit(0) ;
 		} catch (Exception e) {
