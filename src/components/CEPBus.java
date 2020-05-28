@@ -47,7 +47,7 @@ public class CEPBus extends AbstractComponent{
 	private HashMap<String, EventEmissionOutboundPort> outboundPortConnexion = new HashMap<>();
 
 	
-	protected CEPBus(String cepURI,  ComponentI owner) 
+	protected CEPBus() 
 	throws Exception 
 	{
 		super(1, 0);
@@ -90,43 +90,19 @@ public class CEPBus extends AbstractComponent{
 		}
 		this.multisendEvent(emitterURI, (String[]) destinationURIs.toArray(), e);
 		
-		//////////////////////////////////////////////////////
-		
-		/*ArrayList<EventI> eventList = new ArrayList<>();
-		
-		if (receivedEvent.containsKey(emitterURI)) {
-			eventList = receivedEvent.get(emitterURI);
-		}
-		eventList.add(e);
-		receivedEvent.put(emitterURI, eventList);*/
-		
-		//////////////////////////////////////////////////////
-		
-		/*if (receivedEvent.size()==0 || !receivedEvent.containsKey(emitterURI)) {
-			ArrayList<EventI> listeDestinataires = new ArrayList<>();
-			receivedEvent.put(emitterURI, listeDestinataires);
-		}
-		
-		if(receivedEvent.containsKey(emitterURI)){// verification en plus
-			for(Entry<String, ArrayList<EventI>> entry: receivedEvent.entrySet()) {
-				if (entry.getKey().equals(emitterURI)) {
-					entry.getValue().add(e);
-				}
-			}
-		}*/
 	}
 	
-//	//Les fonction suivantes viennents de CEPBusManagementCI
-//	public String getEventReceptionInboundPortURI(String uri) {
-//		// quand un physical device appelle cette méthode
-//		// le bus crée un port in pour aceuillir ses events
-//		// il le publish ensuite
-//		// Et renvoie l'uri du in créée à savoir uri+"-inboundPortBus"
-//		// Le physical device ayant recu l'uri du in il pourra donc 
-//		// s'y connecter avec un doPortConnection
-//		
+	//Les fonction suivantes viennents de CEPBusManagementCI
+	public String getEventReceptionInboundPortURI(String uri) throws Exception{
+		// quand un physical device appelle cette méthode
+		// le bus crée un port in pour aceuillir ses events
+		// il le publish ensuite
+		// Et renvoie l'uri du in créée à savoir uri+"-inboundPortBus"
+		// Le physical device ayant recu l'uri du in il pourra donc 
+		// s'y connecter avec un doPortConnection
+		return "";
 //		return this.registeredPhysicalDevices.get(uri);
-//	}
+	}
 
 	/**
 	 * Register an URI to inboundPortURI in order to redirect the events
@@ -134,6 +110,7 @@ public class CEPBus extends AbstractComponent{
 	 * @param inboundPortURI
 	 *  
 	 */
+	
 	public void registerEventReceptor(String uri, String inboundPortURI) throws Exception {
 		/*
 		 * 1. Get the current component uri list
@@ -185,51 +162,32 @@ public class CEPBus extends AbstractComponent{
 		
 		// And remove it from the HashMap
 		outboundPortConnexion.remove(uri);
-		
-		
-		/*Iterator<Entry<String, ArrayList<String>>> it = this.registeredCorrelator.entrySet().iterator();
-	   
-		// iter on all registered inboundPort correlator
-	    while (it.hasNext()) {
-	        
-	    	Map.Entry<String, ArrayList<String>> pair = (Entry<String, ArrayList<String>>)it.next();
-        	ArrayList<String> listUri = (ArrayList<String>) pair.getValue();
-	        
-        	if (listUri.contains(uri)) {
-	        	listUri.remove(uri);
-	        	this.registeredCorrelator.put((String) pair.getKey(), listUri);
-	        }
-	    }*/
 	}
 
-	public void registerCommandExecutor(String uri, String inboundPortURI) {
+	public void registerCommandExecutor(String uri, String inboundPortURI) throws Exception{
 		
 	}
 
-	public String getExecutorInboundPortURI(String executorURI) {
+	public String getExecutorInboundPortURI(String executorURI) throws Exception {
 		return null;
 	}
 	/**
 	 * deenregistre une commande avec l'uri d'un executeur
 	 * @param uri
 	 */
-	public void unregisterCommandExecutor(String uri) {
+	public void unregisterCommandExecutor(String uri) throws Exception{
 		
 	}
 	
-	//les deux fonctions suivante viennent de EventEmissionsCI(regroupe les op�rations par lesquelles il va transmettre les �v�nements aux entit�s qui doivent les traiter)
-	//appeler par les composants physiques 
-	
-	
 	/**
-	 * envoyer un evenement provenant de l'URI d'un emetteur(emitterURI) contenu dans le bus 
+	 * Send event from emmitterURI to destinationURI
+	 * @param emitterURI
+	 * @param destinationURI
+	 * @param e
 	 */
 	public void sendEvent(String emitterURI, String destinationURI, EventI e) throws Exception {
         
-		/*
-		 * Send event on the good assiociated out port for destinationURI
-		 */
-		
+
 		// get the out port to redirect the event
 		EventEmissionOutboundPort portToReceiveEvent = outboundPortConnexion.get(destinationURI);
 		
@@ -237,11 +195,11 @@ public class CEPBus extends AbstractComponent{
 		portToReceiveEvent.sendEvent(emitterURI, destinationURI, e);
 	}
 
+	/**
+	 * Call sendEvent to redirect Event for all destinationURIs
+	 */
 	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) throws Exception {
         
-		/*
-		 * Call sendEvent to redirect Event for all destinationURIs
-		 */
 		for (String destinationURI : destinationURIs) {
 			sendEvent(emitterURI, destinationURI, e);
 		}
