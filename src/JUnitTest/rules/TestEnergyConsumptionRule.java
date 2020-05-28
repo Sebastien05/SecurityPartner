@@ -25,7 +25,11 @@ public class TestEnergyConsumptionRule {
 		b.getEventBase().add(energyConsumption);
 
 		assert b.numberOfEvents() == 1;
-		ecr.executeOn(b);
+		try {
+			ecr.executeOn(b);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assert b.numberOfEvents() == 0;
 	}
 }

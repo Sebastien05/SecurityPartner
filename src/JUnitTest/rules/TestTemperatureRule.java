@@ -25,7 +25,11 @@ public class TestTemperatureRule {
 		b.getEventBase().add(temperature);
 
 		assert b.numberOfEvents() == 1;
-		fr.executeOn(b);
+		try {
+			fr.executeOn(b);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assert b.numberOfEvents() == 0;
 	}
 }

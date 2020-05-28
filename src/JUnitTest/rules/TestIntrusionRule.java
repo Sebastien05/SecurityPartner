@@ -34,7 +34,11 @@ public class TestIntrusionRule {
 
 		assert b.numberOfEvents() == 2;
 		System.out.println(b.numberOfEvents());
-		ir.executeOnTest(b);
+		try {
+			ir.executeOnTest(b);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println(b.numberOfEvents());
 		assert b.numberOfEvents() == 0;
 		
