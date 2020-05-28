@@ -19,7 +19,7 @@ implements EventReceptionCI
 	public EventReceptionInboundPort(String cepURI, ComponentI owner) 
 	throws Exception 
 	{
-		super (CEPBusManagementCI.class, owner);
+		super (cepURI, CEPBus.class, owner);
 		assert owner instanceof CEPBus;
 	}
 
