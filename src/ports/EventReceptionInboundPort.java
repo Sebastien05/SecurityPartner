@@ -30,7 +30,6 @@ implements EventReceptionCI
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-//		this.getOwner().handleRequestSync( o -> ((CEPBus)o).receiveEvent(emitterURI, e));
 	}
 
 }

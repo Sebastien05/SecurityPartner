@@ -22,9 +22,8 @@ implements ExecutorCI{
 	}	
 
 	@Override	
-	public void execute(ExecutorCommandI command) {	
+	public void execute(ExecutorCommandI<?> command) throws Exception {	
 		((ExecutorCI)this.owner).execute(command);	
 	}	
-
-
+	
 }

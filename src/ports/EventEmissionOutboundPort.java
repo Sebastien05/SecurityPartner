@@ -2,7 +2,6 @@ package ports;
 
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractOutboundPort;
-import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.event.EventI;
 
@@ -18,18 +17,17 @@ implements EventEmissionCI
 		super(uri, EventEmissionCI.class, owner);
 	}
 	
-	//ajout
 	public EventEmissionOutboundPort(ComponentI owner) throws Exception {
 		super(EventEmissionCI.class, owner);
 	}
 	
 	@Override
-	public void sendEvent(String emitterURI, String destinationURI, EventI e) throws Exception{
+	public void sendEvent(String emitterURI, String destinationURI, EventI e) throws Exception {
 		((EventEmissionCI)this.connector).sendEvent(emitterURI,destinationURI, e);
 	}
 
 	@Override
-	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) throws Exception{
+	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) throws Exception {
 		((EventEmissionCI)this.connector).multisendEvent(emitterURI,destinationURIs, e);
 	}
 

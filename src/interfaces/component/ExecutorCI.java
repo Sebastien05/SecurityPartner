@@ -5,5 +5,5 @@ import fr.sorbonne_u.components.interfaces.RequiredI;
 
 public interface ExecutorCI extends OfferedI, RequiredI{
 	
-	public void execute(ExecutorCommandI command);
+	public void execute(ExecutorCommandI<?> command) throws Exception;
 }

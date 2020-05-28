@@ -22,7 +22,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	@Override
-	public void execute(ExecutorCommandI command) {
+	public void execute(ExecutorCommandI<?> command) throws Exception {
 		((ExecutorCI)this.connector).execute(command);
 	}
 
