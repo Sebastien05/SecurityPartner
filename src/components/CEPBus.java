@@ -15,6 +15,7 @@ import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.component.EventReceptionCI;
+import interfaces.event.AbstractAtomicEvent;
 import interfaces.event.EventI;
 import ports.CEPBusManagementInboundPort;
 import ports.EventEmissionOutboundPort;
@@ -23,7 +24,7 @@ import ports.EventReceptionInboundPort;
 @OfferedInterfaces(offered={CEPBusManagementCI.class, EventReceptionCI.class})
 @RequiredInterfaces(required={EventEmissionCI.class})
 
-public class CEPBus extends AbstractComponent{
+public class CEPBus extends AbstractComponent {
 
 	//protected CEPBusManagementInboundPort managementInPort;
 	//protected EventReceptionInboundPort eventInPort;
@@ -88,7 +89,7 @@ public class CEPBus extends AbstractComponent{
 				destinationURIs.add(entry.getKey());
 			}
 		}
-		this.multisendEvent(emitterURI, (String[]) destinationURIs.toArray(), e);
+		this.multisendEvent(emitterURI, destinationURIs, e);
 		
 	}
 	
@@ -100,7 +101,7 @@ public class CEPBus extends AbstractComponent{
 		// Et renvoie l'uri du in créée à savoir uri+"-inboundPortBus"
 		// Le physical device ayant recu l'uri du in il pourra donc 
 		// s'y connecter avec un doPortConnection
-		return "";
+		return INBOUND_PORT_EVENT_RECEPTION_URI;
 //		return this.registeredPhysicalDevices.get(uri);
 	}
 
@@ -198,8 +199,10 @@ public class CEPBus extends AbstractComponent{
 	/**
 	 * Call sendEvent to redirect Event for all destinationURIs
 	 */
-	public void multisendEvent(String emitterURI, String[] destinationURIs, EventI e) throws Exception {
+	public void multisendEvent(String emitterURI, List<String> destinationURIs, EventI e) throws Exception {
         
+		System.out.println("/sendEvent\\");
+		((AbstractAtomicEvent) e).displayProperties();
 		for (String destinationURI : destinationURIs) {
 			sendEvent(emitterURI, destinationURI, e);
 		}
