@@ -65,8 +65,7 @@ public class IntrusionRule extends AbstractRule {
 
 	@Override
 	public void actions(ArrayList<EventI> triggerringEvents) throws Exception {
-		ExecutorCommandI<AlarmComponent> cmd = new TurnONAlarm(triggerringEvents.get(1).getTimeStamp());
-		this.cop.execute(cmd);
+		this.cop.execute(new TurnONAlarm(triggerringEvents.get(1).getTimeStamp()));
 	}
 
 	@Override

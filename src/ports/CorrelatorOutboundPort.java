@@ -1,14 +1,13 @@
 package ports;
 
-import components.physicaldevices.AlarmComponent;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractOutboundPort;
 import interfaces.component.ExecutorCI;
 import interfaces.component.ExecutorCommandI;
 
-public class CorrelatorOutboundPort 
+public class CorrelatorOutboundPort
 extends AbstractOutboundPort
-implements ExecutorCI{
+implements ExecutorCI {
 
 private static final long serialVersionUID = 1L;
 	
@@ -23,7 +22,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	@Override
-	public void execute(ExecutorCommandI<AlarmComponent> command) throws Exception {
+	public void execute(ExecutorCommandI command) throws Exception {
 		((ExecutorCI)this.connector).execute(command);
 	}
 

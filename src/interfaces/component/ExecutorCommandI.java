@@ -1,7 +1,9 @@
 package interfaces.component;
 
-public interface ExecutorCommandI <T> {
+import fr.sorbonne_u.components.AbstractComponent;
+
+public interface ExecutorCommandI {
 	
-	public void set(T o);
+	public void set(AbstractComponent o);
 	public void execute();
 }
