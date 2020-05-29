@@ -1,9 +1,12 @@
 package components.physicaldevices;
 
 import java.sql.Timestamp;
+import java.util.Date;
+
 import CVM.CVM;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
+import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.component.ExecutorCI;
 import interfaces.component.ExecutorCommandI;
 import ports.ExecutorInboundPort;
@@ -14,7 +17,7 @@ import ports.ExecutorInboundPort;
  */
 @OfferedInterfaces(offered={ExecutorCI.class})
 public class AlarmComponent 
-extends AbstractComponent 		{
+extends AbstractComponent {
 	
 	protected ExecutorInboundPort alarmInp;
 	protected String inboundPortURI;
@@ -25,24 +28,19 @@ extends AbstractComponent 		{
 	public static final String ALARM_ON = "on";
 	public static final int DURATION_ALARM = 5000; 
 	
-	protected AlarmComponent(String alarmInboundPortURI, int nbThreads, int nbSchedulableThreads) throws Exception {
-		super(alarmInboundPortURI, 1, 1);
-		this.alarmInp = new ExecutorInboundPort(alarmInboundPortURI, this);
-		this.alarmInp.publishPort();
-		this.state=ALARM_OFF;
-	}
-	
-	protected AlarmComponent(String reflectionInboundPortURI)
+	protected AlarmComponent(String alarmInboundPortURI)
 	throws Exception
 	{
-		super(reflectionInboundPortURI, 1, 0) ;
-		this.initialise() ;
+		super(1, 0) ;
+		this.init(alarmInboundPortURI) ;
 	}
 
-	protected void	initialise() throws Exception
+	protected void	init(String alarmInboundPortURI) throws Exception
 	{
-		this.alarmInp = new ExecutorInboundPort(this.inboundPortURI, this) ;
-		this.alarmInp.publishPort() ;
+		this.alarmInp = new ExecutorInboundPort(alarmInboundPortURI, this);
+		this.alarmInp.publishPort();
+		this.state = ALARM_OFF;
+		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
 	
 	/*
@@ -52,8 +50,10 @@ extends AbstractComponent 		{
 		int currentTime = 0;
 		while (currentTime<CVM.LIFE_CYCLE_DURATION/1000) {
 			if (this.state==ALARM_ON)
-				System.out.println("DRING DRING !!!");
-			Thread.sleep(1);
+				System.out.println("-----------------\n"+
+								   "| DRING DRING !!!\n"+
+								   "-----------------  ");
+			Thread.sleep(1000);
 			currentTime++;
 		}
 	}
@@ -78,9 +78,24 @@ extends AbstractComponent 		{
 	 * Turns off the alarm if after DURATION_ALARM there is no problem
 	 */
 	public void turnOff(Timestamp time) {
-		if (time.compareTo(this.lastSwitch)>DURATION_ALARM) {
+		if (time.getTime()-this.lastSwitch.getTime()>DURATION_ALARM) {
 			this.state=ALARM_OFF;
 		}
 	}
+	
+	public void finalise() throws Exception {
+		super.finalise();
+	}
+	
+	public void shutdown()
+	throws ComponentShutdownException {
+		try {
+			this.alarmInp.unpublishPort();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		super.shutdown();
+	}
+	
 }
 
