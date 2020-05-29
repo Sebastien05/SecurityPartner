@@ -18,22 +18,23 @@ import ports.RegisterOutboundPort;
 
 @RequiredInterfaces(required={EventEmissionCI.class, CEPBusManagementCI.class})
 
-public class WindowController extends AbstractComponent {
+public class WindowController extends AbstractEmitterDevices {
 
-	private String eeopURI;
-	private String ropURI;
-	private EventEmissionOutboundPort eeop;
-	private RegisterOutboundPort rop;
-	
-	Random random;
-	
-	private int fixedTimeExecution;
-	private int fixedTimeStartExecution;
-	private int fixedDelay;
-	private int room;
-
+//	private String eeopURI;
+//	private String ropURI;
+//	private EventEmissionOutboundPort eeop;
+//	private RegisterOutboundPort rop;
+//	
+//	Random random;
+//	
+//	private int fixedTimeExecution;
+//	private int fixedTimeStartExecution;
+//	private int fixedDelay;
+//	private int room;
+//
 	public static final String OPENED_WINDOW = "opened window";
 	public static final String CLOSED_WINDOW = "closed window";
+	public static final String WINDOW_NAME = "Window controller";
 	
 	protected WindowController(
 		String eventEmissionOutboundPortURI,
@@ -45,39 +46,33 @@ public class WindowController extends AbstractComponent {
 		)
 	throws Exception
 	{
-		super(1, 0);
-
-		this.eeopURI=eventEmissionOutboundPortURI;
-		this.ropURI=registeredOutboundPortURI;
-		
-		this.fixedDelay=fixedDelay;
-		this.fixedTimeExecution=fixedTimeExecution;
-		this.fixedTimeStartExecution=fixedTimeStartExecution;
-		
-		random = new Random();
-		this.room = room;
-		
-		this.init() ;
+		super(eventEmissionOutboundPortURI,registeredOutboundPortURI,fixedTimeExecution,fixedTimeStartExecution,fixedDelay,room);
 	}
-	protected void	init() throws Exception
-	{
-		// Port initialization 
-		this.eeop = new EventEmissionOutboundPort(eeopURI, this) ;
-		this.rop  = new RegisterOutboundPort(ropURI, this); 
-		// Publish them
-		this.eeop.publishPort();
-		this.rop.publishPort();
-		
-		// connection with CEPBus inbound port manager for registration
-		this.doPortConnection(this.rop.getPortURI(), CEPBus.INBOUND_PORT_MANAGEMENT_URI,
-				CEPBusManagementConnector.class.getCanonicalName());
-	}
+	
+//	protected void	init() throws Exception
+//	{
+//		// Port initialization 
+//		this.eeop = new EventEmissionOutboundPort(eeopURI, this) ;
+//		this.rop  = new RegisterOutboundPort(ropURI, this); 
+//		// Publish them
+//		this.eeop.publishPort();
+//		this.rop.publishPort();
+//		
+//		// connection with CEPBus inbound port manager for registration
+//		this.doPortConnection(this.rop.getPortURI(), CEPBus.INBOUND_PORT_MANAGEMENT_URI,
+//				CEPBusManagementConnector.class.getCanonicalName());
+//	}
 	@Override
 	public void	start() throws ComponentStartException
 	{
-		this.logMessage("starting Presence Detector component.") ;
-		super.start();
+		super.start(WINDOW_NAME);
 	}
+//	@Override
+//	public void	start() throws ComponentStartException
+//	{
+//		this.logMessage("starting Presence Detector component.") ;
+//		super.start();
+//	}
 	
 	@Override
 	public void execute() throws Exception
@@ -103,20 +98,20 @@ public class WindowController extends AbstractComponent {
 			Thread.sleep(this.fixedDelay);
 		}
 	}
-	
-	public void finalise() throws Exception {
-		this.doPortDisconnection(this.eeop.getPortURI());
-		this.doPortDisconnection(this.rop.getPortURI());
-		super.finalise();
-	}
-	
-	public void shutdown() throws ComponentShutdownException {
-		try {
-			this.eeop.unpublishPort();
-			this.rop.unpublishPort();
-		} catch (Exception e) {
-			throw new ComponentShutdownException(e);
-		}
-		super.shutdown();
-	}
+//	
+//	public void finalise() throws Exception {
+//		this.doPortDisconnection(this.eeop.getPortURI());
+//		this.doPortDisconnection(this.rop.getPortURI());
+//		super.finalise();
+//	}
+//	
+//	public void shutdown() throws ComponentShutdownException {
+//		try {
+//			this.eeop.unpublishPort();
+//			this.rop.unpublishPort();
+//		} catch (Exception e) {
+//			throw new ComponentShutdownException(e);
+//		}
+//		super.shutdown();
+//	}
 }
