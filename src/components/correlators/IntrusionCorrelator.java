@@ -15,6 +15,7 @@ import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventReceptionCI;
 import interfaces.component.ExecutorCI;
+import interfaces.component.ReceptorEventI;
 import interfaces.event.EventI;
 import ports.CorrelatorOutboundPort;
 import ports.EventReceptionInboundPort;
@@ -25,7 +26,7 @@ import ports.RegisterOutboundPort;
 
 public class IntrusionCorrelator 
 extends AbstractComponent
-implements EventReceptionCI
+implements ReceptorEventI
 {
 	// executor inbound port URI	
 	private String eipURI;
@@ -115,14 +116,17 @@ implements EventReceptionCI
 	/*
 	 * Receive events from CEPBus
 	 */
-	public void receiveEvent(String emitterURI, EventI e) throws Exception {
+	public void eventProcess(String emitterURI, EventI e) throws Exception {
 		this.registeredEvents.addEvent(e);
 		this.registeredRules.fireFirstOn(this.registeredEvents);
 	}
 	
 	public void finalise() throws Exception {
+		
 		this.doPortDisconnection(this.cop.getPortURI());
-//		this.doPortDisconnection(this.erip.getPortURI());
+		
+		// this task is given to the bus
+		// this.doPortDisconnection(this.erip.getPortURI());
 		super.finalise();
 	}
 	
