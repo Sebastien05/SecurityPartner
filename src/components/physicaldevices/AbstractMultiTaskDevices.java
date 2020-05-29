@@ -17,14 +17,16 @@ implements ReceptorCommandI
 	protected Timestamp lastSwitch;
 	protected String componentInboundPortURI;
 
-	protected AbstractMultiTaskDevices(String componentInboundPortURI,
-			String eventEmissionOutboundPortURI,
-			String registeredOutboundPortURI,
-			int fixedTimeExecution,
-			int fixedTimeStartExecution,
-			int fixedDelay,
-			int room
-			)throws Exception{
+	protected AbstractMultiTaskDevices(
+		String componentInboundPortURI,
+		String eventEmissionOutboundPortURI,
+		String registeredOutboundPortURI,
+		int fixedTimeExecution,
+		int fixedTimeStartExecution,
+		int fixedDelay,
+		int room
+		)
+	throws Exception{
 		super(eventEmissionOutboundPortURI,
 				registeredOutboundPortURI,
 				fixedTimeExecution,
@@ -38,7 +40,6 @@ implements ReceptorCommandI
 		this.ComponentInp = new ExecutorInboundPort(componentInboundPortURI, this);
 		this.ComponentInp.publishPort();
 		this.lastSwitch = new Timestamp((new Date()).getTime());
-		super.init();
 	}
 
 	public void processExecute(ExecutorCommandI command) {
