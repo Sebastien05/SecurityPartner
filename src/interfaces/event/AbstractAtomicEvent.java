@@ -9,6 +9,18 @@ import java.util.Map.Entry;
 
 import interfaces.event.AtomicEventI;
 
+/**
+ * The class <code>AbstractAtomicEvent</code> implements <code>AtomicEventI</code>
+ *
+ * <p><strong>Description</strong></p>
+ *	<p>
+ * 	Used by all atomic event
+ * </p>
+ * 
+ * @author Hadrien Cazes, Sebastien Lefevre, Kady Soumahoro
+ *
+ *
+ */
 public abstract class AbstractAtomicEvent implements AtomicEventI {
 
 	public static final String NAME = "nameAtomicEvent";
@@ -24,7 +36,7 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 		this.eventTime = new Timestamp((new Date()).getTime());
 	}
 	/**
-	 * i permet de distinguer tout evenement des autres dans l’esnemble du système 
+	 * Allows distinguishing any event from the others in the whole system
 	 * @return NAME String
 	 */
 	public String getName() {
@@ -35,7 +47,9 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	**/
 	
 	/**
-	 * ajouter une propriete a un evnement
+	 * Add a property in an event
+	 * @param name
+	 * @param value  a serializable value
 	 */
 	@Override
 	public Serializable putproperty(String name, Serializable value) {
@@ -43,7 +57,8 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	}
 	
 	/**
-	 * supprimer une propriete a un evnement
+	 * Remove a property in an event
+	 * @param name
 	 */
 	@Override
 	public Serializable removeProperty(String name) {
@@ -51,7 +66,8 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	}
 	
 	/**
-	 *  donne le moment auquel l’evenement a ete cree
+	 * Gives the moment when the event was created
+	 * 
 	 */
 	@Override
 	public Timestamp getTimeStamp() {
@@ -59,7 +75,9 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	}
 	
 	/**
-	 * verifier une certaine propriete 
+	 * Verify a certain property
+	 * 
+	 * @param name
 	 */
 	@Override
 	public boolean hasProperty(String name) {
@@ -67,7 +85,8 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	}
 	
 	/**
-	 * recuperer une propriete
+	 * recover a property
+	 * @param name
 	 */
 	@Override
 	public Serializable getPropertyValue(String name) {
@@ -75,7 +94,7 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	}
 	
 	/**
-	 * afficher une propriete
+	 * Display properties
 	 */
 	public void displayProperties() {
 		for(Entry<String,Serializable> m : map.entrySet()) {
