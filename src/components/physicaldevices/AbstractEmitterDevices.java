@@ -39,7 +39,7 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 		this.fixedTimeExecution=fixedTimeExecution;
 		this.fixedTimeStartExecution=fixedTimeStartExecution;
 
-		random = new Random();
+		this.random = new Random();
 		this.room = room;
 		
 		this.init() ;
@@ -48,11 +48,11 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 	protected void	init() throws Exception
 	{
 		// Port initialization 
-		eeop = new EventEmissionOutboundPort(eeopURI, this) ;
-		rop  = new RegisterOutboundPort(ropURI, this); 
+		this.eeop = new EventEmissionOutboundPort(eeopURI, this) ;
+		this.rop  = new RegisterOutboundPort(ropURI, this); 
 		// Publish them
-		eeop.publishPort();
-		rop.publishPort();
+		this.eeop.publishPort();
+		this.rop.publishPort();
 		
 		// connection with CEPBus inbound port manager for registration
 		doPortConnection(rop.getPortURI(), CEPBus.INBOUND_PORT_MANAGEMENT_URI,
@@ -67,16 +67,16 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 	
 	public abstract void execute() throws Exception;
 
-	public void finalise(EventEmissionOutboundPort eeop,RegisterOutboundPort rop) throws Exception {
-		this.doPortDisconnection(eeop.getPortURI());
-		this.doPortDisconnection(rop.getPortURI());
+	public void finalise() throws Exception {
+		this.doPortDisconnection(this.eeop.getPortURI());
+		this.doPortDisconnection(this.rop.getPortURI());
 		super.finalise();
 	}
 	
 	public void shutdown() throws ComponentShutdownException {
 		try {
-			eeop.unpublishPort();
-			rop.unpublishPort();
+			this.eeop.unpublishPort();
+			this.rop.unpublishPort();
 		} catch (Exception e) {
 			throw new ComponentShutdownException(e);
 		}
