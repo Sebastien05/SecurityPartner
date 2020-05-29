@@ -1,5 +1,8 @@
 package components.physicaldevices;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import Events.Presence;
 import components.connectors.CEPBusEventEmissionConnector;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
@@ -7,16 +10,17 @@ import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.event.AbstractAtomicEvent;
+import ports.ExecutorInboundPort;
 
 @RequiredInterfaces(required={EventEmissionCI.class, CEPBusManagementCI.class})
 
-public class WindowController extends AbstractEmitterDevices {
+public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitterDevices {
 
 	public static final String OPENED_WINDOW = "opened window";
 	public static final String CLOSED_WINDOW = "closed window";
 	public static final String WINDOW_NAME = "Window controller";
 	
-	protected WindowController(
+	protected WindowController(String componentInboundPortURI,
 		String eventEmissionOutboundPortURI,
 		String registeredOutboundPortURI,
 		int fixedTimeExecution,
@@ -26,8 +30,10 @@ public class WindowController extends AbstractEmitterDevices {
 		)
 	throws Exception
 	{
-		super(eventEmissionOutboundPortURI,registeredOutboundPortURI,fixedTimeExecution,fixedTimeStartExecution,fixedDelay,room);
+		super(componentInboundPortURI,eventEmissionOutboundPortURI,registeredOutboundPortURI,fixedTimeExecution,fixedTimeStartExecution,fixedDelay,room);
 	}
+	
+	
 	
 	@Override
 	public void	start() throws ComponentStartException
@@ -58,5 +64,6 @@ public class WindowController extends AbstractEmitterDevices {
 			this.eeop.sendEvent(eeopURI, "", presence);
 			Thread.sleep(this.fixedDelay);
 		}
-	}
+	}	
+	
 }

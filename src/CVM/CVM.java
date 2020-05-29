@@ -19,6 +19,7 @@ public class CVM extends AbstractCVM{
 	private static final String REGISTER_URI_PRESENCE = "rURIp";
 
 	private static final String OUTBOUNDPORT_URI_WINDOW = "oURIw";
+	private static final String INBOUNDPORT_URI_WINDOW = "ipRIw";
 	private static final String REGISTER_URI_WINDOW = "rURIw";
 	
 	// Executor component inboundPort
@@ -74,7 +75,7 @@ public class CVM extends AbstractCVM{
 		
 		AbstractComponent.createComponent(
 				WindowController.class.getCanonicalName(),
-				new Object[] {OUTBOUNDPORT_URI_WINDOW,
+				new Object[] {INBOUNDPORT_URI_WINDOW,OUTBOUNDPORT_URI_WINDOW,
 						REGISTER_URI_WINDOW,
 						LIFE_CYCLE_DURATION/1000, 1000, 1000, 401});
 		

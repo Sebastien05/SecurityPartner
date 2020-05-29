@@ -44,9 +44,9 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 		
 		this.init() ;
 	}
-	
+
 	protected void	init() throws Exception
-	{
+	{			
 		// Port initialization 
 		this.eeop = new EventEmissionOutboundPort(eeopURI, this) ;
 		this.rop  = new RegisterOutboundPort(ropURI, this); 
