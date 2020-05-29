@@ -8,14 +8,13 @@ import java.util.Map.Entry;
 import java.util.ArrayList;
 
 import components.connectors.CEPBusEventEmissionConnector;
-import components.connectors.CorrelatorEventEmissionConnector;
 import fr.sorbonne_u.components.AbstractComponent;
-import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.component.EventReceptionCI;
+import interfaces.component.ReceptorEventI;
 import interfaces.event.AbstractAtomicEvent;
 import interfaces.event.EventI;
 import ports.CEPBusManagementInboundPort;
@@ -25,7 +24,7 @@ import ports.EventReceptionInboundPort;
 @OfferedInterfaces(offered={CEPBusManagementCI.class, EventReceptionCI.class})
 @RequiredInterfaces(required={EventEmissionCI.class})
 
-public class CEPBus extends AbstractComponent implements EventReceptionCI {
+public class CEPBus extends AbstractComponent implements ReceptorEventI {
 
 	//protected CEPBusManagementInboundPort managementInPort;
 	//protected EventReceptionInboundPort eventInPort;
@@ -78,7 +77,7 @@ public class CEPBus extends AbstractComponent implements EventReceptionCI {
 	 * @throws Exception 
 	 */
 	
-	public void receiveEvent(String emitterURI, EventI e) throws Exception {
+	public void eventProcess(String emitterURI, EventI e) throws Exception {
 		/*
 		 * we'll stock emitter uri and all its events in the HashMap
 		 */
