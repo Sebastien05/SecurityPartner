@@ -6,9 +6,19 @@ import java.util.ArrayList;
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
 import interfaces.rule.EventMatcherI;
+import ports.CorrelatorOutboundPort;
+
 import java.util.Date;
 
 public class EnergyConsumptionRule extends AbstractRule {
+
+	public EnergyConsumptionRule(CorrelatorOutboundPort cop) {
+		super(cop);
+	}
+	
+	public EnergyConsumptionRule() {
+		super();
+	}
 
 	public static final EventMatcherI MATCHER_ENERGY = (e -> e.getPropertyValue("type").equals("energy consumption"));
 

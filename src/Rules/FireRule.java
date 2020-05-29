@@ -1,12 +1,20 @@
 package Rules;
 
 import java.util.ArrayList;
-
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
 import interfaces.rule.EventMatcherI;
+import ports.CorrelatorOutboundPort;
 
 public class FireRule extends AbstractRule {
+
+	public FireRule(CorrelatorOutboundPort cop) {
+		super(cop);
+	}
+	
+	public FireRule() {
+		super();
+	}
 
 	public static final EventMatcherI MATCHER_SMOKE = (e -> e.getPropertyValue("type").equals("smoke"));
 

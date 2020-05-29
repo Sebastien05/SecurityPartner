@@ -1,13 +1,20 @@
 package Rules;
 
 import java.util.ArrayList;
-
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
 import interfaces.rule.EventMatcherI;
+import ports.CorrelatorOutboundPort;
 
 public class TemperatureRule extends AbstractRule {
 
+	public TemperatureRule(CorrelatorOutboundPort cop) {
+		super(cop);
+	}
+	public TemperatureRule() {
+		super();
+	}
+	
 	public static final EventMatcherI MATCHER_TEMPERATURE = (e -> e.getPropertyValue("type").equals("temperature"));
 
 	@Override
