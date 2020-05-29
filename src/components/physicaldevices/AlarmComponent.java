@@ -4,13 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import CVM.CVM;
-import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
-import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.component.ExecutorCI;
-import interfaces.component.ExecutorCommandI;
-import interfaces.component.ReceptorCommandI;
-import ports.ExecutorInboundPort;
 /**
  * un composant qui peut executer des commandes pour declencher ou arreter une
  * alarme aupres d�un gardien accompagnee d�un message d�alarme
@@ -23,13 +18,15 @@ extends AbstractExecutorDevices
 	public static final String ALARM_OFF = "off";
 	public static final String ALARM_ON = "on";
 	public static final int DURATION_ALARM = 5000; 
+	private Timestamp lastSwitch;
+
 	
 	protected AlarmComponent(String alarmInboundPortURI)
 	throws Exception
 	{
-		super(1, 0) ;
-		super.init(alarmInboundPortURI) ;
+		super(alarmInboundPortURI, 1, 0) ;
 		this.state = ALARM_OFF;
+		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
 	
 	/*

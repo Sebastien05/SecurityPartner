@@ -1,8 +1,5 @@
 package components.physicaldevices;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.component.ExecutorCommandI;
@@ -17,17 +14,22 @@ implements ReceptorCommandI
 	protected ExecutorInboundPort ComponentInp;
 	protected String inboundPortURI;
 	protected String state;
-	protected Timestamp lastSwitch;
 
-	protected AbstractExecutorDevices(int nbThreads, int nbSchedulableThreads) {
+	protected AbstractExecutorDevices(
+		String alarmInboundPortURI, 
+		int nbThreads, 
+		int nbSchedulableThreads
+		)
+	throws Exception
+	{
 		super(nbThreads, nbSchedulableThreads);
+		this.init(alarmInboundPortURI);
 	}
 
 	protected void	init(String alarmInboundPortURI) throws Exception
 	{
 		this.ComponentInp = new ExecutorInboundPort(alarmInboundPortURI, this);
 		this.ComponentInp.publishPort();
-		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
 
 	/*
