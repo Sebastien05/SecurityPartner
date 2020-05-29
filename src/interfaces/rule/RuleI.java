@@ -22,8 +22,9 @@ public interface RuleI {
 	 * apparies dans leur ordre d�occurrence ou null si aucun appariement n�a ete trouve ; c�est
 	 * la methode qui exprime le patron d�evenements que la regle cherche a detecter
 	 * @return
+	 * @throws Exception 
 	 */
-	public ArrayList<EventI> trigger();
+	public ArrayList<EventI> trigger() throws Exception;
 	
 	/**
 	 * prend en parametre les evenements apparies (ce qui permet aussi d�acceder a leurs
