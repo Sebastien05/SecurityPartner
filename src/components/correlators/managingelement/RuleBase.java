@@ -4,6 +4,18 @@ import java.util.ArrayList;
 
 import interfaces.rule.RuleI;
 
+/**
+ * The class <code>RulesBase</code> used for organised rules in correlators
+ *
+ * <p><strong>Description</strong></p>
+ *
+ * <p>
+ * In this class we can simply add rules which will be kept in the order of additions to this database
+ * </p>
+ * 
+ * @author Hadrien Cazes, Sebastien Lefevre, Kady Soumahoro
+ *
+ */
 public class RuleBase {
 
 	private ArrayList<RuleI> ruleBase;
@@ -11,8 +23,9 @@ public class RuleBase {
 	public RuleBase() {
 		this.ruleBase = new ArrayList<>();
 	}
+	
 	/**
-	 * ajouter un role 
+	 * Add rule
 	 * @param r
 	 */
 	public void addRule(RuleI r) {
@@ -20,21 +33,23 @@ public class RuleBase {
 	}
 	
 	/**
-	 * retourne vrai si une regle s�est declenchee et faux sinon
-	 * @param eventBase
+	 * Returns true if a rule is triggered otherwise false
+	 * 
+	 * @param eventBase		
 	 * @return
 	 * @throws Exception 
 	 */
 	public boolean fireFirstOn(EventBase eventBase) throws Exception {
 		for (RuleI r : this.ruleBase) {
-			if (r.executeOn(eventBase)) //executeOn: tant qu�un regle ne s�est pas declenchee et elle s�arrete des qu�un regle s�est declenchee ou qu�aucune des regles ne s�est declenchee 
+			if (r.executeOn(eventBase)) //executeOn: tant qu&#145;un regle ne s�est pas declenchee et elle s�arrete des qu�un regle s�est declenchee ou qu�aucune des regles ne s�est declenchee 
 				return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * retourne vrai si au moins une regle s�est declenchee et faux sinon
+	 * Returns true if at least one rule is triggered otherwise false.
+	 * 
 	 * @param eventBase
 	 * @return
 	 * @throws Exception 

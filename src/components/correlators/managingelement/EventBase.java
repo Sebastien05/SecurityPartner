@@ -6,6 +6,20 @@ import java.util.Date;
 
 import interfaces.event.EventI;
 
+/**
+ * The class <code>EventBase</code> contains all the events received by a correlator and on which the correlation rules will operate
+ * 
+ * <p><strong>Description</strong></p>
+ * This class is used to facilitate correlations using temporalities,
+ * the event database keeps them in the order of their occurrence
+ * 
+ * <p>
+ * In this class we can simply add rules which will be kept in the order of additions to this database
+ * </p>
+ * 
+ * @author Hadrien Cazes, Sebastien Lefevre, Kady Soumahoro
+ *
+ */
 public class EventBase {
 
 	private ArrayList<EventI> eventBase;
@@ -20,8 +34,9 @@ public class EventBase {
 	}
 	
 	/**
-	 * clear permet de detruire tous les evenements qui se sont produits a plus de
-	 * period de temps par rapport a l�instant courant
+	 * Clear allows to destroy all the events which occurred more than
+	 * period of time compared to the current instant
+	 * 
 	 * @param period
 	 */
 	public void clearEvents(int period) {
@@ -41,7 +56,8 @@ public class EventBase {
 	}
 	
 	/**
-	 * retourne le nombre d'evenement contenu dans une base d'evenement
+	 * returns the number of events contained in an event database
+	 * 
 	 * @return
 	 */
 	public int numberOfEvents() {
@@ -49,7 +65,9 @@ public class EventBase {
 	}
 	
 	/**
-	 * ajouter un evenement dans une base d'evenement
+	 * Add an event to an event database
+	 * 
+	 * 
 	 * @param e
 	 */
 	public void addEvent(EventI e) {
@@ -57,14 +75,14 @@ public class EventBase {
 	}
 	
 	/**
-	 * supprime un element dans une base d'evenement
+	 * Delete an element in an event database
 	 * @param e
 	 */
 	public void removeEvent(EventI e) {
         for (EventI event: this.eventBase) {
             if(event.equals(e)) {
                 this.eventBase.remove(e);
-                return;
+               return;
             }
         }
     }
@@ -84,7 +102,8 @@ public class EventBase {
 	}
 	
 	/**
-	 * renvoie l'evenement voulu via son indice dans la base d'evenement
+	 * returns the desired event though index in the event database
+	 * 
 	 * @param index
 	 * @return
 	 */
