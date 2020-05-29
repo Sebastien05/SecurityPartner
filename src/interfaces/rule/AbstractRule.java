@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 import components.correlators.managingelement.EventBase;
 import interfaces.event.EventI;
+import ports.CorrelatorOutboundPort;
 
 public abstract class AbstractRule implements RuleI {
 	
 	protected EventBase eventBase;
+	protected CorrelatorOutboundPort cop;
 	
+	public AbstractRule(CorrelatorOutboundPort cop) {
+		this.cop = cop;
+	}
+	
+	// JUnit Test constructor
 	public AbstractRule() {}
 	
 	public RuleI clone() throws CloneNotSupportedException {
@@ -64,7 +71,7 @@ public abstract class AbstractRule implements RuleI {
 
 	//Abstracts methods
 	public abstract void init();
-	public abstract ArrayList<EventI> trigger();
+	public abstract ArrayList<EventI> trigger() throws Exception;
 	public abstract void actions(ArrayList<EventI> triggeringEvents) throws Exception;
 	public abstract void effects(ArrayList<EventI> triggeringEvents);
 }
