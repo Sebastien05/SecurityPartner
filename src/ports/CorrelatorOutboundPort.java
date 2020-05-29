@@ -1,5 +1,6 @@
 package ports;
 
+import components.physicaldevices.AlarmComponent;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractOutboundPort;
 import interfaces.component.ExecutorCI;
@@ -16,13 +17,13 @@ private static final long serialVersionUID = 1L;
 		assert	owner instanceof ExecutorCI ;
 	}
 	
-	public CorrelatorOutboundPort( String uri,ComponentI owner) throws Exception {
-		super (ExecutorCI.class, owner);
+	public CorrelatorOutboundPort(String uri,ComponentI owner) throws Exception {
+		super (uri, ExecutorCI.class, owner);
 		assert	owner instanceof ExecutorCI ;
 	}
 
 	@Override
-	public void execute(ExecutorCommandI<?> command) throws Exception {
+	public void execute(ExecutorCommandI<AlarmComponent> command) throws Exception {
 		((ExecutorCI)this.connector).execute(command);
 	}
 
