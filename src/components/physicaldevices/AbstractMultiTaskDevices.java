@@ -48,11 +48,11 @@ implements ReceptorCommandI
 	
 	public void shutdown() 
 			throws ComponentShutdownException {
-		/*try {
+		try {
 			this.ComponentInp.unpublishPort();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		super.shutdown();
 	}
 
