@@ -18,15 +18,8 @@ import ports.ExecutorInboundPort;
  */
 @OfferedInterfaces(offered={ExecutorCI.class})
 public class AlarmComponent
-extends AbstractComponent 
-implements ReceptorCommandI
+extends AbstractExecutorDevices 
 {
-	
-	protected ExecutorInboundPort alarmInp;
-	protected String inboundPortURI;
-	protected String state;
-	protected Timestamp lastSwitch;
-	
 	public static final String ALARM_OFF = "off";
 	public static final String ALARM_ON = "on";
 	public static final int DURATION_ALARM = 5000; 
@@ -35,15 +28,8 @@ implements ReceptorCommandI
 	throws Exception
 	{
 		super(1, 0) ;
-		this.init(alarmInboundPortURI) ;
-	}
-
-	protected void	init(String alarmInboundPortURI) throws Exception
-	{
-		this.alarmInp = new ExecutorInboundPort(alarmInboundPortURI, this);
-		this.alarmInp.publishPort();
+		super.init(alarmInboundPortURI) ;
 		this.state = ALARM_OFF;
-		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
 	
 	/*
@@ -59,15 +45,6 @@ implements ReceptorCommandI
 			Thread.sleep(1000);
 			currentTime++;
 		}
-	}
-	
-	/*
-	 * Method to receive command and execute it
-	 */
-	@Override
-	public void processExecute(ExecutorCommandI command) {
-		command.set(this);
-		command.execute();
 	}
 
 	/*
@@ -85,20 +62,6 @@ implements ReceptorCommandI
 		if (time.getTime()-this.lastSwitch.getTime()>DURATION_ALARM) {
 			this.state=ALARM_OFF;
 		}
-	}
-	
-	public void finalise() throws Exception {
-		super.finalise();
-	}
-	
-	public void shutdown()
-	throws ComponentShutdownException {
-		try {
-			this.alarmInp.unpublishPort();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		super.shutdown();
 	}
 }
 
