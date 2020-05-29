@@ -137,7 +137,7 @@ public class CEPBus extends AbstractComponent implements EventReceptionCI {
 			
 			// doPortConnection with out port uri created and the inboundPortURI
 			this.doPortConnection(outboundPortURI, inboundPortURI,
-					CorrelatorEventEmissionConnector.class.getCanonicalName());
+					CEPBusEventEmissionConnector.class.getCanonicalName());
 			
 			// Add to the outboundPortConnexion HashMap {Key : correlatorInboundPortURI, Value : cepBusOutboundPort}
 			outboundPortConnexion.put(inboundPortURI, newPort);
