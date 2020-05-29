@@ -1,27 +1,36 @@
 package CVM;
 
+import java.util.ArrayList;
+
 import components.CEPBus;
 import components.connectors.CEPBusEventEmissionConnector;
 import components.connectors.CEPBusManagementConnector;
+import components.correlators.IntrusionCorrelator;
 import components.physicaldevices.PresenceDetector;
+import components.physicaldevices.WindowController;
 import components.physicaldevices.AlarmComponent;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.cvm.AbstractCVM;
 
 public class CVM extends AbstractCVM{
-
-	// CepBus URIs
-	protected static final String OUTBOUNDPORT_URI_CEPB = "cepoport";
-	protected static final String INBOUNDPORT_URI_CEPB = "cepiport";
 	
-	// 
-	protected static final String OUTBOUNDPORT_URI_PRESENCE = "opURIp";
-	protected static final String REGISTER_URI_PRESENCE = "rURIp";
+	// Emitter Component
+	private static final String OUTBOUNDPORT_URI_PRESENCE = "opURIp";
+	private static final String REGISTER_URI_PRESENCE = "rURIp";
 
-	protected static final String INBOUNDPORT_URI_ALARM = "Aiport";
+	private static final String OUTBOUNDPORT_URI_WINDOW = "oURIw";
+	private static final String REGISTER_URI_WINDOW = "rURIw";
+	
+	// Executor component inboundPort
+	private static final String INBOUNDPORT_URI_ALARM = "iporta";
+	
+	// Correlator ports
+	private static final String OUTBOUNDPORT_URI_INTRUSION = "opURIi";
+	private static final String INBOUNDPORT_URI_INTRUSION = "ipURIi";
+	private static final String REGISTER_URI_INTRUSION = "rURIi";
 
 
-	public static final int LIFE_CYCLE_DURATION = 20000;
+	public static final int LIFE_CYCLE_DURATION = 15000;
 	
 	public CVM() throws Exception {
 		super();
@@ -61,16 +70,37 @@ public class CVM extends AbstractCVM{
 				PresenceDetector.class.getCanonicalName(),
 				new Object[] {OUTBOUNDPORT_URI_PRESENCE,
 						REGISTER_URI_PRESENCE,
-						10, 1000, 1000, 401});
-		 
+						LIFE_CYCLE_DURATION/1000, 1000, 1000, 401});
+		
+		AbstractComponent.createComponent(
+				WindowController.class.getCanonicalName(),
+				new Object[] {OUTBOUNDPORT_URI_WINDOW,
+						REGISTER_URI_WINDOW,
+						LIFE_CYCLE_DURATION/1000, 1000, 1000, 401});
+		
+		AbstractComponent.createComponent(
+				AlarmComponent.class.getCanonicalName(),
+				new Object[] {INBOUNDPORT_URI_ALARM});
+		
+		
+		// Specify which uri port to listen in order to receive these events
+		ArrayList<String> urisToListen = new ArrayList<>();
+		urisToListen.add(OUTBOUNDPORT_URI_PRESENCE);
+		urisToListen.add(OUTBOUNDPORT_URI_WINDOW);
+		
+		AbstractComponent.createComponent(
+				IntrusionCorrelator.class.getCanonicalName(),
+				new Object[] {INBOUNDPORT_URI_ALARM,
+						INBOUNDPORT_URI_INTRUSION,
+						REGISTER_URI_INTRUSION, urisToListen});
 		super.deploy();	
 	}
 	public static void	main(String[] args)
 	{
 		try {
 			CVM cvm = new CVM() ;
-			cvm.startStandardLifeCycle(20000L);
-			Thread.sleep(10000L) ;
+			cvm.startStandardLifeCycle(LIFE_CYCLE_DURATION);
+			Thread.sleep(2000L) ;
 			System.exit(0) ;
 		} catch (Exception e) {
 			throw new RuntimeException(e) ;
