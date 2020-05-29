@@ -4,6 +4,7 @@ import components.CEPBus;
 import fr.sorbonne_u.components.ComponentI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
 import interfaces.component.EventReceptionCI;
+import interfaces.component.ReceptorEventI;
 import interfaces.event.EventI;
 
 public class EventReceptionInboundPort extends AbstractInboundPort
@@ -24,11 +25,7 @@ implements EventReceptionCI
 
 	@Override
 	public void receiveEvent(String emitterURI, EventI e) throws Exception {
-		try {
-			((EventReceptionCI) this.getOwner()).receiveEvent(emitterURI, e);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		((ReceptorEventI) this.getOwner()).eventProcess(emitterURI, e);
 	}
 
 }
