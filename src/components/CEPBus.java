@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ArrayList;
 
+import components.connectors.CEPBusEventEmissionConnector;
 import components.connectors.CorrelatorEventEmissionConnector;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.ComponentI;
@@ -24,7 +25,7 @@ import ports.EventReceptionInboundPort;
 @OfferedInterfaces(offered={CEPBusManagementCI.class, EventReceptionCI.class})
 @RequiredInterfaces(required={EventEmissionCI.class})
 
-public class CEPBus extends AbstractComponent {
+public class CEPBus extends AbstractComponent implements EventReceptionCI {
 
 	//protected CEPBusManagementInboundPort managementInPort;
 	//protected EventReceptionInboundPort eventInPort;
@@ -132,6 +133,8 @@ public class CEPBus extends AbstractComponent {
 			// Publish it
 			newPort.publishPort() ;
 			
+			System.out.println("\n(CEPBus) CONNECTION WITH :: "+inboundPortURI+"\n");
+			
 			// doPortConnection with out port uri created and the inboundPortURI
 			this.doPortConnection(outboundPortURI, inboundPortURI,
 					CorrelatorEventEmissionConnector.class.getCanonicalName());
@@ -143,6 +146,8 @@ public class CEPBus extends AbstractComponent {
 		// add the uri to listen and put this arrayList in the registeredCorrelator
 		uriList.add(uri);
 		this.registeredCorrelator.put(inboundPortURI, uriList);
+		
+		System.out.println("Size outboundPortConnexion :"+registeredCorrelator.get(inboundPortURI).size());
 	}
 	
 	/**
@@ -164,21 +169,6 @@ public class CEPBus extends AbstractComponent {
 		// And remove it from the HashMap
 		outboundPortConnexion.remove(uri);
 	}
-
-	public void registerCommandExecutor(String uri, String inboundPortURI) throws Exception{
-		
-	}
-
-	public String getExecutorInboundPortURI(String executorURI) throws Exception {
-		return null;
-	}
-	/**
-	 * deenregistre une commande avec l'uri d'un executeur
-	 * @param uri
-	 */
-	public void unregisterCommandExecutor(String uri) throws Exception{
-		
-	}
 	
 	/**
 	 * Send event from emmitterURI to destinationURI
@@ -191,7 +181,6 @@ public class CEPBus extends AbstractComponent {
 
 		// get the out port to redirect the event
 		EventEmissionOutboundPort portToReceiveEvent = outboundPortConnexion.get(destinationURI);
-		
 		// send event on this port
 		portToReceiveEvent.sendEvent(emitterURI, destinationURI, e);
 	}
@@ -201,12 +190,28 @@ public class CEPBus extends AbstractComponent {
 	 */
 	public void multisendEvent(String emitterURI, List<String> destinationURIs, EventI e) throws Exception {
         
-		System.out.println("/sendEvent\\");
+		System.out.println(" o-> [ Receive Event in CEPBus ]");
 		((AbstractAtomicEvent) e).displayProperties();
 		for (String destinationURI : destinationURIs) {
 			sendEvent(emitterURI, destinationURI, e);
 		}
 		
 	}
+	
+	/*
+	 * These methods are not used
+	 * 
+	 * We give all corresponding executor uri port directly to the correlator
+	 *
+	 */
+	
+	public void registerCommandExecutor(String uri, String inboundPortURI)
+	throws Exception{}
+
+	public String getExecutorInboundPortURI(String executorURI)
+	throws Exception {return null;}
+
+	public void unregisterCommandExecutor(String uri)
+	throws Exception{}
 	
 }
