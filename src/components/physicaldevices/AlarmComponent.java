@@ -9,6 +9,7 @@ import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import interfaces.component.ExecutorCI;
 import interfaces.component.ExecutorCommandI;
+import interfaces.component.ReceptorCommandI;
 import ports.ExecutorInboundPort;
 /**
  * un composant qui peut executer des commandes pour declencher ou arreter une
@@ -16,8 +17,10 @@ import ports.ExecutorInboundPort;
  *
  */
 @OfferedInterfaces(offered={ExecutorCI.class})
-public class AlarmComponent 
-extends AbstractComponent {
+public class AlarmComponent
+extends AbstractComponent 
+implements ReceptorCommandI
+{
 	
 	protected ExecutorInboundPort alarmInp;
 	protected String inboundPortURI;
@@ -61,7 +64,8 @@ extends AbstractComponent {
 	/*
 	 * Method to receive command and execute it
 	 */
-	public void execute(ExecutorCommandI<AlarmComponent> command) {
+	@Override
+	public void processExecute(ExecutorCommandI command) {
 		command.set(this);
 		command.execute();
 	}
@@ -96,6 +100,5 @@ extends AbstractComponent {
 		}
 		super.shutdown();
 	}
-	
 }
 

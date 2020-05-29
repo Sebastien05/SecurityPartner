@@ -1,14 +1,14 @@
 package ports;	
 
-import components.physicaldevices.AlarmComponent;
 import fr.sorbonne_u.components.ComponentI;	
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
 import interfaces.component.ExecutorCI;
-import interfaces.component.ExecutorCommandI;	
+import interfaces.component.ExecutorCommandI;
+import interfaces.component.ReceptorCommandI;	
 
-public class ExecutorInboundPort  	
+public class ExecutorInboundPort	
 extends AbstractInboundPort 	
-implements ExecutorCI{	
+implements ExecutorCI {	
 
 	ComponentI owner;
 	private static final long serialVersionUID = 1L;	
@@ -24,8 +24,8 @@ implements ExecutorCI{
 	}	
 
 	@Override	
-	public void execute(ExecutorCommandI<AlarmComponent> command) throws Exception {
-		((AlarmComponent)this.getOwner()).execute(command);	
+	public void execute(ExecutorCommandI command) throws Exception {
+		((ReceptorCommandI) this.getOwner()).processExecute(command);	
 	}	
 	
 }
