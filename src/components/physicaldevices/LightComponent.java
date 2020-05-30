@@ -12,9 +12,10 @@ import ports.ExecutorInboundPort;
 
 /**
  * @author SecurityPartner
- * Class that automatically switch light on/off.
+ * Class that allows a correlator to switch light on/off.
  */
-public class LightComponent extends AbstractComponent implements ReceptorCommandI {
+public class LightComponent 
+extends AbstractExecutorDevices {
 
 	protected ExecutorInboundPort lightInboundPort;
 	protected String inboundPortURI;
@@ -31,37 +32,16 @@ public class LightComponent extends AbstractComponent implements ReceptorCommand
 	 * @param lightInboundPortURI String that acts as Unique identifier for LightComponent
 	 * @throws Exception
 	 */
-	protected LightComponent(String lightInboundPortURI) throws Exception {
-		super(1, 0);
-		this.init(lightInboundPortURI);
-	}
-
-	/**
-	 * initialise the Light Component port and its state
-	 * @param lightInboundPortURI String that acts as Unique identifier for LightComponent
-	 * @throws Exception
-	 */
-	protected void init(String lightInboundPortURI) throws Exception {
-		this.lightInboundPort = new ExecutorInboundPort(lightInboundPortURI, this);
-		this.lightInboundPort.publishPort();
+	protected LightComponent(String lightInboundPortURI) 
+	throws Exception {
+		super(lightInboundPortURI, 1, 0);
 		this.state = LIGHT_OFF;
 		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
 
-	
 	/**
-	 * Set the light component as the command's owner
-	 * and call the right command associated.
-	 * @param command
-	 */
-	public void processExecute(ExecutorCommandI command) {
-		command.set(this);
-		command.execute();
-	}
-
-	/**
-	 * Display the current status of the light at interval times
-	 * until CVM start finalise method.
+	 * Display the status of the light when a change is called by the
+	 * correlator.
 	 */
 	public void execute() throws InterruptedException {
 		int currentTime = 0;
@@ -78,8 +58,6 @@ public class LightComponent extends AbstractComponent implements ReceptorCommand
 		}
 	}
 
-	
-
 	/** set method for turning light on
 	 * @param time argument to set the new last switched time
 	 */
@@ -91,20 +69,4 @@ public class LightComponent extends AbstractComponent implements ReceptorCommand
 		}
 	}
 
-	public void finalise() throws Exception {
-		super.finalise();
-	}
-
-	/**
-	 * Unpublish LightComponent port
-	 * and shut down the Light component.
-	 */
-	public void shutdown() throws ComponentShutdownException {
-		try {
-			this.lightInboundPort.unpublishPort();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		super.shutdown();
-	}
 }
