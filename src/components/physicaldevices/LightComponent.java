@@ -57,7 +57,7 @@ extends AbstractExecutorDevices {
 	/** set method for turning light on
 	 * @param time argument to set the new last switched time
 	 */
-	public void turnLightON(Timestamp time) {
+	public void turnONLight(Timestamp time) {
 		if (state!=LIGHT_ON) {
 			System.out.println("TURNING LIGHT ON !!!!!");
 			this.state = LIGHT_ON;
