@@ -60,7 +60,13 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	 * @throws Exception
 	 */
 	@Override
-	public void execute() throws Exception {	
+	public void execute() throws Exception {
+		
+		// connection with CEPBus inbound port Event Reception for Event Emission
+		String cepBusInboundPortURI = this.rop.getEventReceptionInboundPortURI(this.eeopURI);
+		this.doPortConnection(this.eeopURI, cepBusInboundPortURI,
+				CEPBusEventEmissionConnector.class.getCanonicalName());
+		
 		int currentTime = 0;
 
 		// To send multiple new TemperatureReading events to the correlator.
@@ -87,8 +93,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		        String message = (this.defaultSetupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
 		        System.out.println(message+ this.room + " is: " + this.detectedTemperature);
 		      
-		        // Coder le constructeur de AbtractAtomicEvent pour qu'il prenne directement toutes ces propriétés
-		        // Au lieu de faire dans tous les emitter à chaque fois ces 3 puts
+		        // need to add manually properties for now...
 		        temperatureReading.putproperty(temperatureReading.TEMP_PROPERTY, this.detectedTemperature);
 		        temperatureReading.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventType);
 		        temperatureReading.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
