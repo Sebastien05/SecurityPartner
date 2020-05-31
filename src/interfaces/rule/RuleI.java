@@ -5,60 +5,43 @@ import java.util.ArrayList;
 import components.correlators.managingelement.EventBase;
 import interfaces.event.EventI;
 
-/**
- * The class <code>RuleI</code> 
- *
- * <p><strong>Description</strong></p>
- *	<p>
- * 	Used by all Rules
- * </p>
- * 
- * @author Hadrien Cazes, Sebastien Lefevre, Kady Soumahoro
- *
- */
-public interface RuleI {
-	
+public interface RuleI<T> {
 	/**
-	 * return the most recent event in the database find by the matcher
-	 *
+	 * retourne l�evenement le plus recent dans la base que cet apparieur apparie
 	 * @param em
 	 * @return
 	 */
-	public EventI match(EventMatcherI em);
-	
+	public EventI match(T em);
 	/**
-	 * initialize the rule, if the data need to be initialize (by default, does nothing).
+	 * initialise la regle, si des donnees doivent l�etre (par defaut, ne fait rien).
 	 */
 	public void init();
 	
 	/**
-	 * Try to find a match on the basis of the events and return the list of events 
-	 * found by the matcher in occurrence order.
-	 * Or null if no match.
-	 * The method that expresses the pattern of events that the rule seeks to detect
-	 * 
+	 * tente un appariement sur la base d�evenements et retourne la liste des evenements
+	 * apparies dans leur ordre d�occurrence ou null si aucun appariement n�a ete trouve ; c�est
+	 * la methode qui exprime le patron d�evenements que la regle cherche a detecter
 	 * @return
 	 * @throws Exception 
 	 */
 	public ArrayList<EventI> trigger() throws Exception;
 	
 	/**
-	 * trigger actions 
-	 * 
-	 * @param triggeringEvents events matched found
+	 * prend en parametre les evenements apparies (ce qui permet aussi d�acceder a leurs
+	 * proprietes si necessaire) et declenche des actions (comme lancer une alarme ou emettre un
+	 * evenement complexe agregeant tout ou partie des evenements apparies)
+	 * @param triggeringEvents
 	 */
 	public void actions(ArrayList<EventI> triggeringEvents) throws Exception;
 	
 	/**
-	 * performs side effects on internal rule data or events basis
-	 * 
-	 * @param triggeringEvents event matched
+	 * prend en parametre les evenements apparies et execute des effets de bords sur les
+	 * donnees internes a la regle ou sur la base d�evenement
+	 * @param triggeringEvents
 	 */
 	public void effects(ArrayList<EventI> triggeringEvents);
-	
 	/**
-	 *  launches the four methods one after the other
-	 *  
+	 *  lance les quatres methodes les unes apres les autres 
 	 * @param events
 	 * @return
 	 * @throws Exception 
