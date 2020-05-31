@@ -1,24 +1,39 @@
 package components.correlators;
 
-import fr.sorbonne_u.components.AbstractComponent;
-import interfaces.component.ReceptorEventI;
+import java.util.ArrayList;
+
+import components.correlators.managingelement.PortReferencer;
 import interfaces.event.EventI;
 
-/**
- * fumee ou fumee + lumiere : incendi : action alarm
- *
- */
-public class FireCorrelator  
-extends AbstractComponent 
-implements ReceptorEventI{
-	protected FireCorrelator () {
-		super(1, 0);
+public class FireCorrelator extends AbstractCorrelator{
+
+	protected FireCorrelator(
+		String eripURI,
+		String ropURI,
+		ArrayList<String> urisToListen,
+		PortReferencer<String> iprURIs
+		)
+	throws Exception 
+	{
+		super(eripURI, ropURI, urisToListen, iprURIs);
+	}
+
+	@Override
+	public void initBis() {
+		// TODO Add specific Rules
+		
+	}
+
+	@Override
+	public void executeBis() {
+		// TODO (optional)
+		
 	}
 
 	@Override
 	public void eventProcess(String emitterURI, EventI e) throws Exception {
-		// TODO Auto-generated method stub
+		// TODO how to process a new received event
+		
 	}
+
 }
-
-
