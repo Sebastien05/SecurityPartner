@@ -26,7 +26,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	protected final String LOW_TEMPERATURE = "Low Temperature detected";
 
 	protected static int defaultSetupTemperature;
-	protected static int defaultDetectedTemperature;
+	protected static int detectedTemperature;
 	
 	/**
 	 * @param thermostatInboundPort set URI for the component
@@ -50,43 +50,46 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 				fixedDelay,
 				room);
 		this.defaultSetupTemperature = defaultSetupTemperature;
-		this.defaultDetectedTemperature = defaultDetectedTemperature;
+		this.detectedTemperature = defaultDetectedTemperature;
 	}
 
 	/**
-	 * Create and send a temperatureReading event to a temperature correlator that should calibrate
-	 *  the room temperature when a certain threshold is reached.
+	 * Simulate a temperature based on detectedTemperature and attempt to add 
+	 * randomness in its variation. The correlator will send commands to stabilize
+	 * it toward defaultSetupTemperature.
+	 * @throws Exception
 	 */
 	@Override
-	public void execute() throws Exception {
-		
+	public void execute() throws Exception {	
 		int currentTime = 0;
 
+		// To send multiple new TemperatureReading events to the correlator.
 		while (currentTime<CVM.LIFE_CYCLE_DURATION/1000) {
 		    
 		    // In order to add random in the script
 		    // Sudden change in temperature between -4 and +4
 		    if (random.nextDouble()<0.1){
-		        this.defaultDetectedTemperature += random.nextInt()%8 - 4;
+		        this.detectedTemperature += random.nextInt()%8 - 4;
 		    }
 
-		    if (this.defaultSetupTemperature != this.defaultDetectedTemperature){
-		        // Temperature stabilization simulation 
-		        int diff = (this.defaultSetupTemperature - this.defaultDetectedTemperature);
+		    // Temperature stabilization simulation 
+		    if (this.defaultSetupTemperature != this.detectedTemperature){
+		        
+		        int diff = (this.defaultSetupTemperature - this.detectedTemperature);
 		        int delta = diff/(Math.abs(diff));
 		        // detected temperature += [-1 or +1]
-		        this.defaultDetectedTemperature = this.defaultDetectedTemperature + delta;
+		        this.detectedTemperature = this.detectedTemperature + delta;
 
 		        // send the new temperature
 		        TemperatureReading temperatureReading = new TemperatureReading();
-		        String eventType = (this.defaultDetectedTemperature >= 35.0) ? HIGH_TEMPERATURE : (this.defaultDetectedTemperature <= 17.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
+		        String eventType = (this.detectedTemperature >= 35.0) ? HIGH_TEMPERATURE : (this.detectedTemperature <= 17.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
 		        
-		        String message = (this.defaultSetupTemperature == this.defaultDetectedTemperature)?: "Stabilized temperature in room":"New temperature in room ";
-		        System.out.println(message+ this.room + " is: " + this.defaultDetectedTemperature);
+		        String message = (this.defaultSetupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
+		        System.out.println(message+ this.room + " is: " + this.detectedTemperature);
 		      
 		        // Coder le constructeur de AbtractAtomicEvent pour qu'il prenne directement toutes ces propriétés
 		        // Au lieu de faire dans tous les emitter à chaque fois ces 3 puts
-		        temperatureReading.putproperty(temperatureReading.TEMP_PROPERTY, this.defaultDetectedTemperature);
+		        temperatureReading.putproperty(temperatureReading.TEMP_PROPERTY, this.detectedTemperature);
 		        temperatureReading.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventType);
 		        temperatureReading.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 		        this.eeop.sendEvent(eeopURI, "", temperatureReading);
@@ -96,15 +99,13 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		}
 	}
 
-	public void lowerTemperature(Timestamp time) {
-		System.out.println("Lowering temperature ...");
-		this.temperature -= 1;
-		this.lastSwitch = time;
+	public void lowerTemperature(int degree) {
+		System.out.println("Lowering temperature by " + degree);
+		this.temperature -= degree;
 	}
 
-	public void raiseTemperature(Timestamp time) {
-		System.out.println("Raising temperature ...");
-		this.temperature += 1;
-		this.lastSwitch = time;
+	public void raiseTemperature(Timestamp time,int degree) {
+		System.out.println("Raising temperature ..." + degree);
+		this.temperature += degree;
 	}
 }
