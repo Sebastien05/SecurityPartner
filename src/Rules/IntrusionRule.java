@@ -3,29 +3,35 @@ package Rules;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
+import Events.Presence;
 import commands.TurnOFFAlarm;
 import commands.TurnONAlarm;
+import components.correlators.managingelement.PortReferencer;
 import components.physicaldevices.AlarmComponent;
 import components.physicaldevices.PresenceDetector;
 import components.physicaldevices.WindowController;
 import interfaces.component.ExecutorCommandI;
+import interfaces.event.AbstractAtomicEvent;
 import interfaces.event.EventI;
-import interfaces.rule.AbstractRule;
-import interfaces.rule.EventMatcherI;
+import interfaces.rule.AbstractRuleMultiRoom;
+import interfaces.rule.EventMatcherRoomI;
 import ports.CorrelatorOutboundPort;
 
-public class IntrusionRule extends AbstractRule {
+public class IntrusionRule extends AbstractRuleMultiRoom {
 		
-	public static final EventMatcherI MATCHER_WINDOW_OPEN =
-			(e -> e.getPropertyValue("type").
-			equals(WindowController.OPENED_WINDOW)) ;
-	public static final EventMatcherI MATCHER_PRESENCE_DETECTION =
-			(e -> e.getPropertyValue("type").
-			equals(PresenceDetector.PRESENCE_DETECTED)) ;
+	public static final EventMatcherRoomI MATCHER_WINDOW_OPEN =
+			((e, r)-> e.getPropertyValue("type").equals(WindowController.OPENED_WINDOW) 
+					&& e.getPropertyValue(AbstractAtomicEvent.ROOM_PROPERTY) == r) ;
+	
+	public static final EventMatcherRoomI MATCHER_PRESENCE_DETECTION =
+			((e, r)-> e.getPropertyValue("type").equals(PresenceDetector.PRESENCE_DETECTED)
+					&& e.getPropertyValue(AbstractAtomicEvent.ROOM_PROPERTY) == r) ;
 		
-	public IntrusionRule(CorrelatorOutboundPort cop) {
-		super(cop);
+	public IntrusionRule(PortReferencer<CorrelatorOutboundPort> pr) {
+		super(pr);
 	}
 	
 	public IntrusionRule() {
@@ -38,14 +44,17 @@ public class IntrusionRule extends AbstractRule {
 	}
 
 	@Override
-	public ArrayList<EventI> trigger() throws Exception {
+	public ArrayList<EventI> trigger(String room) throws Exception {
+		
 		
 		// Pattern event matching
-		EventI windowOpen = this.match(MATCHER_WINDOW_OPEN) ;
-		EventI presence = this.match(MATCHER_PRESENCE_DETECTION) ;
+		EventI windowOpen = this.match(MATCHER_WINDOW_OPEN, room) ;
+		EventI presence = this.match(MATCHER_PRESENCE_DETECTION, room) ;
 		
+		CorrelatorOutboundPort cop;
+		
+		// If not any event have been matched for intrusion, notify all rooms
 		if (windowOpen==null || presence==null) {
-			this.cop.execute(new TurnOFFAlarm(new Timestamp((new Date()).getTime())));
 			return null;
 		}
 				
@@ -62,10 +71,25 @@ public class IntrusionRule extends AbstractRule {
 			return null ;
 		}
 	}
+	
+	@Override
+	public void actionsWhenNoTriggeringEvent (ArrayList<EventI> triggeringEvents) 
+	throws Exception 
+	{
+		CorrelatorOutboundPort cop;
+		for (String roomName: this.pr.getAllRoom()){
+			cop = (CorrelatorOutboundPort) pr.getPort(roomName, Presence.class.getSimpleName());
+			cop.execute(new TurnOFFAlarm(new Timestamp((new Date()).getTime())));
+		}		
+	}
 
 	@Override
-	public void actions(ArrayList<EventI> triggerringEvents) throws Exception {
-		this.cop.execute(new TurnONAlarm(triggerringEvents.get(1).getTimeStamp()));
+	public void actions (ArrayList<EventI> triggerringEvents) 
+	throws Exception 
+	{
+		String room = (String) ((AbstractAtomicEvent)triggerringEvents.get(1)).getRoom();
+		String type = (String) ((AbstractAtomicEvent)triggerringEvents.get(1)).getType();
+		this.pr.getPort(room, type).execute(new TurnONAlarm(triggerringEvents.get(1).getTimeStamp()));
 	}
 
 	@Override
@@ -74,17 +98,16 @@ public class IntrusionRule extends AbstractRule {
 		this.eventBase.removeEvent(triggerringEvents.get(0)) ;
 		this.eventBase.removeEvent(triggerringEvents.get(1)) ;
 	}
-	
-//		
-//		public IntrusionRule(HashMap<String, CorrelatorOutboundPort> cop) {
-//			super(cop);
-//		}
-//		
-//		@Override
-//		public void actions(ArrayList<EventI> triggerringEvents) throws Exception {
-//			EventI event = triggerringEvents.get(1);
-//			this.cop.get(event.getPropertyValue(AbstractAtomicEvent.ROOM_PROPERTY)).execute(new TurnONAlarm(event.getTimeStamp()));
-//		}
-//
-	
+
+	@Override
+	public EventI match(EventMatcherRoomI em) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<EventI> trigger() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
