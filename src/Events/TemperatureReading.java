@@ -4,22 +4,17 @@ import interfaces.event.AbstractAtomicEvent;
 
 public class TemperatureReading extends AbstractAtomicEvent {
 
-	private static final String URI_temperatureR= "temperatureReading";
+	private static final String URI= "temperatureReading";
 	private static int cpt = 0;
 	private int id;
 	
-	public TemperatureReading() {
-		super();
+	public TemperatureReading(String room) {
+		super(URI, room);
 		id=cpt++;
 	}
 	
 	@Override
 	public String getURI() {
-		return URI_temperatureR+"_"+this.id;
-	}
-	
-	//intrusionDetected
-	public String getType() {
-		return URI_temperatureR;
+		return URI+"_"+this.id;
 	}
 }

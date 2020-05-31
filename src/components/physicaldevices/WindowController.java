@@ -20,20 +20,21 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 	public static final String CLOSED_WINDOW = "closed window";
 	public static final String WINDOW_NAME = "Window controller";
 	
-	protected WindowController(String componentInboundPortURI,
+	protected WindowController(
+		String componentInboundPortURI,
 		String eventEmissionOutboundPortURI,
 		String registeredOutboundPortURI,
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
-		int room
+		String room
 		)
 	throws Exception
 	{
-		super(componentInboundPortURI,eventEmissionOutboundPortURI,registeredOutboundPortURI,fixedTimeExecution,fixedTimeStartExecution,fixedDelay,room);
+		super(componentInboundPortURI,eventEmissionOutboundPortURI,
+				registeredOutboundPortURI,fixedTimeExecution,
+				fixedTimeStartExecution,fixedDelay,room);
 	}
-	
-	
 	
 	@Override
 	public void	start() throws ComponentStartException
@@ -54,11 +55,10 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 			
 			// Create presence event
-			AbstractAtomicEvent presence = new Presence();
+			AbstractAtomicEvent presence = new Presence(this.room);
 			String eventMessage = (i==2)?
 					OPENED_WINDOW:CLOSED_WINDOW;
 			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
-			presence.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 			
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", presence);

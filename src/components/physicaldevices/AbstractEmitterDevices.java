@@ -22,14 +22,15 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 	protected int fixedTimeExecution;
 	protected int fixedTimeStartExecution;
 	protected int fixedDelay;
-	protected int room;
+	protected String room;
 	
-	protected AbstractEmitterDevices(String eventEmissionOutboundPortURI,
+	protected AbstractEmitterDevices(
+			String eventEmissionOutboundPortURI,
 			String registeredOutboundPortURI,
 			int fixedTimeExecution,
 			int fixedTimeStartExecution,
 			int fixedDelay,
-			int room
+			String room
 			)throws Exception{
 		super(1, 0) ;
 		this.eeopURI=eventEmissionOutboundPortURI;

@@ -30,10 +30,17 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	protected String message;
 	protected Map<String, Serializable> map;
 	private Timestamp eventTime;
+	protected String room;
+	protected String type;
+	protected String specificEvent;
+	protected Serializable value;
 	
-	public AbstractAtomicEvent() {
+	public AbstractAtomicEvent(String type, String room) {
+		this.type = type;
+		this.room = room;
 		map = new HashMap<String, Serializable>();
 		this.eventTime = new Timestamp((new Date()).getTime());
+		this.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 	}
 	/**
 	 * Allows distinguishing any event from the others in the whole system
@@ -42,9 +49,14 @@ public abstract class AbstractAtomicEvent implements AtomicEventI {
 	public String getName() {
 		return NAME;
 	}
-	/*public abstract Serializable putproperty(String name, Serializable value);	
-	public abstract Serializable removeProperty(String name);
-	**/
+	
+	public String getRoom() {
+		return this.room;
+	}
+	
+	public String getType() {
+		return this.type;
+	}
 	
 	/**
 	 * Add a property in an event

@@ -22,7 +22,7 @@ public class PresenceDetector extends AbstractEmitterDevices {
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
-		int room
+		String room
 		)
 	throws Exception
 	{
@@ -52,12 +52,10 @@ public class PresenceDetector extends AbstractEmitterDevices {
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 			
 			// Create presence event
-			AbstractAtomicEvent presence = new Presence();
+			AbstractAtomicEvent presence = new Presence(this.room);
 			String eventMessage = (i==3)?
 					PRESENCE_DETECTED:NO_PRESENCE_DETECTED;
 			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
-			presence.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
-			
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", presence);
 			Thread.sleep(this.fixedDelay);

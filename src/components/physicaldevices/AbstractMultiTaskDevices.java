@@ -24,7 +24,7 @@ implements ReceptorCommandI
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
-		int room
+		String room
 		)
 	throws Exception{
 		super(eventEmissionOutboundPortURI,
