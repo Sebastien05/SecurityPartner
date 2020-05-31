@@ -24,7 +24,7 @@ extends AbstractExecutorDevices
 	protected AlarmComponent(String alarmInboundPortURI)
 	throws Exception
 	{
-		super(alarmInboundPortURI, 1, 0) ;
+		super(alarmInboundPortURI) ;
 		this.state = ALARM_OFF;
 		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}

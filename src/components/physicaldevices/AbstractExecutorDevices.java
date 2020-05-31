@@ -15,14 +15,10 @@ implements ReceptorCommandI
 	protected String inboundPortURI;
 	protected String state;
 
-	protected AbstractExecutorDevices(
-		String alarmInboundPortURI, 
-		int nbThreads, 
-		int nbSchedulableThreads
-		)
+	protected AbstractExecutorDevices(String alarmInboundPortURI)
 	throws Exception
 	{
-		super(nbThreads, nbSchedulableThreads);
+		super(1, 0);
 		this.init(alarmInboundPortURI);
 	}
 
