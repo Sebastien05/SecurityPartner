@@ -1,11 +1,12 @@
 package JUnitTest.rules;
 
 import org.junit.Test;
-import Events.WindowOpen;
+import Events.Window;
 import Events.Presence;
 import Rules.IntrusionRule;
 import components.correlators.managingelement.EventBase;
 import components.physicaldevices.PresenceDetector;
+import components.physicaldevices.WindowController;
 import interfaces.event.AbstractAtomicEvent;
 
 public class TestIntrusionRule {
@@ -16,13 +17,11 @@ public class TestIntrusionRule {
 		IntrusionRule ir = new IntrusionRule();
 		
 		// Window needs to be opened before presence for intrusion rule
-		WindowOpen wo = new WindowOpen();
-		Presence p = new Presence();
+		Window wo = new Window("401");
+		Presence p = new Presence("401");
 		
 		p.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, PresenceDetector.PRESENCE_DETECTED);
-		p.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, "401");
-		wo.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, "window open");
-		wo.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, "401");
+		wo.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, WindowController.OPENED_WINDOW);
 
 		p.displayProperties();
 		wo.displayProperties();

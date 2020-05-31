@@ -5,6 +5,7 @@ import org.junit.Test;
 import Events.TemperatureReading;
 import Rules.TemperatureRule;
 import components.correlators.managingelement.EventBase;
+import interfaces.event.AbstractAtomicEvent;
 
 public class TestTemperatureRule {
 
@@ -14,11 +15,10 @@ public class TestTemperatureRule {
 		
 		TemperatureRule fr = new TemperatureRule();
 		
-		TemperatureReading temperature = new TemperatureReading();
+		TemperatureReading temperature = new TemperatureReading("401");
 		
-		temperature.putproperty("type", "temperature");
+		temperature.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, "temperature");
 		temperature.putproperty("temperature", 60.0);
-		temperature.putproperty("room", "401");
 		
 		temperature.displayProperties();
 

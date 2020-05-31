@@ -5,6 +5,7 @@ import org.junit.Test;
 import Events.Smoke;
 import Rules.FireRule;
 import components.correlators.managingelement.EventBase;
+import interfaces.event.AbstractAtomicEvent;
 
 public class TestFireRule {
 
@@ -14,10 +15,9 @@ public class TestFireRule {
 		
 		FireRule fr = new FireRule();
 		
-		Smoke smoke = new Smoke();
+		Smoke smoke = new Smoke("401");
 		
-		smoke.putproperty("type", "smoke");
-		smoke.putproperty("room", "401");
+		smoke.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, "smoke");
 		
 		smoke.displayProperties();
 
