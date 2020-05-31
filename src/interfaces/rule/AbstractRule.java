@@ -3,23 +3,25 @@ package interfaces.rule;
 import java.util.ArrayList;
 
 import components.correlators.managingelement.EventBase;
+import components.correlators.managingelement.PortReferencer;
 import interfaces.event.EventI;
 import ports.CorrelatorOutboundPort;
 
-public abstract class AbstractRule implements RuleI {
+public abstract class AbstractRule implements RuleI<EventMatcherI> {
 	
 	protected EventBase eventBase;
-	protected CorrelatorOutboundPort cop;
+	protected PortReferencer<CorrelatorOutboundPort> pr;
 	
-	public AbstractRule(CorrelatorOutboundPort cop) {
-		this.cop = cop;
+	public AbstractRule(PortReferencer<CorrelatorOutboundPort> pr) {
+		this.pr = pr;
 	}
 	
 	// JUnit Test constructor
 	public AbstractRule() {}
 	
-	public RuleI clone() throws CloneNotSupportedException {
-		return (RuleI) super.clone();
+	@SuppressWarnings("unchecked")
+	public RuleI<EventMatcherI> clone() throws CloneNotSupportedException {
+		return (RuleI<EventMatcherI>) super.clone();
 	}
 	
 	public EventI match(EventMatcherI em) {
