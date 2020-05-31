@@ -87,7 +87,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		        this.detectedTemperature = this.detectedTemperature + delta;
 
 		        // send the new temperature
-		        TemperatureReading temperatureReading = new TemperatureReading();
+		        TemperatureReading temperatureReading = new TemperatureReading(this.room);
 		        String eventType = (this.detectedTemperature >= 35.0) ? HIGH_TEMPERATURE : (this.detectedTemperature <= 17.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
 		        
 		        String message = (this.defaultSetupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
