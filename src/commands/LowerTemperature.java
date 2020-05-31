@@ -14,11 +14,9 @@ import interfaces.component.ExecutorCommandI;
 public class LowerTemperature implements ExecutorCommandI {
 
 	protected ThermostatComponent component;
-	protected Timestamp eventTime;
-	protected double temperatureToDecrease;
+	protected int temperatureToDecrease;
 	
-	public LowerTemperature(Timestamp time,double temperatureToDecrease) {
-		this.eventTime = time;
+	public LowerTemperature(int temperatureToDecrease) {
 		this.temperatureToDecrease = temperatureToDecrease;
 	}
 	
@@ -29,7 +27,7 @@ public class LowerTemperature implements ExecutorCommandI {
 	
 	@Override
 	public void execute() {
-		this.component.lowerTemperature(this.eventTime);
+		this.component.lowerTemperature(this.temperatureToDecrease);
 	}
 
 }

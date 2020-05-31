@@ -104,7 +104,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		this.temperature -= degree;
 	}
 
-	public void raiseTemperature(Timestamp time,int degree) {
+	public void raiseTemperature(int degree) {
 		System.out.println("Raising temperature ..." + degree);
 		this.temperature += degree;
 	}

@@ -15,11 +15,9 @@ import interfaces.component.ExecutorCommandI;
 public class RaiseTemperature implements ExecutorCommandI {
 
 	protected ThermostatComponent component;
-	protected Timestamp eventTime;
-	protected double temperatureToAdd;
+	protected int temperatureToAdd;
 	
-	public RaiseTemperature(Timestamp time,double temperatureToAdd) {
-		this.eventTime = time;
+	public RaiseTemperature(int temperatureToAdd) {
 		this.temperatureToAdd = temperatureToAdd;
 	}
 	
@@ -30,7 +28,7 @@ public class RaiseTemperature implements ExecutorCommandI {
 	
 	@Override
 	public void execute() {
-		this.component.raiseTemperature(this.eventTime);
+		this.component.raiseTemperature(this.temperatureToAdd);
 	}
 
 }
