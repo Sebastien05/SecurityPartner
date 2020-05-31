@@ -30,7 +30,7 @@ extends AbstractExecutorDevices {
 	 */
 	protected LightComponent(String lightInboundPortURI) 
 	throws Exception {
-		super(lightInboundPortURI, 1, 0);
+		super(lightInboundPortURI);
 		this.state = LIGHT_OFF;
 		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
