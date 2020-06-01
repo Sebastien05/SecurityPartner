@@ -5,7 +5,8 @@ import interfaces.event.AbstractAtomicEvent;
 public class EnergyConsumption extends AbstractAtomicEvent {
 
 	private static final String URI= "energyConsumption";
-	public static final String ENERGY_PROPERTY = "Energy consumption";
+	public static final String ENERGY_VALUE_PROPERTY = "Energy consumption value";
+	public static final String ENERGY_READING_PROPERTY = "Energy consumption reading";
 	private static int cpt = 0;
 	private int id;
 	
