@@ -19,6 +19,9 @@ implements CEPBusManagementCI
 	public RegisterOutboundPort(String ropURI, ComponentI owner) throws Exception {
 		super(ropURI, CEPBusManagementCI.class, owner);
 	}
+	public RegisterOutboundPort(ComponentI owner) throws Exception {
+		super(CEPBusManagementCI.class, owner);
+	}
 
 	@Override
 	public String getEventReceptionInboundPortURI(String uri) throws Exception{

@@ -39,7 +39,6 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 	 */
 	protected EnergyConsumptionDetector(
 		String eventEmissionOutboundPortURI,
-		String registeredOutboundPortURI,
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
@@ -49,7 +48,6 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 	throws Exception
 	{
 		super(eventEmissionOutboundPortURI,
-				registeredOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
 				fixedDelay,room);

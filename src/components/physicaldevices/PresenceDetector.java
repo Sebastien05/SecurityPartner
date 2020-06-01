@@ -19,7 +19,6 @@ public class PresenceDetector extends AbstractEmitterDevices {
 	
 	protected PresenceDetector(
 		String eventEmissionOutboundPortURI,
-		String registeredOutboundPortURI,
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
@@ -28,7 +27,6 @@ public class PresenceDetector extends AbstractEmitterDevices {
 	throws Exception
 	{
 		super(eventEmissionOutboundPortURI,
-				registeredOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
 				fixedDelay,room);

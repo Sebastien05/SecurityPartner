@@ -20,7 +20,6 @@ implements ReceptorCommandI
 	protected AbstractMultiTaskDevices(
 		String componentInboundPortURI,
 		String eventEmissionOutboundPortURI,
-		String registeredOutboundPortURI,
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
@@ -28,7 +27,6 @@ implements ReceptorCommandI
 		)
 	throws Exception{
 		super(eventEmissionOutboundPortURI,
-				registeredOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
 				fixedDelay,room);

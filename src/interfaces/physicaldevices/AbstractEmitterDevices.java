@@ -13,7 +13,6 @@ import ports.RegisterOutboundPort;
 public abstract class AbstractEmitterDevices extends AbstractComponent {//pour presence detector
 	
 	protected String eeopURI;
-	protected String ropURI;
 	protected EventEmissionOutboundPort eeop;
 	protected RegisterOutboundPort rop;
 	
@@ -26,7 +25,6 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 	
 	protected AbstractEmitterDevices(
 			String eventEmissionOutboundPortURI,
-			String registeredOutboundPortURI,
 			int fixedTimeExecution,
 			int fixedTimeStartExecution,
 			int fixedDelay,
@@ -34,7 +32,6 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 			)throws Exception{
 		super(1, 0) ;
 		this.eeopURI=eventEmissionOutboundPortURI;
-		this.ropURI=registeredOutboundPortURI;
 		
 		this.fixedDelay=fixedDelay;
 		this.fixedTimeExecution=fixedTimeExecution;
@@ -50,7 +47,7 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 	{			
 		// Port initialization 
 		this.eeop = new EventEmissionOutboundPort(eeopURI, this) ;
-		this.rop  = new RegisterOutboundPort(ropURI, this); 
+		this.rop  = new RegisterOutboundPort(this); 
 		// Publish them
 		this.eeop.publishPort();
 		this.rop.publishPort();

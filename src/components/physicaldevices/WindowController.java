@@ -24,7 +24,6 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 	protected WindowController(
 		String componentInboundPortURI,
 		String eventEmissionOutboundPortURI,
-		String registeredOutboundPortURI,
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
@@ -32,9 +31,11 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 		)
 	throws Exception
 	{
-		super(componentInboundPortURI,eventEmissionOutboundPortURI,
-				registeredOutboundPortURI,fixedTimeExecution,
-				fixedTimeStartExecution,fixedDelay,room);
+		super(componentInboundPortURI,
+				eventEmissionOutboundPortURI,
+				fixedTimeExecution,
+				fixedTimeStartExecution,
+				fixedDelay,room);
 	}
 	
 	@Override
