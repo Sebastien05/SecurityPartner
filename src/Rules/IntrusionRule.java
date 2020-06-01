@@ -3,17 +3,13 @@ package Rules;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 import Events.Presence;
 import commands.TurnOFFAlarm;
 import commands.TurnONAlarm;
 import components.correlators.managingelement.PortReferencer;
-import components.physicaldevices.AlarmComponent;
 import components.physicaldevices.PresenceDetector;
 import components.physicaldevices.WindowController;
-import interfaces.component.ExecutorCommandI;
 import interfaces.event.AbstractAtomicEvent;
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRuleMultiRoom;
@@ -50,9 +46,7 @@ public class IntrusionRule extends AbstractRuleMultiRoom {
 		// Pattern event matching
 		EventI windowOpen = this.match(MATCHER_WINDOW_OPEN, room) ;
 		EventI presence = this.match(MATCHER_PRESENCE_DETECTION, room) ;
-		
-		CorrelatorOutboundPort cop;
-		
+				
 		// If not any event have been matched for intrusion, notify all rooms
 		if (windowOpen==null || presence==null) {
 			return null;
@@ -99,15 +93,4 @@ public class IntrusionRule extends AbstractRuleMultiRoom {
 		this.eventBase.removeEvent(triggerringEvents.get(1)) ;
 	}
 
-	@Override
-	public EventI match(EventMatcherRoomI em) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<EventI> trigger() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

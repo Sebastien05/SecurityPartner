@@ -13,7 +13,7 @@ import components.physicaldevices.PresenceDetector;
 import interfaces.event.EventI;
 import ports.CorrelatorOutboundPort;
 
-public abstract class AbstractRuleMultiRoom implements RuleI<EventMatcherRoomI> {
+public abstract class AbstractRuleMultiRoom implements RuleMultiRoomI {
 	
 	protected EventBase eventBase;
 	protected PortReferencer<CorrelatorOutboundPort> pr;
@@ -25,9 +25,8 @@ public abstract class AbstractRuleMultiRoom implements RuleI<EventMatcherRoomI> 
 	// JUnit Test constructor
 	public AbstractRuleMultiRoom() {}
 	
-	@SuppressWarnings("unchecked")
-	public RuleI<EventMatcherRoomI> clone() throws CloneNotSupportedException {
-		return (RuleI<EventMatcherRoomI>) super.clone();
+	public RuleMultiRoomI clone() throws CloneNotSupportedException {
+		return (RuleMultiRoomI) super.clone();
 	}
 	
 	public EventI match(EventMatcherRoomI em, String room) {

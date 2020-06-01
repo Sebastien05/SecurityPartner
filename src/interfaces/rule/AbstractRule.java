@@ -7,7 +7,7 @@ import components.correlators.managingelement.PortReferencer;
 import interfaces.event.EventI;
 import ports.CorrelatorOutboundPort;
 
-public abstract class AbstractRule implements RuleI<EventMatcherI> {
+public abstract class AbstractRule implements RuleSimplyI {
 	
 	protected EventBase eventBase;
 	protected PortReferencer<CorrelatorOutboundPort> pr;
@@ -19,9 +19,8 @@ public abstract class AbstractRule implements RuleI<EventMatcherI> {
 	// JUnit Test constructor
 	public AbstractRule() {}
 	
-	@SuppressWarnings("unchecked")
-	public RuleI<EventMatcherI> clone() throws CloneNotSupportedException {
-		return (RuleI<EventMatcherI>) super.clone();
+	public RuleSimplyI clone() throws CloneNotSupportedException {
+		return (RuleSimplyI) super.clone();
 	}
 	
 	public EventI match(EventMatcherI em) {
