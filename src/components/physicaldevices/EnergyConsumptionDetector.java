@@ -20,20 +20,23 @@ import interfaces.physicaldevices.AbstractEmitterDevices;
 
 public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 
-	public static final String ANOMALY = "Anormal energy consumption detected";
-	public static final String NORMAL = "Energy consumption is normal";
 	public static final String ENERGY_CONSUMPTION_NAME = "Energy Consumption Detector";
+	public final static int ENERGYCONSUMPTIONNORMALVALUEDAY = 50000;
+	public final static int ENERGYCONSUMPTIONNORMALVALUENIGHT = 10000;
 	
-	protected Random random;
-	protected static int EnergyConsumptionNormalValue;
-	protected static int detectedEnergyConsumption;
+	protected int detectedEnergyConsumption;
 	
+
 	/**
-	 * @param thermostatInboundPort set URI for the component
+	 * @param eventEmissionOutboundPortURI
+	 * @param registeredOutboundPortURI
+	 * @param fixedTimeExecution
+	 * @param fixedTimeStartExecution
+	 * @param fixedDelay
+	 * @param room
+	 * @param detectedEnergyConsumption
 	 * @throws Exception
 	 */
-	
-	
 	protected EnergyConsumptionDetector(
 		String eventEmissionOutboundPortURI,
 		String registeredOutboundPortURI,
@@ -41,19 +44,15 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 		int fixedTimeStartExecution,
 		int fixedDelay,
 		String room,
-		int EnergyConsumptionNormalValue,
 		int detectedEnergyConsumption
 		)
 	throws Exception
 	{
-		// we fix the room to "general" so that the entire building rings the alarm 
 		super(eventEmissionOutboundPortURI,
 				registeredOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
-				fixedDelay,"general");
-		this.random = new Random();
-		this.EnergyConsumptionNormalValue = EnergyConsumptionNormalValue;
+				fixedDelay,room);
 		this.detectedEnergyConsumption = detectedEnergyConsumption;
 	}
 	
@@ -74,25 +73,14 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 		// component's test script 
 		Thread.sleep(fixedTimeStartExecution);
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
-			
-			// In order to add random in the script
-		    // Sudden change in Energy Consumption between -4 and +4
-		    if (random.nextDouble()<0.1){
-		        this.detectedEnergyConsumption += random.nextInt()%8 - 4;
-		    }
 		    
 			// Create energy consumption event
 			AbstractAtomicEvent energyConsumption = new EnergyConsumption(this.room);
 			
-			String eventMessage = (i==3)?ANOMALY:NORMAL;
-			
-			energyConsumption.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
-			energyConsumption.putproperty(EnergyConsumption.ENERGY_PROPERTY, detectedEnergyConsumption);
+			energyConsumption.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, EnergyConsumption.ENERGY_READING_PROPERTY);
+			energyConsumption.putproperty(EnergyConsumption.ENERGY_VALUE_PROPERTY, detectedEnergyConsumption);
 			energyConsumption.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 			
-			if (this.detectedEnergyConsumption != this.EnergyConsumptionNormalValue) {
-				System.out.println(ANOMALY);
-			}
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", energyConsumption);
 			Thread.sleep(this.fixedDelay);
