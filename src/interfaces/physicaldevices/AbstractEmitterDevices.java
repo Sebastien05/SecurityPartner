@@ -1,5 +1,6 @@
 package interfaces.physicaldevices;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import components.CEPBus;
@@ -22,14 +23,18 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 	protected int fixedTimeStartExecution;
 	protected int fixedDelay;
 	protected String room;
+	protected ArrayList<Integer> script;
 	
 	protected AbstractEmitterDevices(
 			String eventEmissionOutboundPortURI,
 			int fixedTimeExecution,
 			int fixedTimeStartExecution,
 			int fixedDelay,
-			String room
-			)throws Exception{
+			String room,
+			ArrayList<Integer> script
+			)
+		throws Exception
+	{
 		super(1, 0) ;
 		this.eeopURI=eventEmissionOutboundPortURI;
 		
@@ -37,6 +42,7 @@ public abstract class AbstractEmitterDevices extends AbstractComponent {//pour p
 		this.fixedTimeExecution=fixedTimeExecution;
 		this.fixedTimeStartExecution=fixedTimeStartExecution;
 
+		this.script = script;
 		this.random = new Random();
 		this.room = room;
 		

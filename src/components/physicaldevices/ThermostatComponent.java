@@ -1,5 +1,6 @@
 package components.physicaldevices;
 
+import java.util.ArrayList;
 import java.util.Random;
 import CVM.CVM;
 import Events.TemperatureReading;
@@ -37,12 +38,14 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	 * @param thermostatInboundPort set URI for the component
 	 * @throws Exception
 	 */
-	protected ThermostatComponent(String thermostatInboundPortURI,
+	protected ThermostatComponent(
+			String thermostatInboundPortURI,
 			String eventEmissionOutboundPortURI,
 			int fixedTimeExecution,
 			int fixedTimeStartExecution,
 			int fixedDelay,
 			String room,
+			ArrayList<Integer> script,
 			int defaultSetupTemperature,
 			int defaultDetectedTemperature)
 	throws Exception {
@@ -50,8 +53,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 				eventEmissionOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
-				fixedDelay,
-				room);
+				fixedDelay, room, script);
 		this.state = "ON";
 		this.random = new Random();
 		this.setupTemperature = defaultSetupTemperature;
@@ -91,14 +93,19 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		        // detected temperature += [-1 or +1]
 		        this.detectedTemperature = this.detectedTemperature + delta;
 				*/
-		    	
+				
 		        // send the new temperature
 		        TemperatureReading temperatureReading = new TemperatureReading(this.room);
-		        String eventType = (this.detectedTemperature >= 22.0) ? HIGH_TEMPERATURE : (this.detectedTemperature <= 17.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
+		        String eventType = (this.detectedTemperature >= 22.0) ? HIGH_TEMPERATURE : (this.detectedTemperature <= 18.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
 		        
 		        //String message = (this.setupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
 		        //System.out.println(message+ this.room + " is: " + this.detectedTemperature);
 		      
+		        if (eventType != NORMAL_TEMPERATURE) {
+		        	System.out.println("[ "+eventType+" ] at "+this.room+" ACTUAL = "+this.detectedTemperature+" °C");
+		        }
+		        
+		        
 		        // need to add manually properties for now...
 		        temperatureReading.putproperty(TemperatureReading.TEMP_PROPERTY, this.detectedTemperature);
 		        temperatureReading.putproperty(TemperatureReading.TEMP_TARGET, this.setupTemperature);
@@ -122,7 +129,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 
 	public void raiseTemperature(int degree) {
 		if (state == "ON") {
-			System.out.println("Raising temperature ..." + degree);
+			System.out.println("Raising temperature by " + degree);
 			this.setupTemperature += degree;
 			this.detectedTemperature += degree;
 

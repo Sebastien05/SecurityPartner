@@ -2,6 +2,7 @@
 package interfaces.physicaldevices;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
@@ -23,13 +24,14 @@ implements ReceptorCommandI
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
-		String room
+		String room,
+		ArrayList<Integer> script
 		)
 	throws Exception{
 		super(eventEmissionOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
-				fixedDelay,room);
+				fixedDelay, room, script);
 		this.componentInboundPortURI = componentInboundPortURI;
 		this.initBIS();
 	}

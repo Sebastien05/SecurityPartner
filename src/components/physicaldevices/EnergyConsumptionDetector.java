@@ -1,6 +1,6 @@
 package components.physicaldevices;
 
-import java.util.Random;
+import java.util.ArrayList;
 
 import Events.EnergyReading;
 import components.connectors.CEPBusEventEmissionConnector;
@@ -43,6 +43,7 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 		int fixedTimeStartExecution,
 		int fixedDelay,
 		String room,
+		ArrayList<Integer> script,
 		int detectedEnergyConsumption
 		)
 	throws Exception
@@ -50,7 +51,7 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 		super(eventEmissionOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
-				fixedDelay,room);
+				fixedDelay,room, script);
 		this.detectedEnergyConsumption = detectedEnergyConsumption;
 	}
 	

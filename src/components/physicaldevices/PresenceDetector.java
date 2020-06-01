@@ -1,5 +1,7 @@
 package components.physicaldevices;
 
+import java.util.ArrayList;
+
 import Events.Presence;
 import components.connectors.CEPBusEventEmissionConnector;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
@@ -22,14 +24,15 @@ public class PresenceDetector extends AbstractEmitterDevices {
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
-		String room
+		String room,
+		ArrayList<Integer> script
 		)
 	throws Exception
 	{
 		super(eventEmissionOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
-				fixedDelay,room);
+				fixedDelay,room, script);
 	}
 	
 	@Override
@@ -41,19 +44,25 @@ public class PresenceDetector extends AbstractEmitterDevices {
 	@Override
 	public void execute() throws Exception
 	{
-		// connection with CEPBus inbound port Event Reception for Event Emission
+		// connection with CEPBus Event Reception inbound port for Event Emission
 		String cepBusInboundPortURI = this.rop.getEventReceptionInboundPortURI(this.eeopURI);
 		this.doPortConnection(this.eeopURI, cepBusInboundPortURI,
 				CEPBusEventEmissionConnector.class.getCanonicalName());
 		
 		// component's test script 
 		Thread.sleep(fixedTimeStartExecution);
+		
+		String eventMessage;
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 			
 			// Create presence event
 			AbstractAtomicEvent presence = new Presence(this.room);
-			String eventMessage = (i==3)?
-					PRESENCE_DETECTED:NO_PRESENCE_DETECTED;
+			if (script.contains(i)) {
+				eventMessage=PRESENCE_DETECTED;
+				System.out.println("[ Presence detected ] at "+this.room);
+			} else
+				eventMessage=NO_PRESENCE_DETECTED;
+			
 			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", presence);

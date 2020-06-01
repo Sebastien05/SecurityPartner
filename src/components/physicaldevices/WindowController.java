@@ -1,5 +1,9 @@
 package components.physicaldevices;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 import Events.Presence;
 import Events.Window;
 import components.connectors.CEPBusEventEmissionConnector;
@@ -27,7 +31,8 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 		int fixedTimeExecution,
 		int fixedTimeStartExecution,
 		int fixedDelay,
-		String room
+		String room,
+		ArrayList<Integer> script
 		)
 	throws Exception
 	{
@@ -35,7 +40,7 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 				eventEmissionOutboundPortURI,
 				fixedTimeExecution,
 				fixedTimeStartExecution,
-				fixedDelay,room);
+				fixedDelay,room, script);
 	}
 	
 	@Override
@@ -54,12 +59,19 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 		
 		// component's test script 
 		Thread.sleep(fixedTimeStartExecution);
+
+		String eventMessage;
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 			
 			// Create presence event
 			AbstractAtomicEvent window = new Window(this.room);
-			String eventMessage = (i==2)?
-					OPENED_WINDOW:CLOSED_WINDOW;
+			
+			if (script.contains(i)) {
+				eventMessage=OPENED_WINDOW;
+				System.out.println("[ Window opened ] at "+this.room);
+			} else
+				eventMessage=CLOSED_WINDOW;
+			
 			window.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
 			
 			// SendEvent through EventEmissionOutboundPort
