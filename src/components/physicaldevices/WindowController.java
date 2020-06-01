@@ -1,19 +1,19 @@
 package components.physicaldevices;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import Events.Presence;
+import Events.Window;
 import components.connectors.CEPBusEventEmissionConnector;
+import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
+import interfaces.component.ExecutorCI;
 import interfaces.event.AbstractAtomicEvent;
 import interfaces.physicaldevices.AbstractMultiTaskDevices;
-import ports.ExecutorInboundPort;
 
 @RequiredInterfaces(required={EventEmissionCI.class, CEPBusManagementCI.class})
+@OfferedInterfaces(offered={ExecutorCI.class})
 
 public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitterDevices {
 
@@ -56,13 +56,13 @@ public class WindowController extends AbstractMultiTaskDevices{//AbstractEmitter
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 			
 			// Create presence event
-			AbstractAtomicEvent presence = new Presence(this.room);
+			AbstractAtomicEvent window = new Window(this.room);
 			String eventMessage = (i==2)?
 					OPENED_WINDOW:CLOSED_WINDOW;
-			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
+			window.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
 			
 			// SendEvent through EventEmissionOutboundPort
-			this.eeop.sendEvent(eeopURI, "", presence);
+			this.eeop.sendEvent(eeopURI, "", window);
 			Thread.sleep(this.fixedDelay);
 		}
 	}	
