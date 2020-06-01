@@ -2,33 +2,37 @@ package JUnitTest.event;
 
 import org.junit.Test;
 
-import Events.Close;
+import Events.Window;
 import components.correlators.managingelement.EventBase;
+import components.physicaldevices.WindowController;
 
 public class TestEventBase {
 
 	@Test
 	public void test(){
 		EventBase b = new EventBase();
-		b.getEventBase().add(new Close());
-		b.getEventBase().add(new Close());
+		String room1 = "chambre1";
+		String room2 = "chambre2";
 		
-		Close fermer = new Close();
-		Close close = new Close();
+		b.getEventBase().add(new Window(room1));
+		b.getEventBase().add(new Window(room2));
 		
-		fermer.putproperty("fermerWindow", 20.5) ;
-		close.putproperty("closeWindow", 20.5) ;
+		Window opened = new Window(room1);
+		Window closed = new Window(room2);
 		
-		fermer.displayProperties();
-		close.displayProperties();
+		opened.putproperty(Window.TYPE_PROPERTY, WindowController.OPENED_WINDOW) ;
+		closed.putproperty(Window.TYPE_PROPERTY, WindowController.OPENED_WINDOW);
 		
-		b.getEventBase().add(close);
-		b.getEventBase().add(fermer);
+		opened.displayProperties();
+		closed.displayProperties();
+		
+		b.getEventBase().add(opened);
+		b.getEventBase().add(closed);
 		
 		assert b.numberOfEvents() == 4;
-		b.getEventBase().remove(close);
+		b.getEventBase().remove(opened);
 		
-		assert ((double)fermer.getPropertyValue("fermerWindow")) == 20.5 ;
+		assert ((String)opened.getPropertyValue(Window.TYPE_PROPERTY)) == WindowController.OPENED_WINDOW  ;
 		assert b.numberOfEvents() == 3;
 	}
 }

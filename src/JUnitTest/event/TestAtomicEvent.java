@@ -2,23 +2,24 @@ package JUnitTest.event;
 
 import org.junit.Test;
 
-import Events.Close;
+import Events.Window;
+import components.physicaldevices.WindowController;
 
 public class TestAtomicEvent {
 
 	@Test
 	public void test() {
 
-		Close fermer = new Close();
-		Close close = new Close();
+		String room1 = "chambre1";
+		String room2 = "chambre2";
+		
+		Window opened = new Window(room1);
+		Window closed = new Window(room2);
 
-		fermer.putproperty("fermerWindow", 20.5);
-		close.putproperty("closeWindow", 22.5);
+		opened.putproperty(Window.TYPE_PROPERTY, WindowController.OPENED_WINDOW) ;
+		closed.putproperty(Window.TYPE_PROPERTY, WindowController.CLOSED_WINDOW);
 
-		fermer.displayProperties();
-		close.displayProperties();
-
-		assert ((double) fermer.getPropertyValue("fermerWindow")) == 20.5;
-		assert ((double) close.getPropertyValue("closeWindow")) == 22.5;
+		assert ((String)opened.getPropertyValue(Window.TYPE_PROPERTY)) == WindowController.OPENED_WINDOW  ;
+		assert ((String)closed.getPropertyValue(Window.TYPE_PROPERTY)) == WindowController.CLOSED_WINDOW  ;
 	}
 }
