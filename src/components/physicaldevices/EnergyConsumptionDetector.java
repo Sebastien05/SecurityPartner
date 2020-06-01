@@ -1,5 +1,7 @@
 package components.physicaldevices;
 
+import java.util.Random;
+
 import Events.EnergyConsumption;
 import components.connectors.CEPBusEventEmissionConnector;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
@@ -7,6 +9,7 @@ import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.event.AbstractAtomicEvent;
+import interfaces.physicaldevices.AbstractEmitterDevices;
 
 /**
  * @author SecurityPartner
@@ -21,6 +24,7 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 	public static final String NORMAL = "Energy consumption is normal";
 	public static final String ENERGY_CONSUMPTION_NAME = "Energy Consumption Detector";
 	
+	protected Random random;
 	protected static int EnergyConsumptionNormalValue;
 	protected static int detectedEnergyConsumption;
 	
@@ -48,6 +52,7 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 				fixedTimeExecution,
 				fixedTimeStartExecution,
 				fixedDelay,"general");
+		this.random = new Random();
 		this.EnergyConsumptionNormalValue = EnergyConsumptionNormalValue;
 		this.detectedEnergyConsumption = detectedEnergyConsumption;
 	}

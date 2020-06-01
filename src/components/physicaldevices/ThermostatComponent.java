@@ -2,12 +2,14 @@ package components.physicaldevices;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Random;
 
 import CVM.CVM;
 import Events.Presence;
 import Events.TemperatureReading;
 import components.connectors.CEPBusEventEmissionConnector;
 import interfaces.event.AbstractAtomicEvent;
+import interfaces.physicaldevices.AbstractMultiTaskDevices;
 import ports.ExecutorInboundPort;
 
 /**
@@ -25,6 +27,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	protected final String NORMAL_TEMPERATURE = "Normal temperature";
 	protected final String LOW_TEMPERATURE = "Low Temperature detected";
 
+	protected Random random;
 	protected static int defaultSetupTemperature;
 	protected static int detectedTemperature;
 	
@@ -49,6 +52,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 				fixedTimeStartExecution,
 				fixedDelay,
 				room);
+		this.random = new Random();
 		this.defaultSetupTemperature = defaultSetupTemperature;
 		this.detectedTemperature = defaultDetectedTemperature;
 	}
@@ -59,7 +63,6 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	 * it toward defaultSetupTemperature.
 	 * @throws Exception
 	 */
-	@Override
 	public void execute() throws Exception {
 		
 		// connection with CEPBus inbound port Event Reception for Event Emission
@@ -72,7 +75,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		// To send multiple new TemperatureReading events to the correlator.
 		while (currentTime<CVM.LIFE_CYCLE_DURATION/1000) {
 		    
-		    // In order to add random in the script
+			// In order to add random in the script
 		    // Sudden change in temperature between -4 and +4
 		    if (random.nextDouble()<0.1){
 		        this.detectedTemperature += random.nextInt()%8 - 4;

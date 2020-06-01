@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import CVM.CVM;
+import interfaces.physicaldevices.AbstractExecutorDevices;
 import ports.ExecutorInboundPort;
 
 /**
