@@ -6,6 +6,8 @@ public class TemperatureReading extends AbstractAtomicEvent {
 
 	private static final String URI= "temperatureReading";
 	public static final String TEMP_PROPERTY = "Current temperature";
+	public static final String TEMP_TARGET = "target temperature";
+
 	
 	private static int cpt = 0;
 	private int id;
