@@ -2,7 +2,7 @@ package JUnitTest.rules;
 
 import org.junit.Test;
 
-import Events.EnergyConsumption;
+import Events.EnergyReading;
 import Rules.EnergyConsumptionRule;
 import components.correlators.managingelement.EventBase;
 import interfaces.event.AbstractAtomicEvent;
@@ -15,7 +15,7 @@ public class TestEnergyConsumptionRule {
 		
 		EnergyConsumptionRule ecr = new EnergyConsumptionRule();
 		
-		EnergyConsumption energyConsumption = new EnergyConsumption("401");
+		EnergyReading energyConsumption = new EnergyReading("401");
 		
 		energyConsumption.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, "energy consumption");
 		energyConsumption.putproperty("energyValue", 300.0);

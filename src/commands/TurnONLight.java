@@ -2,24 +2,24 @@ package commands;
 
 import java.sql.Timestamp;
 
-import components.physicaldevices.AlarmComponent;
+import components.physicaldevices.LightComponent;
 import fr.sorbonne_u.components.AbstractComponent;
 import interfaces.component.ExecutorCommandI;
 
 /**
  * @author SecurityPartner
- * Command that allows an AlarmComponent to activate its alarm signal
+ * Command that allows a LightningComponent to turn its light.
  */
-public class TurnONAlarm implements ExecutorCommandI{
+public class TurnONLight implements ExecutorCommandI{
 
-	protected AlarmComponent component;
+	protected LightComponent component;
 	protected Timestamp eventTime;
 	
 	/**
-	 * Constructor for turning on the alarm component
+	 * Constructor for turning on the light of the LightningComponent
 	 * @param time timestamp that indicates the moment of creation of the command
 	 */
-	public TurnONAlarm(Timestamp time) {
+	public TurnONLight(Timestamp time) {
 		this.eventTime = time;
 	}
 	
@@ -29,17 +29,14 @@ public class TurnONAlarm implements ExecutorCommandI{
 	 */
 	@Override
 	public void set(AbstractComponent o) {
-		this.component=(AlarmComponent) o;
+		this.component=(LightComponent) o;
 	}
 
 	/**
-	 * Method that calls the turn on method of AlarmComponent
+	 * Method that calls the turn on light  method of LightningComponent
 	 */
 	@Override
 	public void execute() {
-		this.component.turnOn(this.eventTime);
+		this.component.turnONLight(eventTime);
 	}
-
-
-
 }
