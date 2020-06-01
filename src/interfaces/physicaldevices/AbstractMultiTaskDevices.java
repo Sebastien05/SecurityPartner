@@ -1,5 +1,5 @@
 
-package components.physicaldevices;
+package interfaces.physicaldevices;
 
 import java.sql.Timestamp;
 import java.util.Date;

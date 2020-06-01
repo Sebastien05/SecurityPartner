@@ -10,6 +10,7 @@ import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import interfaces.component.CEPBusManagementCI;
 import interfaces.component.EventEmissionCI;
 import interfaces.event.AbstractAtomicEvent;
+import interfaces.physicaldevices.AbstractMultiTaskDevices;
 import ports.ExecutorInboundPort;
 
 @RequiredInterfaces(required={EventEmissionCI.class, CEPBusManagementCI.class})

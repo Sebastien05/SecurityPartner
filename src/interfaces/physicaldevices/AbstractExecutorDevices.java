@@ -1,4 +1,4 @@
-package components.physicaldevices;
+package interfaces.physicaldevices;
 
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;

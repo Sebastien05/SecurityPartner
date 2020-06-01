@@ -6,6 +6,7 @@ import java.util.Date;
 import CVM.CVM;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import interfaces.component.ExecutorCI;
+import interfaces.physicaldevices.AbstractExecutorDevices;
 /**
  * un composant qui peut executer des commandes pour declencher ou arreter une
  * alarme aupres d�un gardien accompagnee d�un message d�alarme

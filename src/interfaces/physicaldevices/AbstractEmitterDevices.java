@@ -1,4 +1,4 @@
-package components.physicaldevices;
+package interfaces.physicaldevices;
 
 import java.util.Random;
 
