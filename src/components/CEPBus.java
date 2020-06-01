@@ -53,6 +53,10 @@ public class CEPBus extends AbstractComponent implements ReceptorEventI {
 	{
 		super(1, 0);
 		this.initialise() ;
+		this.tracer.setTitle("CEP Bus") ;
+		this.tracer.setRelativePosition(0, 0) ;
+		this.toggleTracing() ;
+		this.logMessage("Execution...") ;
 	}
 
 	protected void initialise() 

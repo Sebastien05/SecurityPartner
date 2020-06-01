@@ -13,7 +13,7 @@ private static final long serialVersionUID = 1L;
 	
 	public CorrelatorOutboundPort(ComponentI owner) throws Exception {
 		super (ExecutorCI.class, owner);
-		assert	owner instanceof ExecutorCI ;
+		//assert	owner instanceof ExecutorCI ;
 	}
 	
 	public CorrelatorOutboundPort(String uri,ComponentI owner) throws Exception {

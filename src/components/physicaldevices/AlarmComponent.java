@@ -27,6 +27,10 @@ extends AbstractExecutorDevices
 		super(alarmInboundPortURI) ;
 		this.state = ALARM_OFF;
 		this.lastSwitch = new Timestamp((new Date()).getTime());
+		this.tracer.setTitle("Alarm Component") ;
+		this.tracer.setRelativePosition(0, 1) ;
+		this.toggleTracing() ;
+		this.logMessage("Execution...") ;
 	}
 	
 	/*
@@ -35,10 +39,14 @@ extends AbstractExecutorDevices
 	public void execute() throws InterruptedException {
 		int currentTime = 0;
 		while (currentTime<CVM.LIFE_CYCLE_DURATION/1000) {
-			if (this.state==ALARM_ON)
+			if (this.state==ALARM_ON) {
+				this.logMessage("-----------------\n"+
+						   "| DRING DRING !!!\n"+
+						"-----------------  ") ;
 				System.out.println("-----------------\n"+
 								   "| DRING DRING !!!\n"+
 								   "-----------------  ");
+			}
 			Thread.sleep(1000);
 			currentTime++;
 		}

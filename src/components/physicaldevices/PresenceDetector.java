@@ -31,6 +31,10 @@ public class PresenceDetector extends AbstractEmitterDevices {
 				fixedTimeExecution,
 				fixedTimeStartExecution,
 				fixedDelay,room);
+		this.tracer.setTitle("Presence Detector") ;
+		this.tracer.setRelativePosition(1, 0) ;
+		this.toggleTracing() ;
+		this.logMessage("Execution...") ;
 	}
 	
 	@Override
@@ -56,6 +60,8 @@ public class PresenceDetector extends AbstractEmitterDevices {
 			String eventMessage = (i==3)?
 					PRESENCE_DETECTED:NO_PRESENCE_DETECTED;
 			presence.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventMessage);
+			
+			this.logMessage(eventMessage +" in room : "+this.room) ;
 			// SendEvent through EventEmissionOutboundPort
 			this.eeop.sendEvent(eeopURI, "", presence);
 			Thread.sleep(this.fixedDelay);

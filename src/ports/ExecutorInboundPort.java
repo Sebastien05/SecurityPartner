@@ -20,7 +20,7 @@ implements ExecutorCI {
 
 	public ExecutorInboundPort(String uri, ComponentI owner) throws Exception {	
 		super (uri, ExecutorCI.class, owner);
-		assert	owner instanceof ExecutorCI ;	
+		//assert	owner instanceof ExecutorCI ;	
 	}	
 
 	@Override	

@@ -20,7 +20,7 @@ implements EventReceptionCI
 	throws Exception 
 	{
 		super (cepURI, EventReceptionCI.class, owner);
-		assert owner instanceof CEPBus;
+		//assert owner instanceof CEPBus;
 	}
 
 	@Override
