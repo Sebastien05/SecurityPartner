@@ -1,7 +1,5 @@
 package commands;
 
-import java.sql.Timestamp;
-
 import components.physicaldevices.ThermostatComponent;
 import fr.sorbonne_u.components.AbstractComponent;
 import interfaces.component.ExecutorCommandI;
@@ -10,7 +8,7 @@ import interfaces.component.ExecutorCommandI;
  * @author SecurityPartner
  * Command that allows a ThermostatComponent to switch its mode
  */
-public class SwitchMode implements ExecutorCommandI {
+public class SwitchModeThermostat implements ExecutorCommandI {
 
 	protected ThermostatComponent component;
 	protected String state;
@@ -19,7 +17,7 @@ public class SwitchMode implements ExecutorCommandI {
 	/**
 	 * @param state to switch to for a ThermostatComponent
 	 */
-	public SwitchMode(String state) {
+	public SwitchModeThermostat(String state) {
 		this.state = state;
 	}
 	
