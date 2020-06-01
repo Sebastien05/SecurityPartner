@@ -49,7 +49,7 @@ extends AbstractExecutorDevices {
 			Timestamp time = new Timestamp((new Date()).getTime());
 			if (time.getTime()-this.lastSwitch.getTime()>DURATION_LIGHT) {
 				if (this.state == LIGHT_ON){
-					System.out.println("TURNING LIGHT OFF IN "+ this.room + "!");
+					System.out.println("TURNING LIGHT OFF IN "+ this.room + " !");
 					this.state=LIGHT_OFF;
 				}
 			}
@@ -63,7 +63,7 @@ extends AbstractExecutorDevices {
 	 */
 	public void turnONLight(Timestamp time) {
 		if (state!=LIGHT_ON) {
-			System.out.println("TURNING LIGHT ON !!!!!");
+			System.out.println("TURNING LIGHT ON IN "+ this.room + " !");
 			this.state = LIGHT_ON;
 			this.lastSwitch=time;
 		}
