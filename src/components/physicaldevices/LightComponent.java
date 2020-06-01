@@ -21,7 +21,7 @@ extends AbstractExecutorDevices {
 
 	public static final String LIGHT_OFF = "off";
 	public static final String LIGHT_ON = "on";
-	public static final int DURATION_LIGHT = 5000;
+	public static final int DURATION_LIGHT = 6000;
 	
 	
 	/**
@@ -40,8 +40,10 @@ extends AbstractExecutorDevices {
 	}
 
 	/**
-	 * Display the status of the light when a change is called by the
-	 * correlator.
+	 * Display the status of the light when a change a presence is detected in the same room
+	 * if not presence is detected in the same room before a delay it will desactivate the light
+	 * if a presence is detected before the deactivation of the light it will renew its delay 
+	 * before being deactivated
 	 */
 	public void execute() throws InterruptedException {
 		int currentTime = 0;
@@ -49,7 +51,9 @@ extends AbstractExecutorDevices {
 			Timestamp time = new Timestamp((new Date()).getTime());
 			if (time.getTime()-this.lastSwitch.getTime()>DURATION_LIGHT) {
 				if (this.state == LIGHT_ON){
-					System.out.println("TURNING LIGHT OFF IN "+ this.room + " !");
+					System.out.println("---------------------\n"
+							+ "| TURNING LIGHT OFF | in "+ this.room + " !\n"+
+							"---------------------");
 					this.state=LIGHT_OFF;
 				}
 			}
@@ -58,13 +62,17 @@ extends AbstractExecutorDevices {
 		}
 	}
 
-	/** set method for turning light on
+	/** set method for turning light on or renew the delay
 	 * @param time argument to set the new last switched time
 	 */
 	public void turnONLight(Timestamp time) {
 		if (state!=LIGHT_ON) {
-			System.out.println("TURNING LIGHT ON IN "+ this.room + " !");
+			System.out.println("--------------------\n"
+					+ "| TURNING LIGHT ON | in "+ this.room + " !\n"+
+					"--------------------");
 			this.state = LIGHT_ON;
+			this.lastSwitch=time;
+		} else {
 			this.lastSwitch=time;
 		}
 	}

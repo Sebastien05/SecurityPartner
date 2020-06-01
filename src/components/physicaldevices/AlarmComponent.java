@@ -35,14 +35,17 @@ extends AbstractExecutorDevices
 	
 	/*
 	 * Component execution (check its state and notify if alarm is ON)
+	 * If any correlator break downs the alarm will continue to sound.
+	 * If it have to turn off, the alarm needs to be desactivate by a 
+	 * correlator and can't by itself like the LightComponent
 	 */
 	public void execute() throws InterruptedException {
 		int currentTime = 0;
 		while (currentTime<CVM.LIFE_CYCLE_DURATION/1000) {
 			if (this.state==ALARM_ON)
-				System.out.println("-----------------\n"+
-								   "| DRING DRING !!!\n"+
-								   "-----------------  ");
+				System.out.println("--------------------------\n"+
+						 		"| "+this.room+" DRING DRING "+currentTime+" !!!\n"+
+								   "--------------------------");
 			Thread.sleep(1000);
 			currentTime++;
 		}
@@ -61,7 +64,12 @@ extends AbstractExecutorDevices
 	 */
 	public void turnOff(Timestamp time) {
 		if (time.getTime()-this.lastSwitch.getTime()>DURATION_ALARM) {
-			this.state=ALARM_OFF;
+			if (this.state!=ALARM_OFF) {
+				this.state=ALARM_OFF;
+				System.out.println("--------------------------\n"+
+				 		"| "+this.room+" Alarm DISABLED |\n"+
+						   "--------------------------");
+			}
 		}
 	}
 }
