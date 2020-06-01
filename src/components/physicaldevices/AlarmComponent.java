@@ -22,10 +22,13 @@ extends AbstractExecutorDevices
 	private Timestamp lastSwitch;
 
 	
-	protected AlarmComponent(String alarmInboundPortURI)
+	protected AlarmComponent(
+		String alarmInboundPortURI,
+		String room
+		)
 	throws Exception
 	{
-		super(alarmInboundPortURI) ;
+		super(alarmInboundPortURI,room);
 		this.state = ALARM_OFF;
 		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}

@@ -29,9 +29,12 @@ extends AbstractExecutorDevices {
 	 * @param lightInboundPortURI String that acts as Unique identifier for LightComponent
 	 * @throws Exception
 	 */
-	protected LightComponent(String lightInboundPortURI) 
+	protected LightComponent(
+		String lightInboundPortURI,
+		String room
+		) 
 	throws Exception {
-		super(lightInboundPortURI);
+		super(lightInboundPortURI, room);
 		this.state = LIGHT_OFF;
 		this.lastSwitch = new Timestamp((new Date()).getTime());
 	}
@@ -46,7 +49,7 @@ extends AbstractExecutorDevices {
 			Timestamp time = new Timestamp((new Date()).getTime());
 			if (time.getTime()-this.lastSwitch.getTime()>DURATION_LIGHT) {
 				if (this.state == LIGHT_ON){
-					System.out.println("TURNING LIGHT OFF !!!!!!");
+					System.out.println("TURNING LIGHT OFF IN "+ this.room + "!");
 					this.state=LIGHT_OFF;
 				}
 			}

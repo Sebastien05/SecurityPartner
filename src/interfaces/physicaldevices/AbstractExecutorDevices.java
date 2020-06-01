@@ -11,14 +11,19 @@ extends AbstractComponent
 implements ReceptorCommandI
 {
 
+	protected String room;
 	protected ExecutorInboundPort ComponentInp;
 	protected String inboundPortURI;
 	protected String state;
 
-	protected AbstractExecutorDevices(String alarmInboundPortURI)
+	protected AbstractExecutorDevices(
+		String alarmInboundPortURI,
+		String room
+		)
 	throws Exception
 	{
 		super(1, 0);
+		this.room = room;
 		this.init(alarmInboundPortURI);
 	}
 
