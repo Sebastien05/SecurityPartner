@@ -57,6 +57,7 @@ public class PortReferencer <T> {
 		T res = this.hash.get(room).get(eventType);	
 
 		if (res == null) {
+			System.out.println(" -> ICI ");
 			throw new Exception("Correlator Outbound Port not found !") ;
 		}
 		return res;

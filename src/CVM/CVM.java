@@ -3,6 +3,7 @@ package CVM;
 import java.util.ArrayList;
 
 import Events.Presence;
+import Events.TemperatureReading;
 import Events.Window;
 import Rules.HeatingOptimizerRule;
 import components.CEPBus;
@@ -118,7 +119,7 @@ public class CVM extends AbstractCVM{
 				new Object[] {});
 
 		assert room1 != room2;
-		/**/
+		/*
 		//////////////
 		// Example 1// test intrusion script
 		//////////////
@@ -188,7 +189,7 @@ public class CVM extends AbstractCVM{
 				new Object[] {INBOUNDPORT_URI_INTRUSION,
 						REGISTER_URI_INTRUSION, urisToListen, pr});		
 		
-		/**/
+		*/
 		/*
 		//////////////
 		// Example 2//  test light optimizer script
@@ -229,13 +230,13 @@ public class CVM extends AbstractCVM{
 		 
 		*/
 		
-		/*
+		/**/
 		//////////////
 		// Example 3//
 		//////////////
 		
 		int setupdTemperature = 20;
-		int detectedTemperature = 16;
+		int detectedTemperature = 13;
 		
 		// Thermostat Component MultiTask Device
 		AbstractComponent.createComponent(
@@ -263,13 +264,15 @@ public class CVM extends AbstractCVM{
 		// Specify which event in room will associate which inboundPortURI from executor
 		PortReferencer<String> pr = new PortReferencer<>();
 		pr.addPort(room1, WindowDetector.class.getSimpleName(), INBOUNDPORT_URI_THERMOS);
+		pr.addPort(room1, TemperatureReading.class.getSimpleName(), INBOUNDPORT_URI_THERMOS);
+
 		
 		AbstractComponent.createComponent(
 				HeatingOptimizerCorrelator.class.getCanonicalName(),
 				new Object[] {INBOUNDPORT_URI_HOPTI,
 						REGISTER_URI_HOPTI, urisToListen, pr});		
 		
-		*/
+		/**/
 		super.deploy();	
 	}
 	public static void	main(String[] args)

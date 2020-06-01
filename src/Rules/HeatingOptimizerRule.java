@@ -75,14 +75,12 @@ public class HeatingOptimizerRule extends AbstractRuleMultiRoom {
 		String type = triggeringEvents.get(0).getClass().getSimpleName();
 		
 		CorrelatorOutboundPort port = pr.getPort(room, type);
-		
-		System.out.println(" -> ICI port = "+port);
-		
+				
 		// If there is closed window 
 		if (triggeringEvents.size()==1) {
 			int detectedTemp = (int) triggeringEvents.get(0).getPropertyValue(TemperatureReading.TEMP_PROPERTY);
 			int targetTemp = (int) triggeringEvents.get(0).getPropertyValue(TemperatureReading.TEMP_TARGET);
-			int differential = Math.abs(detectedTemp - targetTemp);
+			int differential = detectedTemp - targetTemp;
 			
 			if (differential < 0) {
 				// if temperature is below the threshold raise the thermostat temperature

@@ -96,7 +96,8 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 				
 		        // send the new temperature
 		        TemperatureReading temperatureReading = new TemperatureReading(this.room);
-		        String eventType = (this.detectedTemperature >= 22.0) ? HIGH_TEMPERATURE : (this.detectedTemperature <= 18.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
+		        String eventType = (this.detectedTemperature >= 22.0) ?
+		        		HIGH_TEMPERATURE : (this.detectedTemperature <= 18.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
 		        
 		        //String message = (this.setupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
 		        //System.out.println(message+ this.room + " is: " + this.detectedTemperature);
@@ -125,6 +126,7 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 			this.setupTemperature -= degree;
 			this.detectedTemperature -= degree;
 		}
+		displayEventTypeReached();
 	}
 
 	public void raiseTemperature(int degree) {
@@ -132,11 +134,20 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 			System.out.println("Raising temperature by " + degree);
 			this.setupTemperature += degree;
 			this.detectedTemperature += degree;
-
 		}
+		displayEventTypeReached();
 	}
 	
 	public void switchMode(String state) {
-		this.state = (state==ON)?OFF:ON; 
+		this.state = (state==OFF)?OFF:ON;
+		System.out.println("Thermostat "+this.state);
+	}
+	
+	public void displayEventTypeReached() {
+		String eventType = (this.detectedTemperature >= 22.0) ?
+        		HIGH_TEMPERATURE : (this.detectedTemperature <= 18.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
+		if (eventType==NORMAL_TEMPERATURE) {
+			System.out.println(NORMAL_TEMPERATURE+" REACHED");
+		}
 	}
 }
