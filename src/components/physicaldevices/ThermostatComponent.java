@@ -23,13 +23,20 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	protected String thermostatInboundPortURI;
 	protected double temperature;
 	
-	protected final String HIGH_TEMPERATURE = "High temperature detected";
-	protected final String NORMAL_TEMPERATURE = "Normal temperature";
-	protected final String LOW_TEMPERATURE = "Low Temperature detected";
+	public static final String HIGH_TEMPERATURE = "High temperature detected";
+	public static final String NORMAL_TEMPERATURE = "Normal temperature";
+	public static final String LOW_TEMPERATURE = "Low Temperature detected";
+	
+	public static final String ON = "ON";
+	public static final String OFF = "OFF";
 
+	public static final String STATE = "State";
+	
 	protected Random random;
-	protected static int defaultSetupTemperature;
-	protected static int detectedTemperature;
+	private int setupTemperature;
+	private int detectedTemperature;
+	
+	private String state;
 	
 	/**
 	 * @param thermostatInboundPort set URI for the component
@@ -52,8 +59,9 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 				fixedTimeStartExecution,
 				fixedDelay,
 				room);
+		this.state = "ON";
 		this.random = new Random();
-		this.defaultSetupTemperature = defaultSetupTemperature;
+		this.setupTemperature = defaultSetupTemperature;
 		this.detectedTemperature = defaultDetectedTemperature;
 	}
 
@@ -82,9 +90,9 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		    }
 
 		    // Temperature stabilization simulation 
-		    if (this.defaultSetupTemperature != this.detectedTemperature){
+		    if (this.setupTemperature != this.detectedTemperature && state == "ON"){
 		        
-		        int diff = (this.defaultSetupTemperature - this.detectedTemperature);
+		        int diff = (this.setupTemperature - this.detectedTemperature);
 		        int delta = diff/(Math.abs(diff));
 		        // detected temperature += [-1 or +1]
 		        this.detectedTemperature = this.detectedTemperature + delta;
@@ -93,11 +101,12 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 		        TemperatureReading temperatureReading = new TemperatureReading(this.room);
 		        String eventType = (this.detectedTemperature >= 25.0) ? HIGH_TEMPERATURE : (this.detectedTemperature <= 20.0)? LOW_TEMPERATURE: NORMAL_TEMPERATURE;
 		        
-		        String message = (this.defaultSetupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
+		        String message = (this.setupTemperature == this.detectedTemperature)? "Stabilized temperature in room":"New temperature in room ";
 		        System.out.println(message+ this.room + " is: " + this.detectedTemperature);
 		      
 		        // need to add manually properties for now...
-		        temperatureReading.putproperty(temperatureReading.TEMP_PROPERTY, this.detectedTemperature);
+		        temperatureReading.putproperty(TemperatureReading.TEMP_PROPERTY, this.detectedTemperature);
+		        temperatureReading.putproperty(STATE, this.state);
 		        temperatureReading.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, eventType);
 		        temperatureReading.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 		        this.eeop.sendEvent(eeopURI, "", temperatureReading);
@@ -108,12 +117,20 @@ public class ThermostatComponent extends AbstractMultiTaskDevices {
 	}
 
 	public void lowerTemperature(int degree) {
-		System.out.println("Lowering temperature by " + degree);
-		this.temperature -= degree;
+		if (state == "ON") {
+			System.out.println("Lowering temperature by " + degree);
+			this.setupTemperature -= degree;
+		}
 	}
 
 	public void raiseTemperature(int degree) {
-		System.out.println("Raising temperature ..." + degree);
-		this.temperature += degree;
+		if (state == "ON") {
+			System.out.println("Raising temperature ..." + degree);
+			this.setupTemperature += degree;
+		}
+	}
+	
+	public void switchMode(String state) {
+		this.state = (state==ON)?OFF:ON; 
 	}
 }
