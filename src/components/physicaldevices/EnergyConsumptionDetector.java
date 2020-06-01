@@ -2,7 +2,7 @@ package components.physicaldevices;
 
 import java.util.Random;
 
-import Events.EnergyConsumption;
+import Events.EnergyReading;
 import components.connectors.CEPBusEventEmissionConnector;
 import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentStartException;
@@ -75,10 +75,10 @@ public class EnergyConsumptionDetector extends AbstractEmitterDevices{
 		for (int i=0; i < this.fixedTimeExecution; i++ ) {
 		    
 			// Create energy consumption event
-			AbstractAtomicEvent energyConsumption = new EnergyConsumption(this.room);
+			AbstractAtomicEvent energyConsumption = new EnergyReading(this.room);
 			
-			energyConsumption.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, EnergyConsumption.ENERGY_READING_PROPERTY);
-			energyConsumption.putproperty(EnergyConsumption.ENERGY_VALUE_PROPERTY, detectedEnergyConsumption);
+			energyConsumption.putproperty(AbstractAtomicEvent.TYPE_PROPERTY, EnergyReading.ENERGY_READING_PROPERTY);
+			energyConsumption.putproperty(EnergyReading.ENERGY_VALUE_PROPERTY, detectedEnergyConsumption);
 			energyConsumption.putproperty(AbstractAtomicEvent.ROOM_PROPERTY, this.room);
 			
 			// SendEvent through EventEmissionOutboundPort
