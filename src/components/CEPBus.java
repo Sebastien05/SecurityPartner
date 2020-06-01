@@ -36,13 +36,13 @@ public class CEPBus extends AbstractComponent implements ReceptorEventI {
 
 	
 	// received event indexed by their emmitter
-	private HashMap<String,ArrayList<EventI>> receivedEvent = new HashMap<String,ArrayList<EventI>>();
+	//private HashMap<String,ArrayList<EventI>> receivedEvent = new HashMap<String,ArrayList<EventI>>();
 	
 	// registered correlator indexed by their inboundPort uri with 
 	private HashMap<String,ArrayList<String>> registeredCorrelator = new HashMap<String, ArrayList<String>>();
 	
 	// registered physical devices indexed by their uri with value inboundPortURI from Bus
-	private HashMap<String,String> registeredPhysicalDevices = new HashMap<String, String>();
+	//private HashMap<String,String> registeredPhysicalDevices = new HashMap<String, String>();
 	
 	// correlatorInboundPort URI redirection : {Key : inboundPortURI, value : cepBusOutboundPort}
 	private HashMap<String, EventEmissionOutboundPort> outboundPortConnexion = new HashMap<>();
@@ -95,14 +95,7 @@ public class CEPBus extends AbstractComponent implements ReceptorEventI {
 	
 	//Les fonction suivantes viennents de CEPBusManagementCI
 	public String getEventReceptionInboundPortURI(String uri) throws Exception{
-		// quand un physical device appelle cette méthode
-		// le bus crée un port in pour aceuillir ses events
-		// il le publish ensuite
-		// Et renvoie l'uri du in créée à savoir uri+"-inboundPortBus"
-		// Le physical device ayant recu l'uri du in il pourra donc 
-		// s'y connecter avec un doPortConnection
 		return INBOUND_PORT_EVENT_RECEPTION_URI;
-//		return this.registeredPhysicalDevices.get(uri);
 	}
 
 	/**
@@ -189,8 +182,8 @@ public class CEPBus extends AbstractComponent implements ReceptorEventI {
 	 */
 	public void multisendEvent(String emitterURI, List<String> destinationURIs, EventI e) throws Exception {
         
-		System.out.println(" o-> [ Receive Event in CEPBus ]");
-		((AbstractAtomicEvent) e).displayProperties();
+//		System.out.println(" o-> [ Receive Event in CEPBus ]");
+//		((AbstractAtomicEvent) e).displayProperties();
 		for (String destinationURI : destinationURIs) {
 			sendEvent(emitterURI, destinationURI, e);
 		}
