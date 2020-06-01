@@ -119,7 +119,7 @@ public class CVM extends AbstractCVM{
 				new Object[] {});
 
 		assert room1 != room2;
-		/*
+		/**/
 		//////////////
 		// Example 1// test intrusion script
 		//////////////
@@ -189,7 +189,7 @@ public class CVM extends AbstractCVM{
 				new Object[] {INBOUNDPORT_URI_INTRUSION,
 						REGISTER_URI_INTRUSION, urisToListen, pr});		
 		
-		*/
+		/**/
 		/*
 		//////////////
 		// Example 2//  test light optimizer script
@@ -230,7 +230,7 @@ public class CVM extends AbstractCVM{
 		 
 		*/
 		
-		/**/
+		/*
 		//////////////
 		// Example 3//
 		//////////////
@@ -272,7 +272,7 @@ public class CVM extends AbstractCVM{
 				new Object[] {INBOUNDPORT_URI_HOPTI,
 						REGISTER_URI_HOPTI, urisToListen, pr});		
 		
-		/**/
+		*/
 		super.deploy();	
 	}
 	public static void	main(String[] args)
