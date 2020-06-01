@@ -85,7 +85,7 @@ public class IntrusionRule extends AbstractRuleMultiRoom {
 	throws Exception 
 	{
 		String room = (String) ((AbstractAtomicEvent)triggerringEvents.get(1)).getRoom();
-		String type = (String) ((AbstractAtomicEvent)triggerringEvents.get(1)).getType();
+		String type = triggerringEvents.get(1).getClass().getSimpleName();
 		this.pr.getPort(room, type).execute(new TurnONAlarm(triggerringEvents.get(1).getTimeStamp()));
 	}
 
