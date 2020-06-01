@@ -5,15 +5,19 @@ import java.util.ArrayList;
 
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
+import interfaces.rule.AbstractRuleMultiRoom;
 import interfaces.rule.EventMatcherI;
+import interfaces.rule.EventMatcherRoomI;
 import ports.CorrelatorOutboundPort;
 
 import java.util.Date;
 
+import components.correlators.managingelement.PortReferencer;
+
 public class EnergyConsumptionRule extends AbstractRule {
 
-	public EnergyConsumptionRule(CorrelatorOutboundPort cop) {
-		super(cop);
+	public EnergyConsumptionRule(PortReferencer<CorrelatorOutboundPort> pr) {
+		super(pr);
 	}
 	
 	public EnergyConsumptionRule() {
@@ -46,7 +50,7 @@ public class EnergyConsumptionRule extends AbstractRule {
 				System.out.println("ENERGY CONSUMPTION OK");
 				return null;
 			}
-			double currentTime = (currentHours+currentMinutes)/60.0;
+			double currentTime = (currentHours*60+currentMinutes)/60.0;
 			if (currentTime<8||currentTime > 21) {
 				System.out.println("ACTIVITY DETECTED AT INACTIVITY TIME: TRIGGERING ACTION");
 				triggeringEvent.add(energy);
@@ -72,5 +76,4 @@ public class EnergyConsumptionRule extends AbstractRule {
 	public void effects(ArrayList<EventI> triggeringEvents) {
 		this.eventBase.removeEvent(triggeringEvents.get(0)) ;
 	}
-
 }

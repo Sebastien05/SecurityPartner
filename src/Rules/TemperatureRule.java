@@ -1,6 +1,8 @@
 package Rules;
 
 import java.util.ArrayList;
+
+import components.correlators.managingelement.PortReferencer;
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
 import interfaces.rule.EventMatcherI;
@@ -8,8 +10,8 @@ import ports.CorrelatorOutboundPort;
 
 public class TemperatureRule extends AbstractRule {
 
-	public TemperatureRule(CorrelatorOutboundPort cop) {
-		super(cop);
+	public TemperatureRule(PortReferencer<CorrelatorOutboundPort> pr) {
+		super(pr);
 	}
 	public TemperatureRule() {
 		super();

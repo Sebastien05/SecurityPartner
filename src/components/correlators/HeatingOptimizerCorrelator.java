@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Rules.HeatingOptimizerRule;
 import components.correlators.managingelement.PortReferencer;
 import fr.sorbonne_u.components.exceptions.ComponentStartException;
+import interfaces.event.AbstractAtomicEvent;
 import interfaces.event.EventI;
 
 public class HeatingOptimizerCorrelator 
@@ -53,6 +54,8 @@ extends AbstractCorrelator
 	 */
 	@Override
 	public void eventProcess(String emitterURI, EventI e) throws Exception {
+//		System.out.println(" o-> [ Receive Event in CEPBus ]");
+//		((AbstractAtomicEvent) e).displayProperties();
 		this.registeredEvents.addEvent(e);
 		this.registeredRules.fireFirstOn(this.registeredEvents);
 	}

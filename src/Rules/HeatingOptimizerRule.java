@@ -41,7 +41,7 @@ public class HeatingOptimizerRule extends AbstractRuleMultiRoom {
 
 	@Override
 	public ArrayList<EventI> trigger(String room) throws Exception {
-		
+				
 		// Pattern event matching
 		EventI windowOpen = this.match(MATCHER_WINDOW_OPEN, room) ;
 		EventI anormalTemp = this.match(MATCHER_ANORMAL_TEMP, room) ;
@@ -50,7 +50,6 @@ public class HeatingOptimizerRule extends AbstractRuleMultiRoom {
 		if (anormalTemp==null) {
 			return null;
 		}
-		
 		ArrayList<EventI> ret = new ArrayList<EventI>() ;
 		
 		if (windowOpen==null) {	
@@ -71,10 +70,13 @@ public class HeatingOptimizerRule extends AbstractRuleMultiRoom {
 
 	@Override
 	public void actions(ArrayList<EventI> triggeringEvents) throws Exception {
-		
+				
 		String room = (String) triggeringEvents.get(0).getPropertyValue(AbstractAtomicEvent.ROOM_PROPERTY);
 		String type = triggeringEvents.get(0).getClass().getSimpleName();
+		
 		CorrelatorOutboundPort port = pr.getPort(room, type);
+		
+		System.out.println(" -> ICI port = "+port);
 		
 		// If there is closed window 
 		if (triggeringEvents.size()==1) {
@@ -84,10 +86,10 @@ public class HeatingOptimizerRule extends AbstractRuleMultiRoom {
 			
 			if (differential < 0) {
 				// if temperature is below the threshold raise the thermostat temperature
-				port.execute(new RaiseTemperature(differential));
+				port.execute(new RaiseTemperature(1));
 			} else {
 				// else decrease the thermostat temperature
-				port.execute(new DecreaseTemperature(differential));
+				port.execute(new DecreaseTemperature(1));
 			}
 		} else {
 			// if there is Opened window, turnOff the thermostat

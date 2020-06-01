@@ -1,15 +1,19 @@
 package Rules;
 
 import java.util.ArrayList;
+
+import components.correlators.managingelement.PortReferencer;
 import interfaces.event.EventI;
 import interfaces.rule.AbstractRule;
+import interfaces.rule.AbstractRuleMultiRoom;
 import interfaces.rule.EventMatcherI;
+import interfaces.rule.EventMatcherRoomI;
 import ports.CorrelatorOutboundPort;
 
 public class FireRule extends AbstractRule {
 
-	public FireRule(CorrelatorOutboundPort cop) {
-		super(cop);
+	public FireRule(PortReferencer<CorrelatorOutboundPort> pr) {
+		super(pr);
 	}
 	
 	public FireRule() {
