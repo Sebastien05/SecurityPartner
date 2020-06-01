@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Events.Presence;
+import Events.Window;
 import commands.TurnOFFAlarm;
 import commands.TurnONAlarm;
 import components.correlators.managingelement.PortReferencer;
@@ -19,11 +20,13 @@ import ports.CorrelatorOutboundPort;
 public class IntrusionRule extends AbstractRuleMultiRoom {
 		
 	public static final EventMatcherRoomI MATCHER_WINDOW_OPEN =
-			((e, r)-> e.getPropertyValue("type").equals(WindowController.OPENED_WINDOW) 
+			((e, r) -> e.getClass().getSimpleName().equals(Window.class.getSimpleName())
+					&& e.getPropertyValue("type").equals(WindowController.OPENED_WINDOW) 
 					&& e.getPropertyValue(AbstractAtomicEvent.ROOM_PROPERTY) == r) ;
 	
 	public static final EventMatcherRoomI MATCHER_PRESENCE_DETECTION =
-			((e, r)-> e.getPropertyValue("type").equals(PresenceDetector.PRESENCE_DETECTED)
+			((e, r) -> e.getClass().getSimpleName().equals(Presence.class.getSimpleName())
+					&& e.getPropertyValue("type").equals(PresenceDetector.PRESENCE_DETECTED)
 					&& e.getPropertyValue(AbstractAtomicEvent.ROOM_PROPERTY) == r) ;
 		
 	public IntrusionRule(PortReferencer<CorrelatorOutboundPort> pr) {
